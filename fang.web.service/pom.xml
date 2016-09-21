@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.ddkfang</groupId>
+    <artifactId>fang.web.parent</artifactId>
+    <version>1.0.0.1</version>
+    <relativePath>../fang.web.parent/pom.xml</relativePath>
+  </parent>
+  <artifactId>fang.web.service</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.ddkfang</groupId>
+  		<artifactId>fang.web.dao</artifactId>
+  		<version>1.0.0.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.ddkfang</groupId>
+  		<artifactId>fang.web.utilities</artifactId>
+  		<version>1.0.0.1</version>
+  	</dependency>
+  </dependencies>
+</project>
