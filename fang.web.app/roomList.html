@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="renderer" content="webkit" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+        <meta name="apple-mobile-web-app-title" content="1号房" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="Shortcut Icon" type="image/x-icon" href="/public/img/favicon.ico">
+        <link rel="apple-touch-icon" sizes="120x120" href="/public/img/app-logo-120.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/public/img/app-logo-152.png">
+        <meta name="screen-orientation" content="portrait" />
+        <meta name="x5-orientation" content="portrait" />
+        <meta content="telephone=no" name="format-detection" />
+        
+            <meta name="keywords" content="1号房"/>
+        
+        
+            <meta name="description" content="1号房"/>
+        
+
+        <title>一呆公寓</title>
+
+        
+<link rel="stylesheet" href="/public/css/search-result.css?t=20160717">
+
+<script src="js/base.js"></script>
+
+        
+
+        
+            <!-- start Dplus -->
+            <script type="text/javascript">
+                !function (a, b) { if (!b.__SV) { var c, d, e, f; window.dplus = b, b._i = [], b.init = function (a, c, d) { function g(a, b) { var c = b.split("."); 2 == c.length && (a = a[c[0]], b = c[1]), a[b] = function () { a.push([b].concat(Array.prototype.slice.call(arguments, 0))) } } var h = b; for ("undefined" != typeof d ? h = b[d] = [] : d = "dplus", h.people = h.people || [], h.toString = function (a) { var b = "dplus"; return "dplus" !== d && (b += "." + d), a || (b += " (stub)"), b }, h.people.toString = function () { return h.toString(1) + ".people (stub)" }, e = "disable track track_links track_forms register unregister get_property identify clear set_config get_config get_distinct_id track_pageview register_once track_with_tag time_event people.set people.unset people.delete_user".split(" "), f = 0; f < e.length; f++) g(h, e[f]); b._i.push([a, c, d]) }, b.__SV = 1.1, c = a.createElement("script"), c.type = "text/javascript", c.charset = "utf-8", c.async = !0, c.src = "//w.cnzz.com/dplus.php?token=3f15ffa3b12fbl598d68", d = a.getElementsByTagName("script")[0], d.parentNode.insertBefore(c, d) } }(document, window.dplus || []), dplus.init("3f15ffa3b12fbl598d68");
+            </script>
+            <!-- end Dplus -->
+        
+    </head>
+    <body>
+        
+<section class="search-result es_flow_relative">
+  
+    <div class="es_header_relative" id="searchResultHeader">
+        <i class="left-icon icon-left"></i><span class="menu-icon right-icon icon-menu"></span>
+        <div class="title"><span id="cityName"></span><i class="icon-down" id="cityNameI"></i></div>
+    </div>
+
+    <section class="result-list">
+        <div id="hotel_list" class="hotel_list">
+            
+            <div style="text-align:center; padding-bottom:10px;visibility:hidden;" class="loading_gif">
+                <img style="margin:0 auto" src="http://webpic.estay.com/webui/images/wap/loading.gif" width="32"/>
+                <p>正在加载中</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="filter-footer">
+        <div class="date-tab foo-tab" data-type="date">
+            <p class="picon"><i class="icon-calendar"></i></p>
+            <p class="pfont"><span class="name">选择日期</span></p>
+        </div>
+        <div class="sort-tab foo-tab" data-type="sort">
+            <p class="picon"><i class="icon-sort"></i></p>
+            <p class="pfont"><span class="name">智能排序</span></p>
+        </div>
+        <div class="filter-tab foo-tab" data-type="filter">
+            <p class="picon"><i class="icon-filter"></i></p>
+            <p class="pfont"><span class="name">更多筛选</span><i class="icon icon-tick"></i></p>
+        </div>
+    </footer>
+    
+    <section class="dialog page-down" id="sortPage">
+        <ul>
+            
+                <li data-range="1">智能排序<i class="icon icon-tick"></i></li>
+            
+                <li data-range="3">评分由高到低<i class="icon icon-tick"></i></li>
+            
+                <li data-range="2">价格由低到高<i class="icon icon-tick"></i></li>
+            
+                <li data-range="4">价格由高到低<i class="icon icon-tick"></i></li>
+            
+        </ul>
+    </section>
+    <div id="mask" class="mask"></div>
+</section>
+
+<section class="components page-right"></section>
+
+<script>
+    var searchInfo = {"city_id":"2003","city_name":"深圳","checkin_date":"2016-09-19","checkout_date":"2016-09-20","latitude":"","longitude":"","price_scopes":[],"bed_counts":[],"sort_type":"1","page_index":"1","page_size":"10","room_types":[],"show_test":0};
+    var roomTypes = [{"title":"不限","value":"0","is_all":true,"icon":null,"city_id":[]},{"title":"一室大床房","value":"1","is_all":false,"icon":null,"city_id":[]},{"title":"一室双床房","value":"2","is_all":false,"icon":null,"city_id":[]},{"title":"套房","value":"3","is_all":false,"icon":null,"city_id":[]},{"title":"别墅","value":"4","is_all":false,"icon":null,"city_id":["1820","2010"]}];
+    var priceScopes = [{"title":"不限","value":"0-1000000","is_all":true,"icon":null},{"title":"￥200以下","value":"0-199","is_all":false,"icon":null},{"title":"￥200-￥299","value":"200-299","is_all":false,"icon":null},{"title":"￥300-￥499","value":"300-499","is_all":false,"icon":null},{"title":"￥500以上","value":"500-1000000","is_all":false,"icon":null}];
+    var default_date_time = 22;
+    var currentDate = "2016-09-18";
+</script>
+
+<script src='/public/js/commons.js?t=20160729'></script>
+<script src='/public/js/search-result.bundle.js?t=20160825'></script>
+
+
+        <aside class="sideBar hide">
+    <nav>
+        <ul>
+            <li><a href="/" class="home">首页</a></li>
+            <li id="loginInfoWrap">
+                <a href="/home/login" class="sider-mine">
+                    我的一呆<span>(未登录)</span>
+                </a>
+            </li>
+            
+            <li><a href="/static_page/qrcode/app_price/index.html" class="down-load">下载APP</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<div class="cfmask" id="cfmask"></div>  
+        <!-- 客服弹框 -->
+<div class="kf-box hide">
+    <span class="close icon-close-hollow"></span>
+    <h2>24h客服</h2>
+    <p><strong>使用方法:</strong></p>
+    <dl>
+        <dt>1.</dt>
+        <dd>打开微信,点击右上角 “+” 添加朋友搜索 “一呆网”;</dd>
+        <dt>2.</dt>
+        <dd>点击关注,即可发送消息.呼叫呆妹,享受24h贴心服务.</dd>
+    </dl>
+</div>
+
+        
+
+        
+        <script type="text/javascript" src="http://pingjs.qq.com/h5/stats.js" name="MTAH5" sid="500006679" cid="500052778" ></script>
+        
+
+    </body>
+</html>
+
+
+
