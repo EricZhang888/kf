@@ -8,13 +8,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ddkfang.dao.entity.rooms.Room;
-import com.ddkfang.dao.repositories.room.IRoomBasicRepo;
+import com.ddkfang.dao.repositories.base.SearchCriteria;
+import com.ddkfang.dao.repositories.room.RoomBasicRepo;
 import com.ddkfang.service.rooms.IRoomBasic;
 @Service
 public class RoomBasicImpl implements IRoomBasic {
 
 	@Autowired
-	private IRoomBasicRepo roomBasicRepo;
+	private RoomBasicRepo roomBasicRepo;
 	
 	public Room getRoomDetailById(String roomId) {
 		Room room = roomBasicRepo.findOne(roomId);
@@ -25,12 +26,12 @@ public class RoomBasicImpl implements IRoomBasic {
 		roomBasicRepo.save(room);
 	}
 
-	public Page<Room> getAllAvaliableRooms(String city, Pageable pageable) {
-		return roomBasicRepo.findByRoomCity(city, pageable);
-	}
-
 	public List<Room> getActivityBanner() {
 		return null;
+	}
+
+	public Page<Room> getAllAvaliableRooms(SearchCriteria searchCriteria, Pageable pageable) {
+		return roomBasicRepo.search(searchCriteria, pageable);
 	}
 	
 	
