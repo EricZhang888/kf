@@ -21,7 +21,7 @@ public class Application implements WebApplicationInitializer {
 		ServletRegistration.Dynamic dispatcher = container.addServlet("api",
 				new DispatcherServlet(apiContext));
 		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping("/");
+		dispatcher.addMapping("/*");
 		
 		AnnotationConfigWebApplicationContext daoContext = new AnnotationConfigWebApplicationContext();
 		daoContext.setParent(apiContext);

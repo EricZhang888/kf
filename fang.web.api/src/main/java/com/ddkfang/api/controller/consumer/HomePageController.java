@@ -18,7 +18,7 @@ import com.ddkfang.dao.repositories.base.SearchCriteria;
 import com.ddkfang.service.rooms.IRoomBasic;
 
 @RestController
-@RequestMapping("/home")
+@RequestMapping("/api/home")
 public class HomePageController {
 
 	@Autowired
@@ -40,7 +40,7 @@ public class HomePageController {
 		
 		SearchCriteria criteria = SearchCriteria.Builder.create();
 		if(!StringUtils.isEmpty(city)) {
-			criteria.add(new Criterion("roomCity", Criterion.Operator.LIKE, city));
+			criteria.add(new Criterion("roomCity", Criterion.Operator.EQ, city));
 		}
 		if(!StringUtils.isEmpty(site)) {
 			criteria.add(new Criterion("roomSite", Criterion.Operator.EQ, site));
