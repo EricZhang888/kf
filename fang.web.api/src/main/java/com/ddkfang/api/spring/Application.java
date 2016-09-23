@@ -16,12 +16,13 @@ public class Application implements WebApplicationInitializer {
 	public void onStartup(ServletContext container) throws ServletException {
 		AnnotationConfigWebApplicationContext apiContext = new AnnotationConfigWebApplicationContext();
 		apiContext.register(RestServletContextConfiguration.class);
-		container.addListener(new ContextLoaderListener(apiContext));
 		
+		container.addListener(new ContextLoaderListener(apiContext));
+		container.getServletRegistration("default").addMapping("*.html","/css/*", "/js/*", "/img/*");
 		ServletRegistration.Dynamic dispatcher = container.addServlet("api",
 				new DispatcherServlet(apiContext));
 		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping("/*");
+		dispatcher.addMapping("/");
 		
 		AnnotationConfigWebApplicationContext daoContext = new AnnotationConfigWebApplicationContext();
 		daoContext.setParent(apiContext);

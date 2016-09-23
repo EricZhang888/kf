@@ -29,7 +29,7 @@
 	     maxWait="5000" 
 	     username="ddkfang"
 	     password="1qaz@WSX"
-	     url="jdbc:mysql://115.44.98.43:3306/ddkfang?useUnicode=true&amp;characterEncoding=UTF-8"  
+	     url="jdbc:mysql://192.168.1。106:3306/ddkfang?useUnicode=true&amp;characterEncoding=UTF-8"  
 	     maxActive="4" />
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--
