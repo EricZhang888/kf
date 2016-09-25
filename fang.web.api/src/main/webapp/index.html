@@ -9,9 +9,9 @@
     <meta name="apple-mobile-web-app-title" content="1号房">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="Shortcut Icon" type="image/x-icon" href="http://m.estay.com/public/img/favicon.ico">
-    <link rel="apple-touch-icon" sizes="120x120" href="http://m.estay.com/public/img/app-logo-120.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="http://m.estay.com/public/img/app-logo-152.png">
+    <link rel="Shortcut Icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/app-logo-120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/app-logo-152.png">
     <meta name="screen-orientation" content="portrait">
     <meta name="x5-orientation" content="portrait">
     <meta content="telephone=no" name="format-detection">
@@ -21,19 +21,20 @@
     <link rel="stylesheet" href="css/index-page.css">
     <link rel="stylesheet" href="css/search-result.css">
     <style>.sideBar li:first-child { display: none; } .sideBar li:nth-child(2) { border-top-left-radius: 7px; border-top-right-radius: 7px; }</style>
-    <script type="text/javascript" src="js/base.js"></script>
+    
 </head>
   
   <body>
     <section class="index-page">
       <div class="header">
         <div class="fl">
+        	<!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAAAYCAIAAAAu4dcQAAAAzklEQVRYhe2XbQ5AMAyGETdyBc7EEdzJFbiTH0uaZR+vlqJkT/wQatuztcvU/bhWv6B5ewBqFBN7FBN7FBN7FBN7hCbL3C1zh5/YpNVqyLcdpk30FT8eoJNdNCA3JuYaUhg/nq74rYJJMK9MGan8YXzWhF8e1DofqXwyPkB/71JMfUDcvlrFO+7WoHXjmkhr0Q+Wblyi9ikP6Z7IZpc0+0+shuuC3xGuq7QJrq2YZ2oDU1//j88lCRCLzQ/nwg9IBiuYPAY+RnzJBPOfs/AONH6FsWIBBeMAAAAASUVORK5CYII=" alt="logo"></div> -->
           <img src="img/logo.png" alt="logo"></div>
         <div class="fr">
-          <div class="item notLogin" id="notLogin">
-            <a href="http://192.168.1.103/html/user/login.html" class="bigfont login">登录</a></div>
+          <div class="item notLogin hide" id="notLogin">
+            <a href="http://192.168.1.101/html/user/login.html" class="bigfont login">登录</a></div>
           <div class="item logined hide" id="logined">
-            <span class="menu-icon icon-menu"></span>
+            <span class="menu-icon right-icon icon-menu"></span>
           </div>
         </div>
       </div>
@@ -73,19 +74,15 @@
         </div>
     </section>
     <script src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
     <script src="js/index.js"></script>
     <script src="js/swiper-3.3.1.min.js"></script>
     <aside class="sideBar hide">
       <nav>
         <ul>
-          <li>
-            <a href="http://m.estay.com/" class="home">首页</a></li>
-          <li id="loginInfoWrap">
-            <a href="http://m.estay.com/home/login" class="sider-mine">我的1号房
-              <span>(未登录)</span></a>
-          </li>
-          <li>
-            <a href="http://m.estay.com/static_page/qrcode/app_price/index.html" class="down-load">下载APP</a></li>
+          <li></li>
+          <!-- <li><a href="/" class="home">首页</a></li> -->
+          <li id="loginInfoWrap"></li>
         </ul>
       </nav>
     </aside>
@@ -100,7 +97,7 @@
         <dt>1.</dt>
         <dd>打开微信,点击右上角 “+” 添加朋友搜索 “1号房”;</dd>
         <dt>2.</dt>
-        <dd>点击关注,即可发送消息.呼叫呆妹,享受24h贴心服务.</dd></dl>
+        <dd>点击关注,即可发送消息.呼叫房妹,享受24h贴心服务.</dd></dl>
     </div>
   </body>
 

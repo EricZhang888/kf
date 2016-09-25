@@ -3,7 +3,8 @@ var clientWidth = document.body.clientWidth;
 var banner = $("#banner-box");
 var room_list = $("#hotel_list");
 $(document).ready(function(e) {
-    
+	checkLogin(init);
+	
 	room_list.find(".img-box").css("height", clientWidth / 750 * 420 + "px");
 	room_list.find(".img-box").css("width", clientWidth + "px");
 	var mySwiper = new Swiper($("#banner-box"),{
@@ -60,7 +61,7 @@ function genRoomListHtml(content) {
     for (var i = 0; i < content.length; i++) {
         var room = content[i];
         var imgs = room.roomImgs.split(",");
-        var detailLink = "/room/detail?roomId=" + room.id;
+        var detailLink = "/room/detail.html?roomId=" + room.id;
         html += '<a class="apartment-box" href="' + detailLink + '">',
         html += '<div class="img-box" id="imgBox' + room.id + '" style="height:' + deviceHeight + 'px" >',
         html += '<ul class="swiper-wrapper">';
