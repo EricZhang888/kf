@@ -20,7 +20,31 @@ $(document).ready(function(){
 	    $(this).parents(".account").prev().removeClass("over"))
 	}),
 	
-	
+	$(".get-code").on("click",function() {
+		type = $(this).attr("data-msg");
+		mobile = $(this).parent().prev().find(".phone").val();
+		c = {
+	            mobile: mobile,
+	            type: type
+	        }
+		$.ajax({
+            url: window.g_base.apibase + "/smsUtil/sendVerifyCode",
+            type: "post",
+            headers: {'Content-type': 'application/json;charset=UTF-8'},
+            dataType: "json",
+            data: JSON.stringify(c),
+            xhrFields: {
+                withCredentials: !0
+            },
+            success: function(i) {
+            	"A00000" === i.status  && (
+            			alertMsg("发送成功")) ;
+            },
+            error: function(i) {
+            	alertMsg("登录失败 系统错误");
+            }
+        })
+	})
 	//获取验证码按钮
 	/*var f = $(".get-code");
     $(f).lenght && $(f).each(function(i, t) {

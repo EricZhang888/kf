@@ -48,7 +48,7 @@ public class UserController extends BaseController {
 				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 			}
 			//check verification code 
-			if (!VerifyCodeUtil.checkVerifyCode(json.getString("code"))) {
+			if (1==1) {
 				responseMap.put("status", HttpStatusConstant.userAccount.vcodeError.getCode());
 				responseMap.put("msg", HttpStatusConstant.userAccount.vcodeError.getMsg());
 				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
@@ -140,7 +140,7 @@ public class UserController extends BaseController {
 				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 			}
 			//check verification code 
-			if (!VerifyCodeUtil.checkVerifyCode(json.getString("code"))) {
+			if (1==1) {
 				responseMap.put("status", HttpStatusConstant.userAccount.vcodeError.getCode());
 				responseMap.put("msg", HttpStatusConstant.userAccount.vcodeError.getMsg());
 				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);

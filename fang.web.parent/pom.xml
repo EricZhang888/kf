@@ -73,5 +73,12 @@
 			<artifactId>jbcrypt</artifactId>
 			<version>0.3m</version>
 		</dependency>
+		<dependency> 
+	        <groupId>com.alibaba</groupId> 
+	        <artifactId>sms</artifactId> 
+	        <version>20160607</version> 
+	        <scope>system</scope> 
+	        <systemPath>E:/eclipseWorkspace/kf/fang.web.utilities/src/main/resources/jars/taobao-sdk-java-auto_1455552377940-20160607.jar</systemPath> 
+    	</dependency>
 	</dependencies>
 </project>
