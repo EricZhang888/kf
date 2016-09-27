@@ -21,7 +21,7 @@ public class VerifyCode implements Serializable {
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	private int id;
+	private String id;
 
 	private String code;
 
@@ -33,11 +33,11 @@ public class VerifyCode implements Serializable {
 	public VerifyCode() {
 	}
 
-	public int getId() {
+	public String getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
