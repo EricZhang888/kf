@@ -46,7 +46,7 @@ $(document).ready(function(){
             },
             success: function(i) {
             	"A00000" != i.status  && (
-            			alertMsg("发送失败，请重试")) ;
+            			alertMsg("发送失败，请重试"));
             },
             error: function(i) {
             	alertMsg("登录失败 系统错误");
