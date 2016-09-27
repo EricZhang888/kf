@@ -12,16 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ddkfang.api.controller.BaseController;
 import com.ddkfang.constant.HttpStatusConstant;
 import com.ddkfang.dao.entity.user.Booker;
+import com.ddkfang.service.common.IVerifyCodeService;
 import com.ddkfang.service.user.IUserAccountService;
 import com.ddkfang.util.verify.BCryptUtil;
-import com.ddkfang.util.verify.VerifyCodeUtil;
 
 @RestController
 @RequestMapping("/api/user")
@@ -29,6 +28,9 @@ public class UserController extends BaseController {
 
 	@Autowired
 	IUserAccountService userAccountService;
+	
+	@Autowired
+	IVerifyCodeService verifyCodeService;
 	/**
 	 * 用户根据手机，验证码 修改密码
 	 * 
@@ -48,7 +50,7 @@ public class UserController extends BaseController {
 				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 			}
 			//check verification code 
-			if (1==1) {
+			if (!verifyCodeService.findLatestCodeByPhone(json.getString("mobile")).equals(json.getString("code"))) {
 				responseMap.put("status", HttpStatusConstant.userAccount.vcodeError.getCode());
 				responseMap.put("msg", HttpStatusConstant.userAccount.vcodeError.getMsg());
 				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
@@ -121,12 +123,13 @@ public class UserController extends BaseController {
 			request.getSession().setAttribute("user", user);
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return internalError();
 		}
 	}
 	
 	@RequestMapping(value = "loginByVerifyCode", method = RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> loginByVerifyCode(@RequestBody JSONObject json) {
+	public ResponseEntity<Map<String, Object>> loginByVerifyCode(@RequestBody JSONObject json, HttpServletRequest request) {
 		
 		//JSONObject json = JSONObject.parseObject(jsonString);
 		Map<String, Object> responseMap = new HashMap<String, Object>();
@@ -140,18 +143,20 @@ public class UserController extends BaseController {
 				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 			}
 			//check verification code 
-			if (1==1) {
+			if (!verifyCodeService.findLatestCodeByPhone(json.getString("mobile")).equals(json.getString("code"))) {
 				responseMap.put("status", HttpStatusConstant.userAccount.vcodeError.getCode());
 				responseMap.put("msg", HttpStatusConstant.userAccount.vcodeError.getMsg());
 				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 			}
 			
 			//login
-			userAccountService.updateUserPasswordByMobile(json.getString("mobile"), json.getString("password"));
+			responseMap.put("data", HttpStatusConstant.userAccount.ok.getCode());
 			responseMap.put("status", HttpStatusConstant.userAccount.ok.getCode());
 			responseMap.put("msg", HttpStatusConstant.userAccount.ok.getMsg());
+			request.getSession().setAttribute("user", user);
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return internalError();
 		}
 	}

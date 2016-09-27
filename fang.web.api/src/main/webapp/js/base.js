@@ -23,6 +23,54 @@ $(document).ready(function(){
 		$(".sideBar").hide(),
 		$("#cfmask").hide()
     });
+	
+	$(".get-code").on("click",function() {
+		type = $(this).attr("data-msg");
+		mobile = $(this).parent().prev().find(".phone").val();
+		if (!mobile)
+            return void alertMsg("请输入手机号码！");
+        if (!RegExpClass.isPhone(mobile))
+            return void alertMsg("请输入正确的手机号码！");
+		c = {
+	            mobile: mobile,
+	            type: type
+	        };
+		$.ajax({
+            url: window.g_base.apibase + "/smsUtil/sendVerifyCode",
+            type: "post",
+            headers: {'Content-type': 'application/json;charset=UTF-8'},
+            dataType: "json",
+            data: JSON.stringify(c),
+            xhrFields: {
+                withCredentials: !0
+            },
+            success: function(i) {
+            	"A00000" != i.status  && (
+            			alertMsg("发送失败，请重试")) ;
+            },
+            error: function(i) {
+            	alertMsg("登录失败 系统错误");
+            }
+        });
+		
+		//倒计时
+		$(this).addClass("count"),
+		p=null, u=-1, waiteTime = 10;
+		u = waiteTime,
+        clearTimeout(p),
+        o();
+		$(".get-code").attr("disabled","true");
+        
+		function o() {
+            u <= 0 ? ($(".get-code").text("发送验证码"),
+            $(".get-code").removeClass("count"),
+            $(".get-code").removeAttr("disabled"),
+            u = waiteTime) : ($(".get-code").text(u + "秒后再试"),
+            u--,
+            p = setTimeout(o, 1e3))
+        }
+	});
+	
 });
 
 
@@ -77,6 +125,8 @@ function init(e) {
 	    $(".operate-tip").removeClass("opetate-tip-none"),
 	    $("#mask").show()
 	}; 
+	
+	
  
 try{ document.domain = 'bohosi.com';}catch(e){}
             window.g_base = {"sitebase":"http://localhost","apibase":"http://localhost/api"}
