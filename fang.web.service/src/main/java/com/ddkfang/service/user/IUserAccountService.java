@@ -8,6 +8,8 @@ public interface IUserAccountService {
 	
 	public Booker getUserByEmail(String email);
 	
+	public Booker createUser(Booker user);
+	
 	public boolean checkUserExistByMobile(String mobile);
 	
 	public boolean updateUserPasswordByMobile(String mobile, String passwd) throws Exception;

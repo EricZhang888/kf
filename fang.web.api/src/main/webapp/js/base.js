@@ -55,7 +55,7 @@ $(document).ready(function(){
 		
 		//倒计时
 		$(this).addClass("count"),
-		p=null, u=-1, waiteTime = 10;
+		p=null, u=-1, waiteTime = 60;
 		u = waiteTime,
         clearTimeout(p),
         o();
@@ -96,8 +96,8 @@ function checkLogin(callBack) {
 
 function init(e) {
     e != null ? 
-   		 $("#loginInfoWrap").html('<a href="/html/user/home" class="sider-mine">我的1号房<span>(' + 1 + "待付)</span></a>") : 
-   			$("#loginInfoWrap").html('<a href="/html/user/home" class="sider-mine">我的1号房<span>(已登录)</span></a>');
+   		 $("#loginInfoWrap").html('<a href="/html/user/home/index.html" class="sider-mine">我的1号房<span>(' + 1 + "待付)</span></a>") : 
+   			$("#loginInfoWrap").html('<a href="/html/user/home/index.html" class="sider-mine">我的1号房<span>(已登录)</span></a>');
 };
 //正则表达式工具
  var RegExpClass = {
@@ -129,4 +129,4 @@ function init(e) {
 	
  
 try{ document.domain = 'bohosi.com';}catch(e){}
-            window.g_base = {"sitebase":"http://localhost","apibase":"http://localhost/api"}
+            window.g_base = {"sitebase":"http://localhost","apibase":"http://115.44.98.43/api"}

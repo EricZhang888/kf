@@ -21,6 +21,7 @@ import com.ddkfang.dao.entity.user.Booker;
 import com.ddkfang.service.common.IVerifyCodeService;
 import com.ddkfang.service.user.IUserAccountService;
 import com.ddkfang.util.verify.BCryptUtil;
+import com.yhf.dao.util.QueryTool;
 
 @RestController
 @RequestMapping("/api/user")
@@ -135,15 +136,18 @@ public class UserController extends BaseController {
 		Map<String, Object> responseMap = new HashMap<String, Object>();
 		//check if the account exist by mobile
 		try {
-			
-			Booker user = userAccountService.getUserByMobile(json.getString("mobile"));
+			String mobile = json.getString("mobile");
+			String code = json.getString("code");
+			Booker user = userAccountService.getUserByMobile(mobile);
 			if (user == null) {
-				responseMap.put("status", HttpStatusConstant.userAccount.accountNotExist.getCode());
-				responseMap.put("msg", HttpStatusConstant.userAccount.accountNotExist.getMsg());
-				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
+				//first time login, create account
+				user = new Booker();
+				user.setBookerMobile(mobile);
+				user.setUpdateTime(QueryTool.getCurrentTs());
+				userAccountService.createUser(user);
 			}
 			//check verification code 
-			if (!verifyCodeService.findLatestCodeByPhone(json.getString("mobile")).equals(json.getString("code"))) {
+			if (!verifyCodeService.findLatestCodeByPhone(mobile).equals(code)) {
 				responseMap.put("status", HttpStatusConstant.userAccount.vcodeError.getCode());
 				responseMap.put("msg", HttpStatusConstant.userAccount.vcodeError.getMsg());
 				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);

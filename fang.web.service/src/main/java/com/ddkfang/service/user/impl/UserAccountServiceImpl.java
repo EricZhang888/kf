@@ -47,5 +47,13 @@ public class UserAccountServiceImpl implements IUserAccountService{
 			return false;
 		}
 	}
+
+	public Booker createUser(Booker user) {
+		try{
+			return userRepo.save(user);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	
 }
