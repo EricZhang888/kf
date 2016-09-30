@@ -40,10 +40,10 @@ public class HomePageController {
 		
 		SearchCriteria criteria = SearchCriteria.Builder.create();
 		if(!StringUtils.isEmpty(city)) {
-			criteria.add(new Criterion("roomCity", Criterion.Operator.EQ, city));
+			criteria.add(new Criterion("roomCityName", Criterion.Operator.EQ, city));
 		}
 		if(!StringUtils.isEmpty(site)) {
-			criteria.add(new Criterion("roomSite", Criterion.Operator.EQ, site));
+			criteria.add(new Criterion("roomApartment_apartmentName", Criterion.Operator.EQ, site));
 		}
 		if(!StringUtils.isEmpty(checkInDate)) {
 			criteria.add(new Criterion("roomSite", Criterion.Operator.EQ, checkInDate));
@@ -76,23 +76,5 @@ public class HomePageController {
 	public Room getRecRooms(@RequestParam String roomId) {
 		Room r = roomBasic.getRoomDetailById(roomId);
 		return r;
-	}
-
-	/**
-	 * �������޸�һ��������Ϣ
-	 * 
-	 * @param roomName
-	 * @param roomCity
-	 * @param roomAddress
-	 */
-	@RequestMapping(value = "saveRoom", method = RequestMethod.GET)
-	@ResponseBody
-	public void saveRoom(@RequestParam String roomName, @RequestParam String roomCity,
-			@RequestParam String roomAddress) {
-		Room r = new Room();
-		r.setRoomAddress(roomAddress);
-		r.setRoomCity(roomCity);
-		r.setRoomName(roomName);
-		roomBasic.saveRoom(r);
 	}
 }

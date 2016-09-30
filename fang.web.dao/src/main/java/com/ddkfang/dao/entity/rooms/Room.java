@@ -1,16 +1,9 @@
 package com.ddkfang.dao.entity.rooms;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.sql.Timestamp;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
+import java.util.List;
 
 
 /**
@@ -24,34 +17,63 @@ public class Room implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	private String id;
-
-	@Column(name="room_accessory")
-	private String roomAccessory;
-
-	private String room_accessoryComment;
+	@Column(name="room_id")
+	private String roomId;
 
 	@Column(name="room_address")
 	private String roomAddress;
 
-	@Column(name="room_city")
-	private String roomCity;
+	@Column(name="room_balcony_count")
+	private int roomBalconyCount;
 
-	@Column(name="room_comments")
-	private int roomComments;
+	@Column(name="room_basic_price")
+	private int roomBasicPrice;
 
-	private String room_coverImg;
+	@Column(name="room_bathroom_count")
+	private int roomBathroomCount;
+
+	@Column(name="room_bed_count")
+	private String roomBedCount;
+
+	@Column(name="room_bedroom_count")
+	private int roomBedroomCount;
+
+	@Column(name="room_city_id")
+	private String roomCityId;
+
+	@Column(name="room_city_name")
+	private String roomCityName;
 
 	@Column(name="room_create_time")
 	private Timestamp roomCreateTime;
 
-	@Column(name="room_imgs")
-	private String roomImgs;
+	@Column(name="room_enters_number")
+	private int roomEntersNumber;
+	
+	@Lob
+	@Column(name="room_images")
+	private String roomImages;
+
+	@Column(name="room_kitchen_count")
+	private int roomKitchenCount;
+
+	@Column(name="room_latitude")
+	private String roomLatitude;
 
 	@Column(name="room_likes")
 	private int roomLikes;
+
+	@Column(name="room_longitude")
+	private String roomLongitude;
+
+	@Column(name="room_map_type")
+	private int roomMapType;
+
+	@Column(name="room_max_area")
+	private int roomMaxArea;
+
+	@Column(name="room_min_area")
+	private int roomMinArea;
 
 	@Column(name="room_name")
 	private String roomName;
@@ -59,45 +81,51 @@ public class Room implements Serializable {
 	@Column(name="room_price")
 	private int roomPrice;
 
-	@Column(name="room_rate")
-	private float roomRate;
+	@Column(name="room_score")
+	private String roomScore;
 
-	private String room_salePoint;
+	@Column(name="room_sitting_count")
+	private int roomSittingCount;
 
-	@Column(name="room_site")
-	private String roomSite;
+	@Column(name="room_type_desc")
+	private String roomTypeDesc;
+
+	@Column(name="room_type_id")
+	private String roomTypeId;
+
+	@Column(name="room_type_mini_desc")
+	private String roomTypeMiniDesc;
+
+	@Column(name="room_type_tags")
+	private String roomTypeTags;
+
+	@Column(name="room_type_tips")
+	private String roomTypeTips;
 
 	@Column(name="room_update_time")
 	private Timestamp roomUpdateTime;
 
-	@Column(name="room_video")
-	private String roomVideo;
+	//bi-directional many-to-one association to TbRoomApartment
+	@ManyToOne
+	@JoinColumn(name="room_apartment_id")
+	private RoomApartment roomApartment;
+
+	//bi-directional many-to-many association to TbRoomAmenity
+	@JoinTable(name="tb_room_amenities_mapping",
+			joinColumns={@JoinColumn(name="room_id")}, 
+			inverseJoinColumns={@JoinColumn(name="amenities_id")})
+	@ManyToMany(fetch=FetchType.EAGER)
+	private List<RoomAmenity> tbRoomAmenities;
 
 	public Room() {
 	}
 
-	public String getId() {
-		return this.id;
+	public String getRoomId() {
+		return this.roomId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getRoomAccessory() {
-		return this.roomAccessory;
-	}
-
-	public void setRoomAccessory(String roomAccessory) {
-		this.roomAccessory = roomAccessory;
-	}
-
-	public String getRoom_accessoryComment() {
-		return this.room_accessoryComment;
-	}
-
-	public void setRoom_accessoryComment(String room_accessoryComment) {
-		this.room_accessoryComment = room_accessoryComment;
+	public void setRoomId(String roomId) {
+		this.roomId = roomId;
 	}
 
 	public String getRoomAddress() {
@@ -108,28 +136,60 @@ public class Room implements Serializable {
 		this.roomAddress = roomAddress;
 	}
 
-	public String getRoomCity() {
-		return this.roomCity;
+	public int getRoomBalconyCount() {
+		return this.roomBalconyCount;
 	}
 
-	public void setRoomCity(String roomCity) {
-		this.roomCity = roomCity;
+	public void setRoomBalconyCount(int roomBalconyCount) {
+		this.roomBalconyCount = roomBalconyCount;
 	}
 
-	public int getRoomComments() {
-		return this.roomComments;
+	public int getRoomBasicPrice() {
+		return this.roomBasicPrice;
 	}
 
-	public void setRoomComments(int roomComments) {
-		this.roomComments = roomComments;
+	public void setRoomBasicPrice(int roomBasicPrice) {
+		this.roomBasicPrice = roomBasicPrice;
 	}
 
-	public String getRoom_coverImg() {
-		return this.room_coverImg;
+	public int getRoomBathroomCount() {
+		return this.roomBathroomCount;
 	}
 
-	public void setRoom_coverImg(String room_coverImg) {
-		this.room_coverImg = room_coverImg;
+	public void setRoomBathroomCount(int roomBathroomCount) {
+		this.roomBathroomCount = roomBathroomCount;
+	}
+
+	public String getRoomBedCount() {
+		return this.roomBedCount;
+	}
+
+	public void setRoomBedCount(String roomBedCount) {
+		this.roomBedCount = roomBedCount;
+	}
+
+	public int getRoomBedroomCount() {
+		return this.roomBedroomCount;
+	}
+
+	public void setRoomBedroomCount(int roomBedroomCount) {
+		this.roomBedroomCount = roomBedroomCount;
+	}
+
+	public String getRoomCityId() {
+		return this.roomCityId;
+	}
+
+	public void setRoomCityId(String roomCityId) {
+		this.roomCityId = roomCityId;
+	}
+
+	public String getRoomCityName() {
+		return this.roomCityName;
+	}
+
+	public void setRoomCityName(String roomCityName) {
+		this.roomCityName = roomCityName;
 	}
 
 	public Timestamp getRoomCreateTime() {
@@ -140,12 +200,36 @@ public class Room implements Serializable {
 		this.roomCreateTime = roomCreateTime;
 	}
 
-	public String getRoomImgs() {
-		return this.roomImgs;
+	public int getRoomEntersNumber() {
+		return this.roomEntersNumber;
 	}
 
-	public void setRoomImgs(String roomImgs) {
-		this.roomImgs = roomImgs;
+	public void setRoomEntersNumber(int roomEntersNumber) {
+		this.roomEntersNumber = roomEntersNumber;
+	}
+
+	public String getRoomImages() {
+		return this.roomImages;
+	}
+
+	public void setRoomImages(String roomImages) {
+		this.roomImages = roomImages;
+	}
+
+	public int getRoomKitchenCount() {
+		return this.roomKitchenCount;
+	}
+
+	public void setRoomKitchenCount(int roomKitchenCount) {
+		this.roomKitchenCount = roomKitchenCount;
+	}
+
+	public String getRoomLatitude() {
+		return this.roomLatitude;
+	}
+
+	public void setRoomLatitude(String roomLatitude) {
+		this.roomLatitude = roomLatitude;
 	}
 
 	public int getRoomLikes() {
@@ -154,6 +238,38 @@ public class Room implements Serializable {
 
 	public void setRoomLikes(int roomLikes) {
 		this.roomLikes = roomLikes;
+	}
+
+	public String getRoomLongitude() {
+		return this.roomLongitude;
+	}
+
+	public void setRoomLongitude(String roomLongitude) {
+		this.roomLongitude = roomLongitude;
+	}
+
+	public int getRoomMapType() {
+		return this.roomMapType;
+	}
+
+	public void setRoomMapType(int roomMapType) {
+		this.roomMapType = roomMapType;
+	}
+
+	public int getRoomMaxArea() {
+		return this.roomMaxArea;
+	}
+
+	public void setRoomMaxArea(int roomMaxArea) {
+		this.roomMaxArea = roomMaxArea;
+	}
+
+	public int getRoomMinArea() {
+		return this.roomMinArea;
+	}
+
+	public void setRoomMinArea(int roomMinArea) {
+		this.roomMinArea = roomMinArea;
 	}
 
 	public String getRoomName() {
@@ -172,28 +288,60 @@ public class Room implements Serializable {
 		this.roomPrice = roomPrice;
 	}
 
-	public float getRoomRate() {
-		return this.roomRate;
+	public String getRoomScore() {
+		return this.roomScore;
 	}
 
-	public void setRoomRate(float roomRate) {
-		this.roomRate = roomRate;
+	public void setRoomScore(String roomScore) {
+		this.roomScore = roomScore;
 	}
 
-	public String getRoom_salePoint() {
-		return this.room_salePoint;
+	public int getRoomSittingCount() {
+		return this.roomSittingCount;
 	}
 
-	public void setRoom_salePoint(String room_salePoint) {
-		this.room_salePoint = room_salePoint;
+	public void setRoomSittingCount(int roomSittingCount) {
+		this.roomSittingCount = roomSittingCount;
 	}
 
-	public String getRoomSite() {
-		return this.roomSite;
+	public String getRoomTypeDesc() {
+		return this.roomTypeDesc;
 	}
 
-	public void setRoomSite(String roomSite) {
-		this.roomSite = roomSite;
+	public void setRoomTypeDesc(String roomTypeDesc) {
+		this.roomTypeDesc = roomTypeDesc;
+	}
+
+	public String getRoomTypeId() {
+		return this.roomTypeId;
+	}
+
+	public void setRoomTypeId(String roomTypeId) {
+		this.roomTypeId = roomTypeId;
+	}
+
+	public String getRoomTypeMiniDesc() {
+		return this.roomTypeMiniDesc;
+	}
+
+	public void setRoomTypeMiniDesc(String roomTypeMiniDesc) {
+		this.roomTypeMiniDesc = roomTypeMiniDesc;
+	}
+
+	public String getRoomTypeTags() {
+		return this.roomTypeTags;
+	}
+
+	public void setRoomTypeTags(String roomTypeTags) {
+		this.roomTypeTags = roomTypeTags;
+	}
+
+	public String getRoomTypeTips() {
+		return this.roomTypeTips;
+	}
+
+	public void setRoomTypeTips(String roomTypeTips) {
+		this.roomTypeTips = roomTypeTips;
 	}
 
 	public Timestamp getRoomUpdateTime() {
@@ -204,12 +352,20 @@ public class Room implements Serializable {
 		this.roomUpdateTime = roomUpdateTime;
 	}
 
-	public String getRoomVideo() {
-		return this.roomVideo;
+	public RoomApartment getRoomApartment() {
+		return this.roomApartment;
 	}
 
-	public void setRoomVideo(String roomVideo) {
-		this.roomVideo = roomVideo;
+	public void setRoomApartment(RoomApartment roomApartment) {
+		this.roomApartment = roomApartment;
+	}
+
+	public List<RoomAmenity> getTbRoomAmenities() {
+		return this.tbRoomAmenities;
+	}
+
+	public void setTbRoomAmenities(List<RoomAmenity> tbRoomAmenities) {
+		this.tbRoomAmenities = tbRoomAmenities;
 	}
 
 }

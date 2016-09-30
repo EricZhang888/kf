@@ -129,4 +129,4 @@ function init(e) {
 	
  
 try{ document.domain = 'bohosi.com';}catch(e){}
-            window.g_base = {"sitebase":"http://localhost","apibase":"http://115.44.98.43/api"}
+            window.g_base = {"sitebase":"http://localhost","apibase":"http://1hf.bohosi.com/api"}

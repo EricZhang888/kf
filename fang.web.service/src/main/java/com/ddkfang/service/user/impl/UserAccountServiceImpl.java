@@ -52,6 +52,7 @@ public class UserAccountServiceImpl implements IUserAccountService{
 		try{
 			return userRepo.save(user);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
