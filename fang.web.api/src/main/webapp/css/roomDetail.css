@@ -2371,7 +2371,7 @@ button.swiper-pagination-bullet {
 }
 
 .hotel-address .map-mask {
-    position: absolute;
+    position: auto;
     top: 0;
     left: 0;
     right: 0;
