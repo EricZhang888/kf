@@ -18,7 +18,7 @@ public class RoomBasicImpl implements IRoomBasic {
 	private RoomBasicRepo roomBasicRepo;
 	
 	public Room getRoomDetailById(String roomId) {
-		Room room = roomBasicRepo.findOne(roomId);
+		Room room = roomBasicRepo.findOneByRoomId(roomId);
 		return room;
 	}
 

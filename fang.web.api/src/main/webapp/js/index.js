@@ -42,7 +42,7 @@ $(document).ready(function(e) {
         },
         success: function(a) {
             $("#hotel_list").html(genRoomListHtml(a.content))
-            o(a.content);
+            genSwiper(a.content);
         },
         error: function(a, t) {
         	$("#hotel_list").html(""),
@@ -61,7 +61,7 @@ function genRoomListHtml(content) {
     for (var i = 0; i < content.length; i++) {
         var room = content[i];
         var imgs = room.roomImages.split(",");
-        var detailLink = "/roomDetail.html?roomId=" + room.roomId;
+        var detailLink = "/roomDetail.html?id=" + room.roomId;
         html += '<a class="apartment-box" href="' + detailLink + '">',
         html += '<div class="img-box" id="imgBox' + room.roomId + '" style="height:' + deviceHeight + 'px" >',
         html += '<ul class="swiper-wrapper">';
@@ -80,43 +80,10 @@ function genRoomListHtml(content) {
         room.roomTypeMiniDesc !=null ? html += '<p class="name">大家都在说 ：<span class="color-orange"><B>' + room.roomTypeMiniDesc + "</B></span>"  + "</p>" : "",
         //html += '<p class="facilities">' + (room.bedroom_count ? room.bedroom_count + "室" : "") + (room.sitting_room_count ? room.sitting_room_count + "厅" : "") + "<i>|</i>约" + room.max_area + '<i class="icon-square"></i><i>|</i>' + room.bed_count + "床" + (room.comment_avg_score > 0 ? '<i>|</i><span class="color-orange">' + Math.floor(10 * room.comment_avg_score) / 10 + "分</span>" : "") + "</p>",
         html += '<div class="price-box">&yen;<strong>' + room.roomPrice + "</strong>",
-        		html += '<div class="ms-box"><p class="ori-name">门市价</p><p class="ori-price">&yen;' + (room.roomBasicPrice + Math.round(10)) + "</p></div>" ,
+        		html += '<div class="ms-box"><p class="ori-name">门市价</p><p class="ori-price">&yen;' + (room.roomBasicPrice) + "</p></div>",
         				html += "</div>",
         				html += "</div>",
         				html += "</a>"
     }
     return html;
 };
-
-
-function o(e) {
-    if (e && !(e.length <= 0))
-        for (var t in e) {
-            var a = e[t]
-              , i = (document.body.clientWidth / 750 * 420,
-            $("#imgBox" + a.roomId));
-            (function(e) {
-                new Swiper(e,{
-                    initialSlide: 0,
-                    touchAngle: 30,
-                    threshold: 10,
-                    loop: !0,
-                    touchMoveStopPropagation: !1,
-                    preloadImages: !1,
-                    onSlideChangeStart: function(t) {
-                        if (1 != t.activeIndex) {
-                            var a = e.find(".swiper-slide-active").find("img");
-                            a.hasClass("swiper-lazy") && (a.attr({
-                                src: a.data("src")
-                            }),
-                            a.removeClass("swiper-lazy"))
-                        }
-                    },
-                    onSlideChangeEnd: function(t) {
-                        e.find(".curPage").text(+e.find(".swiper-slide-active").attr("data-swiper-slide-index") + 1)
-                    }
-                })
-            }
-            ).bind(this, i)()
-        }
-}

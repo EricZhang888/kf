@@ -6,5 +6,5 @@ import com.ddkfang.dao.entity.rooms.Room;
 import com.ddkfang.dao.repositories.base.IBaseRepo;
 
 public interface RoomBasicRepo extends IBaseRepo<Room, Serializable>{
-	
+	public Room findOneByRoomId(String roomId);
 }

@@ -2,6 +2,9 @@ package com.ddkfang.dao.entity.rooms;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -18,6 +21,8 @@ public class Room implements Serializable {
 
 	@Id
 	@Column(name="room_id")
+	@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String roomId;
 
 	@Column(name="room_address")

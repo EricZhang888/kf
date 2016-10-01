@@ -126,7 +126,37 @@ function init(e) {
 	    $("#mask").show()
 	}; 
 	
-	
+	function genSwiper(e) {
+	    if (e && !(e.length <= 0))
+	        for (var t in e) {
+	            var a = e[t]
+	              , i = (document.body.clientWidth / 750 * 420,
+	            $("#imgBox" + a.roomId));
+	            (function(e) {
+	                new Swiper(e,{
+	                    initialSlide: 0,
+	                    touchAngle: 30,
+	                    threshold: 10,
+	                    loop: !0,
+	                    touchMoveStopPropagation: !1,
+	                    preloadImages: !1,
+	                    onSlideChangeStart: function(t) {
+	                        if (1 != t.activeIndex) {
+	                            var a = e.find(".swiper-slide-active").find("img");
+	                            a.hasClass("swiper-lazy") && (a.attr({
+	                                src: a.data("src")
+	                            }),
+	                            a.removeClass("swiper-lazy"))
+	                        }
+	                    },
+	                    onSlideChangeEnd: function(t) {
+	                        e.find(".curPage").text(+e.find(".swiper-slide-active").attr("data-swiper-slide-index") + 1)
+	                    }
+	                })
+	            }
+	            ).bind(this, i)()
+	        }
+	}	
  
 try{ document.domain = 'bohosi.com';}catch(e){}
             window.g_base = {"sitebase":"http://localhost","apibase":"http://1hf.bohosi.com/api"}
