@@ -49,6 +49,7 @@ function genSwiperSingle() {
 
 //计算html
 function genHtml(data){
+	roomId = data.roomId;
 	return genImgs(data.roomImages.split(","), data.roomId) + genRoomInfo(data) +
 	genRoomDesc(data) + genRoomAmenities(data) + genTips(data) ;
 	//return genImgs(data.roomImages) + genRoomInfo(data) + genRoomDesc(data) + genRoomAmenities(data) + genComment(data) + genTips(data);
@@ -213,8 +214,26 @@ function initMap(room){
     //map.addControl(overviewControl);
   }
   
-    
-
+  
+  $(".left-icon", ".detail").on("tap click", function(e) {
+      document.referrer.length > 1 ? history.back() : window.location.href = "/"
+  });
+  
+  $("#mask").on("click tap", function() {
+      $(this).hide(),
+      $("#all-fac").hide(),
+      $(".book").removeClass("page-down"),
+      $("#rp-calendar").addClass("page-down")
+      $(".rpWrapper").html("");
+  })
+  //立即预定按钮
+  $("#bookBtn").on("tap click", function() {
+      $(this).parent(".book").addClass("page-down"),
+      $("#mask").show(),
+      $("#rp-calendar").removeClass("page-down"),
+      initPrice();
+      //B && B instanceof D || (B = new D(i("#rp-calendar"),S.room_type_id,S.checkin_date,S.checkout_date,currentDate,w))
+  })
 //function initMap(room) {
 //	initMap();
 //	//初始地图

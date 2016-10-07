@@ -52,8 +52,8 @@ img {
 
 @font-face {
     font-family: 'estay';
-    src: url("/public/img/fonts/estay/estay.eot");
-    src: url("/public/img/fonts/estay/estay.eot") format("embedded-opentype"),url("/public/img/fonts/estay/estay.ttf") format("truetype"),url("/public/img/fonts/estay/estay.woff") format("woff"),url("/public/img/fonts/estay/estay.svg?") format("svg");
+    src: url("estay.eot");
+    src: url("estay.eot") format("embedded-opentype"),url("estay.ttf") format("truetype"),url("estay.woff") format("woff"),url("estay.svg?") format("svg");
     font-weight: normal;
     font-style: normal
 }
@@ -1861,7 +1861,7 @@ html {
 }
 
 .operate-tip {
-    display: none;
+	display: block;
     z-index: 300;
     position: absolute;
     top: 40%;
@@ -1876,6 +1876,10 @@ html {
     -webkit-animation: tip-show .5s;
     animation: tip-show .5s;
     padding: 4% 4%
+}
+
+.opetate-tip-none {
+    display: none
 }
 
 .operate-tip p {

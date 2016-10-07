@@ -44,11 +44,83 @@
    <a href="tel:400-038-1881" class="phone"><i class="icon-phone"></i><span>联系电话</span></a> 
    <span id="bookBtn" class="bookBtn">立即预订</span> 
   </div> 
-  <div class="rp-calendar page-down" id="rp-calendar"></div> 
+  <div class="rp-calendar page-down" id="rp-calendar">
+  	<div class="rp-box">
+	<p class="rp-tips">
+	</p>
+	<div class="rpCalendar">
+		<h3>
+			选择入住退房日期
+		</h3>
+		<div class="weeks">
+			<table>
+				<thead>
+					<tr>
+						<th class="weekend">
+							日
+						</th>
+						<th>
+							一
+						</th>
+						<th>
+							二
+						</th>
+						<th>
+							三
+						</th>
+						<th>
+							四
+						</th>
+						<th>
+							五
+						</th>
+						<th class="weekend">
+							六
+						</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div class="rpWrapper">
+		</div>
+	</div>
+	<div class="rpDetail noHeight">
+		
+	</div>
+	<div class="price-wrap">
+		<div class="fl original-price">
+			<span class="abs1">
+				房费总额
+			</span>
+			<span class="abs2">
+				门市价¥328
+			</span>
+		</div>
+		<div class="fl price">
+			¥
+			<span>
+				289
+			</span>
+		</div>
+		<div class="fl arrow visible">
+			<i class="icon-left">
+			</i>
+		</div>
+		<button class="fr next">
+			下一步
+		</button>
+	</div>
+</div>
+  </div> 
   <div class="mask" id="mask"></div> 
   <div class="pic-wrap"></div> 
   <script>
-        var currentDate = "2016-09-29";
+        var currentDate = new Date(); //"2016-10-06";
+        var beginDate = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" +currentDate.getDate();
+        var endDate = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + (currentDate.getDate()+1);
+        var range = [];
+        var rpWrapperDown;
+        var roomId;
     </script> 
   <aside class="sideBar hide"> 
    <nav> 
@@ -82,6 +154,7 @@
   	<script src="js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="js/base.js"></script>
     <script type="text/javascript" src="js/roomDetail.js"></script>
+    <script type="text/javascript" src="js/price.js"></script>
     <!--引用百度地图API-->
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=c1GsFcLI8eEllvlzDEUjNn5T"></script>
     <script src="js/swiper-3.3.1.min.js"></script>

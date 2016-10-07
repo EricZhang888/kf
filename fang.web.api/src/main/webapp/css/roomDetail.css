@@ -2376,7 +2376,7 @@ button.swiper-pagination-bullet {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 3
+    z-index: -1
 }
 
 .hotel-address #map_warp {
@@ -2795,7 +2795,7 @@ button.swiper-pagination-bullet {
 }
 
 .rp-box .calendar-body td.selected p,.rp-box .calendar-body td.range p {
-    background-color: #E78C00;
+    background-color: #5ab45d;
     color: white
 }
 
@@ -2883,7 +2883,7 @@ button.swiper-pagination-bullet {
 
 .rp-box .price-wrap .price {
     text-align: center;
-    color: #E78C00;
+    color: #5ab45d;
     width: 25%;
     height: 100%
 }
