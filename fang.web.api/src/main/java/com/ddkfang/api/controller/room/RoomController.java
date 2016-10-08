@@ -2,7 +2,6 @@ package com.ddkfang.api.controller.room;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +77,7 @@ public class RoomController {
 				pc.setIs_preferential_price(0);
 				calList.add(pc);
 			}
-			
+			roomBasic.getRoomPriceCalendar(id, calList.get(0).getDate(), calList.get(calList.size()-1).getDate());
 			responseMap.put("data", calList);
 			responseMap.put("status", HttpStatusConstant.roomStatus.ok.getCode());
 			responseMap.put("msg", HttpStatusConstant.roomStatus.ok.getMsg());
@@ -89,5 +88,9 @@ public class RoomController {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		Date d = new Date();
 	}
 }

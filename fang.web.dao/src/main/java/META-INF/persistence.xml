@@ -3,6 +3,8 @@
 	<persistence-unit name="fang.web.dao">
 		<class>com.ddkfang.dao.entity.rooms.RoomApartment</class>
 		<class>com.ddkfang.dao.entity.rooms.RoomAmenity</class>
+		<class>com.ddkfang.dao.entity.rooms.RoomPriceCalendar</class>
+		<class>com.ddkfang.dao.entity.rooms.RoomPriceCalendarPK</class>
 		
 	</persistence-unit>
 </persistence>

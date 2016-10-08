@@ -224,14 +224,15 @@ function initMap(room){
       $("#all-fac").hide(),
       $(".book").removeClass("page-down"),
       $("#rp-calendar").addClass("page-down")
-      $(".rpWrapper").html("");
   })
   //立即预定按钮
   $("#bookBtn").on("tap click", function() {
       $(this).parent(".book").addClass("page-down"),
       $("#mask").show(),
-      $("#rp-calendar").removeClass("page-down"),
-      initPrice();
+      $("#rp-calendar").removeClass("page-down");
+      if($(".rpWrapper").html() == "") {
+    	  initPrice();
+      }
       //B && B instanceof D || (B = new D(i("#rp-calendar"),S.room_type_id,S.checkin_date,S.checkout_date,currentDate,w))
   })
 //function initMap(room) {

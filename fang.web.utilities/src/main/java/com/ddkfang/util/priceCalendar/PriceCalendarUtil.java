@@ -74,6 +74,18 @@ public class PriceCalendarUtil {
 
 		
 	}
+	
+	
+	public static Date stringToSimpleDate(String dateStr) throws ParseException {
+		SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			return sdf.parse(dateStr);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return sdf.parse("2000-01-01");
+		}
+	}
 	public static void main(String[] args) throws ParseException {
 		Set<String> calendar = genCalendar();
 		for(String s : calendar) {
