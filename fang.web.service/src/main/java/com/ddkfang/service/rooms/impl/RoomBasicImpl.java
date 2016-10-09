@@ -3,6 +3,7 @@ package com.ddkfang.service.rooms.impl;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,8 +47,15 @@ public class RoomBasicImpl implements IRoomBasic {
 
 	public Map<String, RoomPriceCalendar> getRoomPriceCalendar(String roomId, String start, String end) {
 		List<RoomPriceCalendar> pc = new ArrayList<RoomPriceCalendar>();
+		Map<String, RoomPriceCalendar> map = new HashMap<String, RoomPriceCalendar>();
 		try {
 			pc = (ArrayList<RoomPriceCalendar>)roomPriceRepo.findById_RoomIdAndId_RoomDateBetween(roomId, PriceCalendarUtil.stringToSimpleDate(start), PriceCalendarUtil.stringToSimpleDate(end));
+			if(pc != null && pc.size() > 0) {
+				for(RoomPriceCalendar rpc : pc) {
+					map.put(PriceCalendarUtil.simpleDateToString(rpc.getId().getRoomDate()), rpc);
+				}
+			} 
+			return map;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -15,8 +15,6 @@ public class PriceCalendarUtil {
 	private static int sumDay = 0;
 	private static Calendar now;
 	
-	private static Set<String> calendarSet = new TreeSet<String>();
-
 	/**
 	 * 判断闰年函数
 	 * 
@@ -41,6 +39,7 @@ public class PriceCalendarUtil {
 	}
 
 	public static Set<String> genCalendar() throws ParseException {
+		Set<String> calendarSet = new TreeSet<String>();
 		now = getInitCalendar();
 		
 		for(int i = 1; i <4; i++) {
@@ -75,6 +74,43 @@ public class PriceCalendarUtil {
 		
 	}
 	
+	public static Set<String> genCalendarWithStr(String startDate, int days) throws ParseException {
+		
+		Set<String> calendarWiehDaysSet = new TreeSet<String>();
+		int year = 0;
+		int month = 0;
+		SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
+		Date date = sdf.parse(startDate);
+		Calendar now = Calendar.getInstance();
+		now.setTime(date);
+		for(int i = 0; i < days; i++) {
+			now.add(Calendar.DAY_OF_MONTH, i==0? 0 : 1);
+			year = now.get(Calendar.YEAR);
+			month = 1 + now.get(Calendar.MONTH);
+			int day = now.get(Calendar.DAY_OF_MONTH);
+			if(month > 12) {
+				month -= 12;
+				year =+ 1;
+			}
+			if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+				sumDay = 31;
+			}
+			if (month == 4 || month == 6 || month == 9 || month == 11) {
+				sumDay = 30;
+			}
+			if (month == 2) {
+				if (isLeapYear(year) == 1) {
+					sumDay = 29;
+				} else {
+					sumDay = 28;
+				}
+			}
+				calendarWiehDaysSet.add(year + "-" + (month < 10 ? ("0" + month) : month) + "-" + (day <10 ? "0"+day : day) + "");
+				//System.out.println(year + "-" + month + "-" + j + "");    
+		}
+		return calendarWiehDaysSet;
+	}
+	
 	
 	public static Date stringToSimpleDate(String dateStr) throws ParseException {
 		SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
@@ -86,14 +122,29 @@ public class PriceCalendarUtil {
 			return sdf.parse("2000-01-01");
 		}
 	}
-	public static void main(String[] args) throws ParseException {
-		Set<String> calendar = genCalendar();
-		for(String s : calendar) {
-			
-			System.out.println(s);
-		}
+	
+	public static int dateDiff(String sd1, String sd2) throws ParseException {
+		SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
+		Date d1 = sdf.parse(sd1);
+		Date d2 = sdf.parse(sd2);
 		
-		//System.out.println(year + "-" + month + "-" + day + "");
+		Calendar c1 = Calendar.getInstance();
+		c1.setTime(d1);
+		Calendar c2 = Calendar.getInstance();
+		c2.setTime(d2);
+		
+		int dayDiff = (int) (c1.getTimeInMillis() - c2.getTimeInMillis())/(1000*60*60*24);
+		return dayDiff;
+	}
+	
+	public static String simpleDateToString(Date date) throws ParseException {
+		SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(date);
+		
+	}
+	
+	public static void main(String[] args) throws ParseException {
+		genCalendarWithStr("2016-12-20", 13);
 	}
 
 }

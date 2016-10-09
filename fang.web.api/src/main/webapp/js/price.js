@@ -165,16 +165,14 @@
           , a = $(".checkOut").attr("data-day");
         $.ajax({
             type: "GET",
-            url: 'js/priceD.txt',//window.g_base.apibase + "/order/calculate_total_price",
+            url: window.g_base.apibase + '/room/calculateTotalPrice',//'js/priceD.txt',//window.g_base.apibase + "/order/calculate_total_price",
             xhrFields: {
                 withCredentials: !0
             },
             data: {
-//                room_type_id: e.room_type_id,
-//                begin_date: t,
-//                end_date: a,
-//                platform: 3,
-//                room_count: 1
+                id: e.roomId,
+                beginDate: t,
+                endDate: a
             },
             dataType: "json",
             success: function(i) {
