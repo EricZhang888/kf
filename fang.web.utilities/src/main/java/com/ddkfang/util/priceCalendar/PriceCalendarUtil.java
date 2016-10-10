@@ -1,5 +1,6 @@
 package com.ddkfang.util.priceCalendar;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -117,7 +118,6 @@ public class PriceCalendarUtil {
 		try {
 			return sdf.parse(dateStr);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return sdf.parse("2000-01-01");
 		}
@@ -143,6 +143,12 @@ public class PriceCalendarUtil {
 		
 	}
 	
+	public static Timestamp getCurrentTimestamp() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());;
+		Timestamp time = new Timestamp(calendar.getTimeInMillis());
+		return time;
+	}
 	public static void main(String[] args) throws ParseException {
 		genCalendarWithStr("2016-12-20", 13);
 	}

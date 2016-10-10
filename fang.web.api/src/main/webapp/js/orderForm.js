@@ -26,8 +26,6 @@ function parseQuery(e) {
     return t
 }
 
-var P = !0;	
-
 $(".submit-order").on("click tap", function() {
             const e = this;
             var t = $(".checkin-man").val()
@@ -39,6 +37,15 @@ $(".submit-order").on("click tap", function() {
             if (!RegExpClass.isPhone(a))
                 return void alertMsg("联系人手机格式不正确！");
             if ($(this).hasClass("is-login")) {
+            	var info = {
+            			checkInDate : ss,
+            			checkOutDate : ss,
+            			price : ss,
+            			contactName : ss,
+            			contactPhone : ss,
+            			roomId: ss,
+            			channel : 0
+            	}
 //            	j.total_price = x,
 //                j.room_count = k,
 //                j.coupon_item_id_list = U,
@@ -50,21 +57,16 @@ $(".submit-order").on("click tap", function() {
 //                j.channel = r.getCookie("CHANNEL_KEY") || "WAP",
 //                j.is_book_blackgold = N
                 
-                if (!P) {
-                	return;
-                }
-                return P = !1,
-                void $.ajax({
+                $.ajax({
                     type: "POST",
-                    url: '/js/json.txt',//window.g_base.apibase + "/order/do_submit",
-                    data: {},//JSON.stringify(j),
+                    url: window.g_base.apibase + "/order/createOrder",
+                    data: JSON.stringify(info),
                     xhrFields: {
                         withCredentials: !0
                     },
                     crossDomain: !0,
                     dataType: "json",
                     success: function(e) {
-                        P = !0,
                         0 == e.status ? (alertMsg("提交成功"),
                         $("#mask,.operate-tip").on("click tap", function() {
                             location.href = "/html/order/cardpay.html?order_id=11111"

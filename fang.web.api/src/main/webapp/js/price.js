@@ -1,4 +1,9 @@
 //价格日历具体天的html增加
+
+var checkInSelect;
+
+var checkOutSelect;
+
 	function price_day_table(e, t, a, s) {
             for (var o, r = $('<div class="calendar-body"><table><tbody></tbody></table></div>'), c = new Date(t,a,1,0,0,0), l = c.getDay() , p = i(t, a), m = c.getDate() - l, h = !0; h; ) {
                 o = $('<tr class="days"></tr>');
@@ -163,6 +168,8 @@
         var e = this
           , t = $(".checkIn").attr("data-day")
           , a = $(".checkOut").attr("data-day");
+        checkInSelect = t;
+        checkOutSelect = a;
         $.ajax({
             type: "GET",
             url: window.g_base.apibase + '/room/calculateTotalPrice',//'js/priceD.txt',//window.g_base.apibase + "/order/calculate_total_price",
@@ -255,9 +262,7 @@
                 console.log("不可点击");
             else {
                 console.log("下一步");
-                var a = e.checkIn.attr("data-day")
-                  , i = e.checkOut.attr("data-day")
-                  , n = "html/order/orderForm.html?roomId=" + e.roomId + "&checkin_date=" + a + "&checkout_date=" + i + "&address=" + $("#address").text() + "&roomName=" + $(".flex-item .nowrap strong").text() + "&siteName=" + $(".flex-item .nowrap").text() + "&price=" + $(".fl.price span").text();
+                n = "html/order/orderForm.html?roomId=" + e.roomId + "&checkin_date=" + checkInSelect + "&checkout_date=" + checkOutSelect + "&address=" + $("#address").text() + "&roomName=" + $(".flex-item .nowrap strong").text() + "&siteName=" + $(".flex-item .nowrap").text() + "&price=" + $(".fl.price span").text();
                 window.location.href = n
                 //e.isLogin ? window.location.href = n : window.location.href = "/home/login?redirectUrl=" + encodeURIComponent(n)
             }
