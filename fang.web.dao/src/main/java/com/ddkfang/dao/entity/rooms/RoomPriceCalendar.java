@@ -28,7 +28,7 @@ public class RoomPriceCalendar implements Serializable {
 	@Column(name="room_date_price")
 	private BigDecimal roomDatePrice;
 
-	private short status;
+	private int status;
 
 	@Column(name="update_by")
 	private String updateBy;
@@ -71,11 +71,11 @@ public class RoomPriceCalendar implements Serializable {
 		this.roomDatePrice = roomDatePrice;
 	}
 
-	public short getStatus() {
+	public int getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(short status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 

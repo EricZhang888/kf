@@ -96,8 +96,8 @@ function checkLogin(callBack) {
 
 function init(e) {
     e != null ? 
-   		 $("#loginInfoWrap").html('<a href="/html/user/home/index.html" class="sider-mine">我的1号房<span>(' + 1 + "待付)</span></a>") : 
-   			$("#loginInfoWrap").html('<a href="/html/user/home/index.html" class="sider-mine">我的1号房<span>(已登录)</span></a>');
+   		 $("#loginInfoWrap").html('<a href="/html/user/home/index.html" class="sider-mine">个人中心</a>') : 
+   			$("#loginInfoWrap").html('<a href="/html/user/login.html" class="sider-mine">个人中心<span>(未登录)</span></a>');
 };
 //正则表达式工具
  var RegExpClass = {
@@ -157,6 +157,15 @@ function init(e) {
 	            ).bind(this, i)()
 	        }
 	}	
- 
+	
+	function parseQuery(e) {
+	    for (var t = {},
+	    i = e.substr(1).split("&"), n = 0; n < i.length; n++) {
+	        var s = i[n].split("=");
+	        t[decodeURIComponent(s[0])] = decodeURIComponent(s[1] || "")
+	    }
+	    return t
+	} 
+	
 try{ document.domain = 'bohosi.com';}catch(e){}
             window.g_base = {"sitebase":"http://localhost","apibase":"http://1hf.bohosi.com/api"}

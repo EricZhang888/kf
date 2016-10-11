@@ -1,3 +1,12 @@
+checkLogin(orderPage);
+function orderPage(user) {
+	if(user == null) {
+		location.href = "/html/user/login.html?redirect=" + encodeURIComponent(window.location.href);
+	} else {
+		init(user);
+	}
+};
+
 var sPara = parseQuery(window.location.search);
 var add = $(".orderform-content .form-title span")[0];
 var dur = $(".orderform-content .form-title span")[1];
@@ -15,71 +24,51 @@ $(".warm-tip p").text("允许变更/取消,该订单允许在" + date[0] +"年" 
 $("#roomId").val(sPara.roomId);
 //initial end
 
-
-
-function parseQuery(e) {
-    for (var t = {},
-    i = e.substr(1).split("&"), n = 0; n < i.length; n++) {
-        var s = i[n].split("=");
-        t[decodeURIComponent(s[0])] = decodeURIComponent(s[1] || "")
-    }
-    return t
-}
-
 $(".submit-order").on("click tap", function() {
-            const e = this;
-            var t = $(".checkin-man").val()
-              , a = $(".checkin-phone").val();
-            if ("" == t)
-            	return void alertMsg("请输入联系人姓名！");
-            if (!a.length)
-                return void alertMsg("请输入联系人手机号码！");
-            if (!RegExpClass.isPhone(a))
-                return void alertMsg("联系人手机格式不正确！");
-            if ($(this).hasClass("is-login")) {
-            	var info = {
-            			checkInDate : ss,
-            			checkOutDate : ss,
-            			price : ss,
-            			contactName : ss,
-            			contactPhone : ss,
-            			roomId: ss,
-            			channel : 0
-            	}
-//            	j.total_price = x,
-//                j.room_count = k,
-//                j.coupon_item_id_list = U,
-//                j.contact_name = t,
-//                j.contact_phone = a,
-//                j.begin_date = j.checkin_date,
-//                j.end_date = j.checkout_date,
-//                j.platform = f ? 5 : 3,
-//                j.channel = r.getCookie("CHANNEL_KEY") || "WAP",
-//                j.is_book_blackgold = N
-                
-                $.ajax({
-                    type: "POST",
-                    url: window.g_base.apibase + "/order/createOrder",
-                    data: JSON.stringify(info),
-                    xhrFields: {
-                        withCredentials: !0
-                    },
-                    crossDomain: !0,
-                    dataType: "json",
-                    success: function(e) {
-                        0 == e.status ? (alertMsg("提交成功"),
-                        $("#mask,.operate-tip").on("click tap", function() {
-                            location.href = "/html/order/cardpay.html?order_id=11111"
-                        }),
-                        setTimeout(function() {
-                            $("#mask").click(),
-                            location.href = "/html/order/cardpay.html?order_id=123123"
-                        }, 1e3)) : alertMsg(e.msg)
-                    }
-                })
+    const e = this;
+    var t = $(".checkin-man").val()
+      , a = $(".checkin-phone").val();
+    if ("" == t)
+    	return void alertMsg("请输入联系人姓名！");
+    if (!a.length)
+        return void alertMsg("请输入联系人手机号码！");
+    if (!RegExpClass.isPhone(a))
+        return void alertMsg("联系人手机格式不正确！");
+    if ($(this).hasClass("is-login")) {
+    	var info = {
+    			checkInDate:sPara.checkin_date,
+    			checkOutDate:sPara.checkout_date,
+    			price:sPara.price,
+    			contactName:t,
+    			contactPhone:a,
+    			roomId:sPara.roomId,
+    			channel: 0
+    	}
+    	
+        $.ajax({
+            type: "POST",
+            url: window.g_base.apibase + "/order/createOrder",
+            headers: {'Content-type': 'application/json;charset=UTF-8'},
+            data: JSON.stringify(info),
+            xhrFields: {
+                withCredentials: !0
+            },
+            crossDomain: !0,
+            dataType: "json",
+            success: function(e) {
+                'A00000' == e.status ? (alertMsg("提交成功"),
+                $("#mask,.operate-tip").on("click tap", function() {
+                    location.href = "/html/order/cardpay.html?order_id=" + e.roomId
+                }),
+                setTimeout(function() {
+                    $("#mask").click(),
+                    location.href = "/html/order/cardpay.html?order_id=" + e.roomId
+                }, 1e3)) : alertMsg(e.msg)
             }
-            setTimeout(function() {
-                $("#mask").show(),
-                $(e).hasClass("no-phone") ? $(".bind-phone").show() : $(".login-contain").show()
-            }, 50)
         })
+    }
+    setTimeout(function() {
+        $("#mask").show(),
+        $(e).hasClass("no-phone") ? $(".bind-phone").show() : $(".login-contain").show()
+    }, 50)
+})

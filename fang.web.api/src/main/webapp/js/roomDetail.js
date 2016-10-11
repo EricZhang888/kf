@@ -1,7 +1,7 @@
 //加载详情
 $(document).ready(function(){
 	getDetailAjax();
-	
+	checkLogin(init);
 });
 
 

@@ -11,11 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ddkfang.api.bean.DayPrice;
 import com.ddkfang.api.bean.TotalPrice;
 import com.ddkfang.dao.entity.rooms.Room;
@@ -37,17 +39,18 @@ public class OrderController {
 	@Autowired
 	IRoomBasic roomBasic;
 	
-	@RequestMapping(value="createOrder", method=RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> createOrder(@RequestParam(value = "checkInDate", required = true) String checkInDate,
-			@RequestParam(value = "checkOutDate", required = true) String checkOutDate,
-			@RequestParam(value = "price", required = true) int price,
-			@RequestParam(value = "contactName", required = true) String contactName,
-			@RequestParam(value = "contactPhone", required = true) String contactPhone,
-			@RequestParam(value = "roomId", required = true) String roomId,
-			@RequestParam(value = "channel", required = true) int channel,
+	@RequestMapping(value="createOrder", method=RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> createOrder(@RequestBody JSONObject json,
 			HttpServletRequest request) throws Exception{
 		
 		Map<String, Object> responseMap = new HashMap<String, Object>();
+		String roomId = json.getString("roomId");
+		String contactPhone = json.getString("contactPhone");
+		String contactName = json.getString("contactName");
+		String checkInDate = json.getString("checkInDate");
+		String checkOutDate = json.getString("checkOutDate");
+		int channel = json.getIntValue("channel");
+		int price = json.getIntValue("price");
 		try {
 			Map<String, Object> infoMap = new HashMap<String, Object>();
 			infoMap.put("roomId", roomId);
@@ -58,8 +61,10 @@ public class OrderController {
 			infoMap.put("channel", channel);
 			
 			Booker bk = (Booker)request.getSession().getAttribute("user");
-			infoMap.put("bookerId", bk.getId());
-			
+			if(bk == null) {
+				throw new Exception();
+			}
+			infoMap.put("bookerId", bk.getId()==null ? "1" : bk.getId());
 			//计算订单价格
 			Room room = roomBasic.getRoomDetailById(roomId);
 			//获取用户所选区间的已设置价格日历
@@ -117,6 +122,7 @@ public class OrderController {
 			responseMap.put("msg", "预定日期有冲突,手慢可能已被抢请刷新！");
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 		} catch (Exception e) {
+			e.printStackTrace();
 			responseMap.put("status", "A00003");
 			responseMap.put("msg", "系统错误");
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.INTERNAL_SERVER_ERROR);

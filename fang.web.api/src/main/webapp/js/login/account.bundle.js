@@ -1,3 +1,4 @@
+checkLogin(init);
 $(document).ready(function(){
 	//登录方式切换
 	
@@ -69,7 +70,7 @@ $(document).ready(function(){
             			$(".two-loginerror").hide(),
             			alertMsg("登录成功"),
                         setTimeout(function() {
-                            window.location.href = "/"
+                        	jumpTo()
                         }, 1e3)) : alertMsg(i.msg)
             },
             error: function(i) {
@@ -77,7 +78,14 @@ $(document).ready(function(){
             }
         })
     });
-	
+	function jumpTo(){
+		var para = parseQuery(window.location.search);
+		
+		if (para && para.redirect)
+			window.location.href = para.redirect;
+		else 
+			window.location.href = "/";
+	}
 	//找回密码下一步
     $(".jump-setPassword").on("click", function() {
         var e = $(this).parents("form").serializeArray()[0].value

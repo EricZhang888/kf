@@ -1,3 +1,5 @@
+checkLogin(init);
+
 var s;
 if ($(".LastPayTime").length) {
     var s, c = new Date($(".LastPayTime").data("time").replace(/-/g, "/"));

@@ -55,6 +55,8 @@ public class OrdersServiceImpl implements IOrdersService {
 		or.setStatus(1);
 		or.setChannel((Integer)infoMap.get("channel"));
 		orderRepo.save(or);
+		
+		//更新或插入价格日历
 		return or.getId();
 	}
 
