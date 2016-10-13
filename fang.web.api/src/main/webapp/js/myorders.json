@@ -1,0 +1,52 @@
+{
+    "status": 0,
+    "msg": "成功",
+    "data": {
+        "page_index": 1,
+        "page_size": 10,
+        "row_count": 2,
+        "page_count": 1,
+        "list": [
+            {
+                "order_id": 261744,
+                "apartment_name": "惠州碧桂园十里银滩",
+                "room_type_name": "豪华园景大床房",
+                "apartment_id": 58462,
+                "room_type_id": 406024,
+                "begin_date": "2016-10-07",
+                "end_date": "2016-10-08",
+                "room_count": 1,
+                "pay_price": "163.00",
+                "trade_code": "16100719455652494",
+                "user_display_status": 4,
+                "bedroom_count": 1,
+                "sitting_room_count": 0,
+                "kitchen_count": 0,
+                "bathroom_count": 1,
+                "image_url": "http://cdnpic.estay.com/upload/Room/2016/4/1764765869.jpg",
+                "last_pay_time": "2016-10-07 20:30:56",
+                "last_pay_seconds": -384580
+            },
+            {
+                "order_id": 259953,
+                "apartment_name": "惠州华润小径湾",
+                "room_type_name": "豪华海景大床房",
+                "apartment_id": 58396,
+                "room_type_id": 404664,
+                "begin_date": "2016-09-24",
+                "end_date": "2016-09-26",
+                "room_count": 1,
+                "pay_price": "998.00",
+                "trade_code": "16092401340610156",
+                "user_display_status": 4,
+                "bedroom_count": 1,
+                "sitting_room_count": 0,
+                "kitchen_count": 0,
+                "bathroom_count": 1,
+                "image_url": "http://cdnpic.estay.com/upload/Room/2015/12/266601983.jpg",
+                "last_pay_time": "2016-09-24 02:19:06",
+                "last_pay_seconds": -1573290
+            }
+        ]
+    }
+}
