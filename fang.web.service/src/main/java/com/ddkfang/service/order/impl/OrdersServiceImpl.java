@@ -56,11 +56,13 @@ public class OrdersServiceImpl implements IOrdersService {
 		or.setDateStart(PriceCalendarUtil.stringToSimpleDate(infoMap.get("checkInDate").toString()));
 		or.setDateEnd(PriceCalendarUtil.stringToSimpleDate(infoMap.get("checkOutDate").toString()));
 		or.setBookerId(infoMap.get("bookerId").toString());
+		or.setContactName(infoMap.get("contactName").toString());
+		or.setContactPhone(infoMap.get("contactPhone").toString());
 		or.setPrice((Integer)infoMap.get("price"));
 		or.setTotalPrice((Integer)infoMap.get("basicPrice"));
 		or.setCreateTime(PriceCalendarUtil.getCurrentTimestamp());
 		or.setUpdateTime(PriceCalendarUtil.getCurrentTimestamp());
-		//新建订单 默认为代付款
+		//新建订单 默认为待付款
 		or.setStatus(1);
 		or.setChannel((Integer)infoMap.get("channel"));
 		//设置房间冗余信息
@@ -90,6 +92,11 @@ public class OrdersServiceImpl implements IOrdersService {
 	public Page<Order> getOrdersByBooker(String userId, Pageable pageable) throws Exception {
 		Page<Order> po = orderRepo.findByBookerId(userId, pageable);
 		return po;
+	}
+
+	public Order getOrdersById(String id) throws Exception {
+		Order or = orderRepo.findById(id);
+		return or;
 	}
 
 }

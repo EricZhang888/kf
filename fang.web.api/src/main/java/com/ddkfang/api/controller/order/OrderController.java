@@ -144,7 +144,7 @@ public class OrderController {
 		Map<String, Object> responseMap = new HashMap<String, Object>();
 		Page<Order>  po;
 		try {
-			if(status == -1) {
+			if(status == 0) {
 				//全部
 				po = ordersService.getOrdersByBooker(user.getId(), pageable);
 			} else {
@@ -161,6 +161,25 @@ public class OrderController {
 		}
 		
 		return null;
-		
+	}
+	
+	@RequestMapping(value="getOrdersById", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> getOrdersById(@RequestParam(value = "id", required = true) String id,
+			HttpServletRequest request){
+		Map<String, Object> responseMap = new HashMap<String, Object>();
+		try {
+			Order or = ordersService.getOrdersById(id);
+			Room room = roomBasic.getRoomDetailById(or.getRoomId());
+			responseMap.put("order", or);
+			responseMap.put("room", room);
+			responseMap.put("status", HttpStatusConstant.orderStatus.ok.getCode());
+			responseMap.put("msg", HttpStatusConstant.orderStatus.ok.getMsg());
+			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

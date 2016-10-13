@@ -95,6 +95,28 @@ public class Order implements Serializable {
 
 	@Column(name="update_time")
 	private Timestamp updateTime;
+	
+	@Column(name="contact_name")
+	private String contactName;
+	
+	@Column(name="contact_phone")
+	private String contactPhone;
+
+	public String getContactName() {
+		return contactName;
+	}
+
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
+
+	public String getContactPhone() {
+		return contactPhone;
+	}
+
+	public void setContactPhone(String contactPhone) {
+		this.contactPhone = contactPhone;
+	}
 
 	public Order() {
 	}
