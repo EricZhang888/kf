@@ -140,17 +140,30 @@ public class PriceCalendarUtil {
 	public static String simpleDateToString(Date date) throws ParseException {
 		SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(date);
-		
 	}
 	
 	public static Timestamp getCurrentTimestamp() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());;
+		calendar.setTime(new Date());
 		Timestamp time = new Timestamp(calendar.getTimeInMillis());
 		return time;
 	}
+	
+	public static Timestamp getExactTimestamp(int field, int amount) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(field, amount);
+		Timestamp time = new Timestamp(calendar.getTimeInMillis());
+		return time;
+	}
+	
+	public static String getUniqueTimestampStr() {
+		SimpleDateFormat sdf =   new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		return sdf.format(new Date());
+	}
+	
 	public static void main(String[] args) throws ParseException {
-		genCalendarWithStr("2016-12-20", 13);
+		System.out.println(getUniqueTimestampStr());
 	}
 
 }

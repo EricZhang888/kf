@@ -28,7 +28,7 @@ $(document).ready(function(e) {
 	
 	//请求房源列表
 	$.ajax({
-        url: window.g_base.apibase + "/home/getAllAvaliableRooms?client=" + Math.floor(Math.random()*100+1),
+        url: window.g_base.apibase + "/home/getAllAvaliableRooms?client=" + Math.random(),
         type: "GET",
         dataType: "json",
         xhrFields: {

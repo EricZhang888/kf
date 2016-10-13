@@ -56,4 +56,31 @@ public class HttpStatusConstant {
 			this.code = code;
 		}
 	}
+	
+	public static enum orderStatus {
+		ok("操作成功", "A00000"),  orderDateConflict("预定日期有冲突", "A10001");
+		private String msg;
+		private String code;
+		
+		public String getMsg() {
+			return msg;
+		}
+
+		public void setMsg(String msg) {
+			this.msg = msg;
+		}
+
+		public String getCode() {
+			return code;
+		}
+
+		public void setCode(String code) {
+			this.code = code;
+		}
+
+		private orderStatus (String msg, String code) {
+			this.msg = msg;
+			this.code = code;
+		}
+	}
 }
