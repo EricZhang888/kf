@@ -18,7 +18,7 @@ public class Application implements WebApplicationInitializer {
 		apiContext.register(RestServletContextConfiguration.class);
 		
 		container.addListener(new ContextLoaderListener(apiContext));
-		container.getServletRegistration("default").addMapping("*.html","/css/*", "/js/*", "/img/*");
+		container.getServletRegistration("default").addMapping("*.html","*.txt","/css/*", "/js/*", "/img/*");
 		ServletRegistration.Dynamic dispatcher = container.addServlet("api",
 				new DispatcherServlet(apiContext));
 		dispatcher.setLoadOnStartup(1);
