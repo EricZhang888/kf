@@ -19,7 +19,7 @@ public class CommonUtil extends BaseController {
 	@RequestMapping(value = "getUTC0SysTime", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> getUTC0SysTime(){
 		Date d = new Date();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'H:mm:ss.SSS'Z'");
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		sf.setTimeZone(TimeZone.getTimeZone("Greenwich"));
 		String s = sf.format(d);
 		Map<String, Object> time = new HashMap<String, Object>();
@@ -29,7 +29,7 @@ public class CommonUtil extends BaseController {
 	
 	public static void main(String[] args) {
 		Date d = new Date();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'H:mm:ss.SSS'Z'");
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		sf.setTimeZone(TimeZone.getTimeZone("Greenwich"));
 		String s = sf.format(d);
 		System.out.println(s);

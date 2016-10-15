@@ -58,11 +58,11 @@ $(".submit-order").on("click tap", function() {
             success: function(e) {
                 'A00000' == e.status ? (alertMsg("提交成功"),
                 $("#mask,.operate-tip").on("click tap", function() {
-                    location.href = "/html/order/cardpay.html?order_id=" + e.roomId
+                    location.href = "/html/order/cardpay.html?order_id=" + e.orderId + "&price=" + sPara.price + "&lastpay=" + e.lastpay
                 }),
                 setTimeout(function() {
                     $("#mask").click(),
-                    location.href = "/html/order/cardpay.html?order_id=" + e.roomId
+                    location.href = "/html/order/cardpay.html?order_id=" + e.orderId + "&price=" + sPara.price + "&lastpay=" + e.lastpay
                 }, 1e3)) : alertMsg(e.msg)
             }
         })

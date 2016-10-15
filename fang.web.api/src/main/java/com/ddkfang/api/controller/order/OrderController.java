@@ -114,8 +114,9 @@ public class OrderController {
 			}
 			infoMap.put("price", totalPrice);
 			infoMap.put("basicPrice", totalBasicPrice);
-			String createdOrderId = ordersService.createOrder(infoMap);
-			responseMap.put("roomId", createdOrderId);
+			Order order = ordersService.createOrder(infoMap);
+			responseMap.put("orderId", order.getId());
+			responseMap.put("lastpay", order.getLastPayTime());
 			responseMap.put("status", "A00000");
 			responseMap.put("msg", "ok");
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);

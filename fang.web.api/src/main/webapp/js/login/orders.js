@@ -26,14 +26,7 @@ $(document).ready(function(){
 		                var r = genOrderHtml(e)
 		                  , t = $(".LastPayTime", r)
 		                  , i = $(t).data("time");
-		                t.length && setInterval(function() {
-		                    if (i--,
-		                    i <= 0)
-		                        return void $(t).text("已过支付时间");
-		                    var a = Math.floor(i / 60)
-		                      , e = Math.floor(i - 60 * a);
-		                    $(t).text(a + ":" + (e < 10 ? "0" + e : e))
-		                }, 1e3),
+		                
 		                $(".order-content." + s[n] + ">div").append(r)
 		            }),
 		            i = !1
@@ -106,8 +99,8 @@ function genOrderHtml(a) {
         r += "</div>",
         r += "</a>",
         r += '<div class="operate operate-db">',
-        r += '<span class="pay-time"><i class="icon-clock"></i>&nbsp;<i data-time="' + a.lastPayTime + '" class="LastPayTime"></i></span>',
-        r += '<a class="now-pay" href="/html/order/cardpay.html?order_id=' + a.id + '">立即支付</a><a class="again-order" href="/roomDetail.html?id=' + a.roomId + '">再次预订</a>';
+        r += '<span class="pay-time"><i data-time="' + dateStr(new Date(a.lastPayTime)) + '" class="LastPayTime"></i></span>',
+        r += '<a class="now-pay" href="/html/order/cardpay.html?order_id=' + a.id + '&price='+ a.price + '&lastpay='+ a.lastPayTime + '">立即支付</a><a class="again-order" href="/roomDetail.html?id=' + a.roomId + '">再次预订</a>';
         break;
     case 2:
         r += '<i class="icon-no-affirm order-type"></i>',

@@ -167,5 +167,19 @@ function init(e) {
 	    return t
 	} 
 	
+	function dateStr(date) {
+		var year = date.getFullYear();
+		var mm = date.getMonth() + 1;
+		var dd = date.getDate();
+		
+		var hh = date.getHours();
+		var mi = date.getMinutes();
+		var ss = date.getSeconds();
+		
+		var str = year + "-" + (mm < 10 ? "0"+mm : mm) + "-" + (dd < 10 ? "0"+dd : dd) + " " + (hh < 10 ? "0"+hh : hh) + ":"
+			+ (mi < 10 ? "0"+mi : mi) + ":" + (ss < 10 ? "0"+ss : ss);
+		return  str;
+	}
+	
 try{ document.domain = 'bohosi.com';}catch(e){}
             window.g_base = {"sitebase":"http://localhost","apibase":"http://1hf.bohosi.com/api"}

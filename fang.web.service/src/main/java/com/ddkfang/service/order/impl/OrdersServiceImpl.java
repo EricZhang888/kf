@@ -33,7 +33,7 @@ public class OrdersServiceImpl implements IOrdersService {
 	/**
 	 * return new order Id
 	 */
-	public String createOrder(Map<String, Object> infoMap) throws Exception {
+	public Order createOrder(Map<String, Object> infoMap) throws Exception {
 		
 		String id = infoMap.get("roomId").toString();
 		String beginDate = infoMap.get("checkInDate").toString();
@@ -80,7 +80,10 @@ public class OrdersServiceImpl implements IOrdersService {
 		orderRepo.save(or);
 		
 		//更新或插入价格日历
-		return or.getId();
+		if(or.getId()!=null) {
+			return or;
+		}
+		return null;
 	}
 
 	public Page<Order> getOrdersByBookerAndStatus(String userId, int status, Pageable pageable) throws Exception {

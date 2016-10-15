@@ -1,5 +1,8 @@
 checkLogin(init);
+var sPara = parseQuery(window.location.search);
 
+$(".LastPayTime").attr("data-time", dateStr(new Date(parseFloat(sPara.lastpay))));
+$(".payment").html("应付房费 &nbsp; &nbsp;<span class=\"payable\"><b>￥</b>" + sPara.price + "</span>&nbsp; &nbsp;");
 var s;
 if ($(".LastPayTime").length) {
     var s, c = new Date($(".LastPayTime").data("time").replace(/-/g, "/"));

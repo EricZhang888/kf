@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
   <meta name="renderer" content="webkit" /> 
   <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1, maximum-scale=1.0, user-scalable=no,minimal-ui" /> 
-  <meta name="apple-mobile-web-app-title" content="一呆公寓" /> 
+  <meta name="apple-mobile-web-app-title" content="1号房公寓" /> 
   <meta name="apple-mobile-web-app-capable" content="yes" /> 
   <meta name="apple-mobile-web-app-status-bar-style" content="black" /> 
   <link rel="Shortcut Icon" type="image/x-icon" href="/public/img/favicon.ico" /> 
@@ -14,20 +14,11 @@
   <meta name="screen-orientation" content="portrait" /> 
   <meta name="x5-orientation" content="portrait" /> 
   <meta content="telephone=no" name="format-detection" /> 
-  <meta name="keywords" content="一呆公寓" /> 
-  <meta name="description" content="一呆公寓" /> 
+  <meta name="keywords" content="1号房公寓" /> 
+  <meta name="description" content="1号房公寓" /> 
   <title>订单支付</title> 
   <link rel="stylesheet" href="../../../css/orderpay.css" /> 
-  <style>
-    .sideBar li:first-child {
-        display: none;
-    }
 
-    .sideBar li:nth-child(2) {
-        border-top-left-radius: 7px;
-        border-top-right-radius: 7px;
-    }
-</style> 
  </head> 
  <body> 
   <section class="es_flow" id="orderpay"> 
@@ -35,21 +26,24 @@
     <i class="left-icon icon-left" onclick="history.back()"></i>
     <i class="menu-icon right-icon icon-menu"></i> 
     <div class="title">
-     订单支付
+     	订单支付
     </div> 
    </div> 
    <div class="strong-tip"> 
     <span>该订单不允许变更/取消，如未按时入住，房费不予退还</span> 
    </div> 
    <div class="pay-title"> 
-    <span class="time"><i class="icon-clock"></i><i data-time="2016-10-07 22:30:56" data-second="2699" class="LastPayTime"></i></span> 
+    <span class="time"><i class="icon-clock"></i><i data-time="" data-second="2699" class="LastPayTime"></i></span> 
     <p>订单已提交，请尽快完成支付</p> 
    </div> 
    <div class="payment">
-     应付房费 &nbsp; &nbsp;
-    <span class="payable"><b>￥</b>163.00</span>&nbsp; &nbsp;<!-- (优惠券抵扣<span>20</span>元)  -->
    </div> 
    <div class="pay-type-contain"> 
+   <section class="pay-type WX" data-type="2" data-orderid="261744" onclick="window.location.assign('/order/pay/wxpay?order_id=261744')"> 
+     <i class="type-img"></i> 
+     <p>微信支付<br /><span>方便快捷</span></p> 
+     <i class="icon-right"></i> 
+    </section> 
     <section class="pay-type ZFB" data-type="3" data-orderid="261744" onclick="window.location.assign('/order/pay/alipay?order_id=261744')"> 
      <i class="type-img"></i> 
      <p>支付宝支付<br /><span>推荐有支付宝账号的用户使用</span></p> 
@@ -81,7 +75,7 @@
      1.
     </dt> 
     <dd>
-     打开微信,点击右上角 “+” 添加朋友搜索 “一呆网”;
+     打开微信,点击右上角 “+” 添加朋友搜索 “1号房网”;
     </dd> 
     <dt>
      2.

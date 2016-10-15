@@ -10,7 +10,7 @@ import com.ddkfang.dao.entity.order.Order;
 
 public interface IOrdersService {
 
-	public String createOrder(Map<String, Object> infoMap) throws Exception;
+	public Order createOrder(Map<String, Object> infoMap) throws Exception;
 	
 	public Page<Order> getOrdersByBookerAndStatus(String userId, int status, Pageable pageable) throws Exception;
 	
