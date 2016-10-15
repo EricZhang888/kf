@@ -89,6 +89,17 @@ public class Order implements Serializable {
 	private int roomSittingCount;
 
 	private int status;
+	
+	@Column(name="user_display_status")
+	private int userDisplayStatus;
+
+	public int getUserDisplayStatus() {
+		return userDisplayStatus;
+	}
+
+	public void setUserDisplayStatus(int userDisplayStatus) {
+		this.userDisplayStatus = userDisplayStatus;
+	}
 
 	@Column(name="total_price")
 	private int totalPrice;

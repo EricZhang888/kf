@@ -3,11 +3,13 @@ package com.ddkfang.service.order.impl;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ddkfang.dao.entity.order.Order;
 import com.ddkfang.dao.entity.rooms.Room;
@@ -17,6 +19,7 @@ import com.ddkfang.dao.repositories.room.RoomBasicRepo;
 import com.ddkfang.dao.repositories.room.RoomPriceRepo;
 import com.ddkfang.exception.OrderDateConflictException;
 import com.ddkfang.service.order.IOrdersService;
+import com.ddkfang.service.rooms.IRoomPrice;
 import com.ddkfang.util.priceCalendar.PriceCalendarUtil;
 @Service
 public class OrdersServiceImpl implements IOrdersService {
@@ -30,10 +33,14 @@ public class OrdersServiceImpl implements IOrdersService {
 	@Autowired
 	RoomPriceRepo roomPriceRepo;
 	
+	@Autowired
+	IRoomPrice roomPrice;
+	
 	/**
 	 * return new order Id
 	 */
-	public Order createOrder(Map<String, Object> infoMap) throws Exception {
+	@Transactional
+	public Order createOrder(Map<String, Object> infoMap, Set<String> dayDetail) throws Exception {
 		
 		String id = infoMap.get("roomId").toString();
 		String beginDate = infoMap.get("checkInDate").toString();
@@ -64,6 +71,7 @@ public class OrdersServiceImpl implements IOrdersService {
 		or.setUpdateTime(PriceCalendarUtil.getCurrentTimestamp());
 		//新建订单 默认为待付款
 		or.setStatus(1);
+		or.setUserDisplayStatus(1);
 		or.setChannel((Integer)infoMap.get("channel"));
 		//设置房间冗余信息
 		or.setApartmentId(room.getRoomApartment().getApartmentId());
@@ -75,15 +83,17 @@ public class OrdersServiceImpl implements IOrdersService {
 		or.setRoomKitchenCount(room.getRoomKitchenCount());
 		or.setRoomName(room.getRoomName());
 		or.setRoomSittingCount(room.getRoomSittingCount());
-		or.setLastPayTime(PriceCalendarUtil.getExactTimestamp(Calendar.MINUTE, 30));
+		or.setLastPayTime(PriceCalendarUtil.getExactTimestamp(Calendar.MINUTE, 10));
 		or.setOrderNumber(PriceCalendarUtil.getUniqueTimestampStr());
 		orderRepo.save(or);
 		
 		//更新或插入价格日历
 		if(or.getId()!=null) {
-			return or;
+			for(String s : dayDetail) {
+				roomPrice.saveOrUpdatePriceCalendar(id, PriceCalendarUtil.stringToSimpleDate(s), 1, room.getRoomPrice());
+			}
 		}
-		return null;
+		return or;
 	}
 
 	public Page<Order> getOrdersByBookerAndStatus(String userId, int status, Pageable pageable) throws Exception {
@@ -100,6 +110,22 @@ public class OrdersServiceImpl implements IOrdersService {
 	public Order getOrdersById(String id) throws Exception {
 		Order or = orderRepo.findById(id);
 		return or;
+	}
+
+	public Order saveOrder(Order order) throws Exception {
+		Order or = orderRepo.save(order);
+		return or;
+	}
+
+	public void updatePriceCalendarForOvertimeOrder(Order or) throws Exception {
+		Room room = roomRepo.findOneByRoomId(or.getRoomId());
+		
+		int days = PriceCalendarUtil.dateDiff(or.getDateEnd(), or.getDateStart());
+		
+		Set<String> dayDetail = PriceCalendarUtil.genCalendarWithStr(PriceCalendarUtil.simpleDateToString(or.getDateStart()),days);
+		for(String s : dayDetail) {
+			roomPrice.saveOrUpdatePriceCalendar(room.getRoomId(), PriceCalendarUtil.stringToSimpleDate(s), 0);
+		}
 	}
 
 }

@@ -137,6 +137,16 @@ public class PriceCalendarUtil {
 		return dayDiff;
 	}
 	
+	public static int dateDiff(Date sd1, Date sd2) throws ParseException {
+		SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c1 = Calendar.getInstance();
+		c1.setTime(sd1);
+		Calendar c2 = Calendar.getInstance();
+		c2.setTime(sd2);
+		int dayDiff = (int) (c1.getTimeInMillis() - c2.getTimeInMillis())/(1000*60*60*24);
+		return dayDiff;
+	}
+	
 	public static String simpleDateToString(Date date) throws ParseException {
 		SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(date);

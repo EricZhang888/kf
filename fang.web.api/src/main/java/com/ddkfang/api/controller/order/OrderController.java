@@ -2,6 +2,7 @@ package com.ddkfang.api.controller.order;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -96,9 +98,9 @@ public class OrderController {
 				dp.setBasic_price(room.getRoomBasicPrice());
 				
 				if(rpc != null) {
-					totalPrice += rpc.getRoomDatePrice().intValue();
-					dp.setPreferential_price(rpc.getRoomDatePrice().intValue());
-					dp.setStandard_price(rpc.getRoomDatePrice().intValue());
+					totalPrice += rpc.getRoomDatePrice();
+					dp.setPreferential_price(rpc.getRoomDatePrice());
+					dp.setStandard_price(rpc.getRoomDatePrice());
 				} else {
 					totalPrice += room.getRoomPrice();
 					dp.setStandard_price(room.getRoomPrice());
@@ -114,7 +116,7 @@ public class OrderController {
 			}
 			infoMap.put("price", totalPrice);
 			infoMap.put("basicPrice", totalBasicPrice);
-			Order order = ordersService.createOrder(infoMap);
+			Order order = ordersService.createOrder(infoMap, cal);
 			responseMap.put("orderId", order.getId());
 			responseMap.put("lastpay", order.getLastPayTime());
 			responseMap.put("status", "A00000");
@@ -174,6 +176,32 @@ public class OrderController {
 			Room room = roomBasic.getRoomDetailById(or.getRoomId());
 			responseMap.put("order", or);
 			responseMap.put("room", room);
+			responseMap.put("status", HttpStatusConstant.orderStatus.ok.getCode());
+			responseMap.put("msg", HttpStatusConstant.orderStatus.ok.getMsg());
+			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Async
+	@RequestMapping(value="verifyOrderOvertime", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> verifyOrderOvertime(@RequestParam(value = "id", required = true) String id,
+			HttpServletRequest request){
+		Map<String, Object> responseMap = new HashMap<String, Object>();
+		try {
+			Order or = ordersService.getOrdersById(id);
+			
+			if(or.getLastPayTime().before(new Date())) {
+				//订单超时
+				or.setStatus(3);
+				or.setUserDisplayStatus(4);
+				ordersService.saveOrder(or);
+				ordersService.updatePriceCalendarForOvertimeOrder(or);
+			}
 			responseMap.put("status", HttpStatusConstant.orderStatus.ok.getCode());
 			responseMap.put("msg", HttpStatusConstant.orderStatus.ok.getMsg());
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);

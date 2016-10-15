@@ -89,7 +89,7 @@ public class RoomController {
 				pc.setDate(s);
 				if(rpc != null) {
 					pc.setIs_full_booked(rpc.getStatus()==0? 0 : 1);
-					pc.setPrice(rpc.getRoomDatePrice().intValue());
+					pc.setPrice(rpc.getRoomDatePrice());
 					pc.setIs_preferential_price(0);
 				} else {
 					pc.setIs_full_booked(0);
@@ -103,7 +103,6 @@ public class RoomController {
 			responseMap.put("msg", HttpStatusConstant.roomStatus.ok.getMsg());
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -141,9 +140,9 @@ public class RoomController {
 			dp.setBasic_price(room.getRoomBasicPrice());
 			
 			if(rpc != null) {
-				totalPrice += rpc.getRoomDatePrice().intValue();
-				dp.setPreferential_price(rpc.getRoomDatePrice().intValue());
-				dp.setStandard_price(rpc.getRoomDatePrice().intValue());
+				totalPrice += rpc.getRoomDatePrice();
+				dp.setPreferential_price(rpc.getRoomDatePrice());
+				dp.setStandard_price(rpc.getRoomDatePrice());
 			} else {
 				totalPrice += room.getRoomPrice();
 				dp.setStandard_price(room.getRoomPrice());

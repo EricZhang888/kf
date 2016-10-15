@@ -11,5 +11,7 @@ public interface RoomPriceRepo extends CrudRepository<RoomPriceCalendar, Seriali
 
 	public Iterable<RoomPriceCalendar> findById_RoomIdAndId_RoomDateBetween(String roomId, Date start, Date end);
 	
+	public RoomPriceCalendar findById_RoomIdAndId_RoomDate(String roomId, Date start);
+	
 	public Iterable<RoomPriceCalendar> findById_RoomIdAndId_RoomDateBetweenAndStatusNot(String roomId, Date start, Date end, int status);
 }

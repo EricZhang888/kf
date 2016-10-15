@@ -26,7 +26,7 @@ public class RoomPriceCalendar implements Serializable {
 	private Timestamp createTime;
 
 	@Column(name="room_date_price")
-	private BigDecimal roomDatePrice;
+	private int roomDatePrice;
 
 	private int status;
 
@@ -63,11 +63,11 @@ public class RoomPriceCalendar implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public BigDecimal getRoomDatePrice() {
+	public int getRoomDatePrice() {
 		return this.roomDatePrice;
 	}
 
-	public void setRoomDatePrice(BigDecimal roomDatePrice) {
+	public void setRoomDatePrice(int roomDatePrice) {
 		this.roomDatePrice = roomDatePrice;
 	}
 

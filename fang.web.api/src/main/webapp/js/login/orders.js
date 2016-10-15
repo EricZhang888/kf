@@ -1,4 +1,12 @@
-checkLogin(init);
+checkLogin(ordersPage);
+
+function ordersPage(user) {
+	if(user == null) {
+		location.href = "/html/user/login.html?redirect=" + encodeURIComponent(window.location.href);
+	} else {
+		init(user);
+	}
+};
 
 var s = ["all-order", "no-payment-order", "no-checkin-order", "", "", "", "no-remark-order"];
 var e = $("#myorder");
@@ -93,7 +101,7 @@ function genOrderHtml(a) {
     	    r += '<p class="info-item roomtype-nu"><span class="type">' + n + '</span> &nbsp;&nbsp;</p><br>',
     	    r += '<p class="info-item payment">订单总额 &nbsp;&nbsp;￥<span>' + a.price + "</span></p>",
     	    r += '<i class="icon-right"></i>';
-    switch (a.status) {
+    switch (a.userDisplayStatus) {
     case 1:
         r += '<i class="icon-no-pay order-type"></i>',
         r += "</div>",
