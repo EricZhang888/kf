@@ -22,4 +22,6 @@ public interface IOrdersService {
 	public Page<Order> getOrdersByBooker(String userId, Pageable pageable) throws Exception;
 	
 	public Order getOrdersById(String id) throws Exception;
+	
+	public void updateExpiredOrdersCalendar() throws Exception;
 }

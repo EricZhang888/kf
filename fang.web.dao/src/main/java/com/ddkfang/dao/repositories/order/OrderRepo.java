@@ -2,6 +2,7 @@ package com.ddkfang.dao.repositories.order;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,8 @@ public interface OrderRepo extends PagingAndSortingRepository<Order, Serializabl
 	public Page<Order> findByBookerIdAndStatus(String userId, int status, Pageable pageable);
 	
 	public Page<Order> findByBookerId(String userId, Pageable pageable);
+	
+	public List<Order> findByStatus(int status);
 	
 	public Order findById(String id);
 }

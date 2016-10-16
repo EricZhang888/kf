@@ -1,6 +1,8 @@
 package com.ddkfang.service.order.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -8,6 +10,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -125,6 +128,21 @@ public class OrdersServiceImpl implements IOrdersService {
 		Set<String> dayDetail = PriceCalendarUtil.genCalendarWithStr(PriceCalendarUtil.simpleDateToString(or.getDateStart()),days);
 		for(String s : dayDetail) {
 			roomPrice.saveOrUpdatePriceCalendar(room.getRoomId(), PriceCalendarUtil.stringToSimpleDate(s), 0);
+		}
+	}
+
+	@Async
+	public void updateExpiredOrdersCalendar() throws Exception {
+		// get add need pay order
+		List<Order> orList = orderRepo.findByStatus(1);
+		
+		for(Order or : orList) {
+			if(or.getLastPayTime().before(new Date())){
+				updatePriceCalendarForOvertimeOrder(or);
+			}
+			or.setStatus(3);
+			or.setUserDisplayStatus(4);
+			orderRepo.save(or);
 		}
 	}
 

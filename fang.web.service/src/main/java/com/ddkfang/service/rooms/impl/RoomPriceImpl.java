@@ -15,6 +15,7 @@ public class RoomPriceImpl implements IRoomPrice {
 
 	@Autowired
 	RoomPriceRepo roomPriceRepo;
+	
 	public void saveOrUpdatePriceCalendar(String roomId, Date date, int status, int price) {
 		RoomPriceCalendar rpc = roomPriceRepo.findById_RoomIdAndId_RoomDate(roomId, date);
 		if(rpc != null) {
