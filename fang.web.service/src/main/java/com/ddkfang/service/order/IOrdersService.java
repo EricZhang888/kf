@@ -23,5 +23,7 @@ public interface IOrdersService {
 	
 	public Order getOrdersById(String id) throws Exception;
 	
+	public boolean isOrdersExpired(String id) throws Exception;
+	
 	public void updateExpiredOrdersCalendar() throws Exception;
 }

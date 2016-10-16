@@ -146,4 +146,12 @@ public class OrdersServiceImpl implements IOrdersService {
 		}
 	}
 
+	public boolean isOrdersExpired(String id) throws Exception {
+		Order or = orderRepo.findById(id);
+		if(or.getLastPayTime().after(new Date())) {
+			return false;
+		}
+		return true;
+	}
+
 }

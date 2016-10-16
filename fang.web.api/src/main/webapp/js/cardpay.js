@@ -22,6 +22,12 @@ $.ajax({
     }
 })
 
+$(".pay-type.WX").attr("data-orderid",sPara.order_id);
+$(".pay-type.WX").on("click",function(){window.location.assign("/api/order/pay/wxpay?order_id=" +  sPara.order_id )});
+$(".pay-type.ZFB").attr("data-orderid",sPara.order_id);
+$(".pay-type.ZFB").on("click",function(){window.location.assign("/api/order/pay/alipay?order_id=" +  sPara.order_id )});
+$(".pay-type.UP").attr("data-orderid",sPara.order_id);
+$(".pay-type.UP").on("click",function(){window.location.assign("/api/order/pay/unionpay?order_id=" +  sPara.order_id)});
 $(".LastPayTime").attr("data-time", dateStr(new Date(parseFloat(sPara.lastpay))));
 $(".payment").html("应付房费 &nbsp; &nbsp;<span class=\"payable\"><b>￥</b>" + sPara.price + "</span>&nbsp; &nbsp;");
 var s;
