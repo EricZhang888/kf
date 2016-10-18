@@ -77,7 +77,7 @@ $(document).ready(function(){
 function checkLogin(callBack) {
 	$.ajax({
         type: "GET",
-        url: "/api/user/checkUserLogin",
+        url: "/api/user/checkUserLogin?_key=" + Math.random(),
         xhrFields: {
             withCredentials: !0
         },

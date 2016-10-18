@@ -3,9 +3,12 @@ package com.ddkfang.service.orderpay.union.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ddkfang.constant.UnionPayConstant;
+import com.ddkfang.dao.entity.order.UnionpayRes;
+import com.ddkfang.dao.repositories.order.UnionpayRepo;
 import com.ddkfang.service.orderpay.union.IUnionPayService;
 import com.ddkfang.util.unionpay.UnionPayUtil;
 import com.unionpay.acp.sdk.AcpService;
@@ -14,6 +17,9 @@ import com.unionpay.acp.sdk.SDKConfig;
 @Service
 public class UnionPayService implements IUnionPayService {
 
+	@Autowired
+	UnionpayRepo unionpayRepo;
+	
 	public String genPayData(String orderId, int price, String txnType) {
 		Map<String, String> requestData = new HashMap<String, String>();
 		
@@ -63,5 +69,9 @@ public class UnionPayService implements IUnionPayService {
 		//将生成的html写到浏览器中完成自动跳转打开银联支付页面；这里调用signData之后，将html写到浏览器跳转到银联页面之前均不能对html中的表单项的名称和值进行修改，如果修改会导致验签不通过
 		
 		return html;
+	}
+
+	public void saveUnionpayRes(UnionpayRes res) {
+		unionpayRepo.save(res);
 	}
 }

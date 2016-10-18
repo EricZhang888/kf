@@ -60,7 +60,7 @@ public class Order implements Serializable {
 	@Column(name="pay_time")
 	private Timestamp payTime;
 
-	private String payment;
+	private int payment;
 
 	@Column(name="payment_callback")
 	private String paymentCallback;
@@ -236,11 +236,11 @@ public class Order implements Serializable {
 		this.payTime = payTime;
 	}
 
-	public String getPayment() {
+	public int getPayment() {
 		return this.payment;
 	}
 
-	public void setPayment(String payment) {
+	public void setPayment(int payment) {
 		this.payment = payment;
 	}
 

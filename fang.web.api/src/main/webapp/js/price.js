@@ -73,7 +73,7 @@ var checkOutSelect;
             
 		$.ajax({
             type: "GET",
-            url: window.g_base.apibase + "/room/getPriceCalendar",
+            url: window.g_base.apibase + "/room/getPriceCalendar?_key=" + Math.random(),
             xhrFields: {
                 withCredentials: !0
             },

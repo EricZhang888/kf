@@ -9,7 +9,7 @@ public class UnionPayConstant {
 	//全渠道固定值
 	public static String version = "5.0.0";
 	
-	public static String frontUrl = "http://127.0.0.1:8080/ACPSample_B2C/frontRcvResponse";
+	public static String frontUrl = "http://1hf.bohosi.com/api/order/pay/unionpayFrontRec";
 	
 	public static String backUrl = "http://222.222.222.222:8080/ACPSample_B2C/BackRcvResponse";//受理方和发卡方自选填写的域[O]--后台通知地址
 	
