@@ -73,12 +73,18 @@
 			<artifactId>jbcrypt</artifactId>
 			<version>0.3m</version>
 		</dependency>
-		<dependency> 
-	        <groupId>com.alibaba</groupId> 
-	        <artifactId>sms</artifactId> 
-	        <version>20160607</version> 
-	        <scope>system</scope> 
-	        <systemPath>E:/eclipseWorkspace/kf/fang.web.api/src/main/webapp/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607.jar</systemPath> 
-    	</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>sms</artifactId>
+			<version>20160607</version>
+			<scope>system</scope>
+			<systemPath>E:/eclipseWorkspace/kf/fang.web.api/src/main/webapp/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607.jar</systemPath>
+		</dependency>
+		<dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.7</version>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
 </project>

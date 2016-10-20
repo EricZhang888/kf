@@ -1,5 +1,6 @@
 package com.ddkfang.api.controller.order;
 
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ddkfang.constant.UnionPayConstant;
 import com.ddkfang.dao.entity.order.Order;
 import com.ddkfang.dao.entity.order.UnionpayRes;
 import com.ddkfang.service.order.IOrdersService;
 import com.ddkfang.service.orderpay.union.IUnionPayService;
+import com.ddkfang.service.orderpay.wx.IWxPayService;
 import com.unionpay.acp.sdk.AcpService;
 
 @RestController
@@ -32,6 +35,9 @@ public class OrderPayController {
 	
 	@Autowired
 	IUnionPayService unionPayService;
+	
+	@Autowired
+	IWxPayService wxPayService;
 
 	@RequestMapping(value="unionpay", method=RequestMethod.GET)
 	public void createOrder(@RequestParam(name="order_id",required=true) String orderId,
@@ -41,8 +47,9 @@ public class OrderPayController {
 		//判断order是否过期
 		if(or.getStatus() == 1) {
 			if(or.getLastPayTime().before(new Date())) {
-				resp.getWriter().write("订单超时");
-				String s = "/html/order/payresult.html?msg=订单超时&redirect=/html/user/home/orders.html";
+				
+				String msg = URLEncoder.encode("订单超时", "UTF-8");
+				String s = "/html/order/payresult.html?msg=" + msg + "&redirect=/html/user/home/orders.html";
 				resp.sendRedirect(s);
 			}
 			String html = unionPayService.genPayData(or.getId(), or.getPrice(), "01");
@@ -55,18 +62,26 @@ public class OrderPayController {
 	
 	@RequestMapping(value="wxpay", method=RequestMethod.GET)
 	public void wxpay(@RequestParam(name="order_id",required=true) String orderId,
+			@RequestParam(name="code",required=true) String code,
 			HttpServletResponse resp,
 			HttpServletRequest request) throws Exception{
+		
 		Order or = ordersService.getOrdersById(orderId);
 		//判断order是否过期
 		if(or.getStatus() == 1) {
 			if(or.getLastPayTime().before(new Date())) {
-				resp.getWriter().write("订单超时");
-				String s = "/html/orderpay/payresult.html?msg=订单超时&redirect=/html/user/home/orders.html";
+				String msg = URLEncoder.encode("订单超时", "UTF-8");
+				String s = "/html/orderpay/payresult.html?msg=" + msg +"&redirect=/html/user/home/orders.html";
 				resp.sendRedirect(s);
 			}
-			String html = unionPayService.genPayData(or.getOrderNumber(), or.getPrice(), "01");
-			resp.getWriter().write(html);
+			String token = wxPayService.genPayToken(code);
+			
+			JSONObject tokenJson = JSONObject.parseObject(token);
+			String openid = tokenJson.getString("openid");
+			String payParam = wxPayService.genPayData(or.getId(), openid, or.getPrice(), request.getRemoteAddr());
+			String s = "/html/orderpay/sendWxPay.html?"+payParam;
+			//s = URLEncoder.encode(s, "UTF-8");
+			resp.sendRedirect(s);
 		} else {
 			//订单不是待支付状态
 		}  
@@ -107,8 +122,7 @@ public class OrderPayController {
 		
 		//无论成功失败，新增此次交易记录
 		unionPayService.saveUnionpayRes(initUnionpayRes(valideData));
-		s = resp.encodeURL(s);
-		System.out.println(s);
+		s = URLEncoder.encode(s, "UTF-8");
 		resp.sendRedirect(s);
 		
 	}

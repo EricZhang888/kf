@@ -23,7 +23,10 @@ $.ajax({
 })
 
 $(".pay-type.WX").attr("data-orderid",sPara.order_id);
-$(".pay-type.WX").on("click",function(){window.location.assign("/api/order/pay/wxpay?order_id=" +  sPara.order_id )});
+var wxOpen = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxdd005183eae96215&redirect_uri=http://1hf.bohosi.com/api/order/pay/wxpay?order_id=" + sPara.order_id + "&response_type=code&scope=snsapi_base#wechat_redirect";
+	
+$(".pay-type.WX").on("click",function(){window.location.assign(wxOpen)});
+//$(".pay-type.WX").on("click", function(){pay();});
 $(".pay-type.ZFB").attr("data-orderid",sPara.order_id);
 $(".pay-type.ZFB").on("click",function(){window.location.assign("/api/order/pay/alipay?order_id=" +  sPara.order_id )});
 $(".pay-type.UP").attr("data-orderid",sPara.order_id);
@@ -56,3 +59,8 @@ function e() {
       , t = Math.floor(s - 60 * e);
     $(".LastPayTime").text(e + ":" + (t < 10 ? "0" + t : t))
 }
+
+
+
+
+
