@@ -1,5 +1,7 @@
 package com.ddkfang.jobs.order;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -15,9 +17,9 @@ public class OrderJob {
 	@Scheduled(cron="0 0/5 * * * ? ")
 	public void updateExpiredOrder(){
 		try {
-			System.out.println("进入过期订单处理");
+			System.out.println(new Date().toString() + "start overtime order handling");
 			ordersService.updateExpiredOrdersCalendar();
-			System.out.println("结束过期订单处理");
+			System.out.println(new Date().toString() + "finish overtime order handling");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableScheduling
 //@EnableLoadTimeWeaving
-@ComponentScan(basePackages = "com.ddkfang.dao")
+//@ComponentScan(basePackages = "com.ddkfang.dao")
 @EnableAsync(mode = AdviceMode.PROXY, proxyTargetClass = false, order = Ordered.HIGHEST_PRECEDENCE)
 @EnableTransactionManagement(mode = AdviceMode.PROXY, proxyTargetClass = false, order = Ordered.LOWEST_PRECEDENCE)
 @EnableJpaRepositories(queryLookupStrategy= Key.CREATE_IF_NOT_FOUND, basePackages = "com.ddkfang.dao.repositories", entityManagerFactoryRef = "entityManagerFactoryBean", transactionManagerRef = "jpaTransactionManager")

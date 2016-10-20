@@ -12,7 +12,7 @@ import com.ddkfang.dao.entity.order.Order;
 
 public interface OrderRepo extends PagingAndSortingRepository<Order, Serializable>{
 	
-	public Page<Order> findByBookerIdAndStatus(String userId, int status, Pageable pageable);
+	public Page<Order> findByBookerIdAndStatusOrderByCreateTimeDesc(String userId, int status, Pageable pageable);
 	
 	public Page<Order> findByBookerId(String userId, Pageable pageable);
 	

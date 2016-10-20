@@ -1,6 +1,5 @@
 package com.ddkfang.service.order.impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -56,7 +55,7 @@ public class OrdersServiceImpl implements IOrdersService {
 				0
 				);
 		Room room = roomRepo.findOneByRoomId(id);
-		List<RoomPriceCalendar> list = (List)it;
+		List<RoomPriceCalendar> list = (List<RoomPriceCalendar>)it;
 		if(list.size() > 0) {
 			throw new OrderDateConflictException();
 		}
@@ -100,7 +99,7 @@ public class OrdersServiceImpl implements IOrdersService {
 	}
 
 	public Page<Order> getOrdersByBookerAndStatus(String userId, int status, Pageable pageable) throws Exception {
-		Page<Order> po = orderRepo.findByBookerIdAndStatus(userId, status, pageable);
+		Page<Order> po = orderRepo.findByBookerIdAndStatusOrderByCreateTimeDesc(userId, status, pageable);
 		
 		return po;
 	}
@@ -139,10 +138,10 @@ public class OrdersServiceImpl implements IOrdersService {
 		for(Order or : orList) {
 			if(or.getLastPayTime().before(new Date())){
 				updatePriceCalendarForOvertimeOrder(or);
+				or.setStatus(3);
+				or.setUserDisplayStatus(4);
+				orderRepo.save(or);
 			}
-			or.setStatus(3);
-			or.setUserDisplayStatus(4);
-			orderRepo.save(or);
 		}
 	}
 
