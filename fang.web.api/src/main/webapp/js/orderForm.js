@@ -23,7 +23,6 @@ $(".payable-value").text(sPara.price);
 $(".warm-tip p").text("允许变更/取消,该订单允许在" + date[0] +"年" + date[1] + "月"+ (date[2]-1) +"日 12点前取消，可全额退款，已支付的房费将在5-7工作日退回到您的支付账户");
 $("#roomId").val(sPara.roomId);
 //initial end
-
 $(".submit-order").on("click tap",function() {
     const e = this;
     var t = $(".checkin-man").val()

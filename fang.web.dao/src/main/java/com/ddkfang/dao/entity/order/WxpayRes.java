@@ -10,7 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name = "tb_wxpay_res")
-@NamedQuery(name = "WxpayRe.findAll", query = "SELECT w FROM WxpayRe w")
+@NamedQuery(name = "WxpayRes.findAll", query = "SELECT w FROM WxpayRes w")
 public class WxpayRes implements Serializable
 {
 	private static final long serialVersionUID = 1L;

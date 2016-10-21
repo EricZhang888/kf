@@ -22,6 +22,8 @@ public interface IOrdersService
 	public Page<Order> getOrdersByBooker(String userId, Pageable pageable) throws Exception;
 
 	public Order getOrdersById(String id) throws Exception;
+	
+	public Order getOrdersByOrderNumber(String orderNo) throws Exception;
 
 	public boolean isOrdersExpired(String id) throws Exception;
 

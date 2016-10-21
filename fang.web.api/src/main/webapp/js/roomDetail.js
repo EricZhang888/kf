@@ -124,11 +124,11 @@ function genRoomAmenities(e){
 	for (var a = 0; a < Math.min(e.tbRoomAmenities.length, 10); a++) {
 		t += '<li><i class="icon-' + e.tbRoomAmenities[a].icon + '"></i><span>' + e.tbRoomAmenities[a].amenityName + "</span></li>";
 	}
-	if (Math.min(e.tbRoomAmenities.length, 10) < 10){
+	/*if (Math.min(e.tbRoomAmenities.length, 10) < 10){
 		for (var i = 0; i < Math.min(e.tbRoomAmenities.length, 10 - Math.min(e.tbRoomAmenities.length, 10)); i++) {
 			t += '<li><i class="icon-' + e.tbRoomAmenities[i].icon + '"></i><span>' + e.tbRoomAmenities[i].amenityName + "</span></li>";
 		}
-	} 
+	} */
 	return t += "</ul>",
 	e.tbRoomAmenities.length + e.tbRoomAmenities.length > 10 && (t += '<p><span class="look-all-btn" id="findAllFac">查看全部</span></p>'),
 	t += "</div>"

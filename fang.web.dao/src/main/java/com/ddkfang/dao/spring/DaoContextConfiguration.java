@@ -46,6 +46,7 @@ public class DaoContextConfiguration implements AsyncConfigurer, SchedulingConfi
 		properties.put("hibernate.ejb.use_class_enhancer", "false");
 
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+		//adapter.setShowSql(true);
 		adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5InnoDBDialect");
 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();

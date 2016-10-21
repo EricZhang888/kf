@@ -9,12 +9,9 @@
 <meta name="apple-mobile-web-app-title" content="1号房公寓" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<link rel="Shortcut Icon" type="image/x-icon"
-	href="/public/img/favicon.ico" />
-<link rel="apple-touch-icon" sizes="120x120"
-	href="/public/img/app-logo-120.png" />
-<link rel="apple-touch-icon" sizes="152x152"
-	href="/public/img/app-logo-152.png" />
+<link rel="Shortcut Icon" type="image/x-icon" href="/public/img/favicon.ico" />
+<link rel="apple-touch-icon" sizes="120x120" href="/public/img/app-logo-120.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="/public/img/app-logo-152.png" />
 <meta name="screen-orientation" content="portrait" />
 <meta name="x5-orientation" content="portrait" />
 <meta content="telephone=no" name="format-detection" />
@@ -52,6 +49,7 @@
 	var pg = sPara.pg;
 	var signType = sPara.signType;
 	var paySign = sPara.paySign;
+	var orderNo = sPara.orderNo;
 
 	function onBridgeReady() {
 
@@ -66,12 +64,7 @@
 		},
 
 		function(res) {
-			if (res.errMsg == "get_brand_wcpay_request:ok") {
-
-				alert("支付成功");
-			} else {
-				alert(res.errMsg);
-			}// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。   
+			window.location.href = window.g_base.apibase + "/order/pay/wxPayFrontendNotify?msg=" + res.err_msg + "&orderNo=" + orderNo;
 		});
 	}
 

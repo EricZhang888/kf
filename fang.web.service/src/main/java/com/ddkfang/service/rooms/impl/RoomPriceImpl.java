@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.ddkfang.dao.entity.rooms.RoomPriceCalendar;
 import com.ddkfang.dao.entity.rooms.RoomPriceCalendarPK;
 import com.ddkfang.dao.repositories.room.RoomPriceRepo;
-import com.ddkfang.exception.OrderDateConflictException;
 import com.ddkfang.service.rooms.IRoomPrice;
 import com.ddkfang.util.priceCalendar.PriceCalendarUtil;
 @Service
@@ -23,10 +22,6 @@ public class RoomPriceImpl implements IRoomPrice
 		RoomPriceCalendar rpc = roomPriceRepo.findById_RoomIdAndId_RoomDate(roomId, date);
 		if (rpc != null)
 		{
-			if (rpc.getStatus() == 1)
-			{
-				throw new OrderDateConflictException();
-			}
 			rpc.setStatus(status);
 			rpc.setUpdateTime(PriceCalendarUtil.getCurrentTimestamp());
 			roomPriceRepo.save(rpc);

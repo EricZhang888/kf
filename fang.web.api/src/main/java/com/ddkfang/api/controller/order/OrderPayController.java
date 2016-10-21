@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ddkfang.constant.OrderStatus;
+import com.ddkfang.constant.OrderStatusUserDisney;
+import com.ddkfang.constant.Payment;
 import com.ddkfang.constant.UnionPayConstant;
+import com.ddkfang.constant.UrlConstant;
 import com.ddkfang.dao.entity.order.Order;
 import com.ddkfang.dao.entity.order.UnionpayRes;
 import com.ddkfang.service.order.IOrdersService;
@@ -52,7 +56,7 @@ public class OrderPayController
 			{
 
 				String msg = URLEncoder.encode("订单超时", "UTF-8");
-				String s = "/html/order/payresult.html?msg=" + msg + "&redirect=/html/user/home/orders.html";
+				String s = UrlConstant.PAYRESULT + "?msg=" + msg + "&redirect=" + UrlConstant.ORDERS;
 				resp.sendRedirect(s);
 			}
 			String html = unionPayService.genPayData(or.getId(), or.getPrice(), "01");
@@ -60,7 +64,7 @@ public class OrderPayController
 		} else
 		{
 			String msg = URLEncoder.encode("订单不是待支付状态", "UTF-8");
-			String s = "/html/orderpay/payresult.html?msg=" + msg + "&redirect=/html/user/home/orders.html";
+			String s = UrlConstant.PAYRESULT + "?msg=" + msg + "&redirect=" + UrlConstant.ORDERS;
 			resp.sendRedirect(s);
 		}
 
@@ -79,7 +83,7 @@ public class OrderPayController
 			if (or.getLastPayTime().before(new Date()))
 			{
 				String msg = URLEncoder.encode("订单超时", "UTF-8");
-				String s = "/html/orderpay/payresult.html?msg=" + msg + "&redirect=/html/user/home/orders.html";
+				String s = UrlConstant.PAYRESULT + "?msg=" + msg + "&redirect=" + UrlConstant.ORDERS;
 				resp.sendRedirect(s);
 			}
 			String token = wxPayService.genPayToken(code);
@@ -95,16 +99,34 @@ public class OrderPayController
 		{
 			//订单不是待支付状态
 			String msg = URLEncoder.encode("订单不是待支付状态", "UTF-8");
-			String s = "/html/orderpay/payresult.html?msg=" + msg + "&redirect=/html/user/home/orders.html";
+			String s = UrlConstant.PAYRESULT + "?msg=" + msg + "&redirect=" + UrlConstant.ORDERS;
 			resp.sendRedirect(s);
 		}
 
 	}
 
-	@RequestMapping(value = "wxPayBackenNotify", method = RequestMethod.GET)
-	public void wxPayBackenNotify(HttpServletResponse resp, HttpServletRequest request)
+	@RequestMapping(value = "wxPayBackendNotify", method = RequestMethod.POST)
+	public void wxPayBackendNotify(HttpServletResponse resp, HttpServletRequest request)
 	{
+		request.getParameterValues("qqq");
+	}
 
+	@RequestMapping(value = "wxPayFrontendNotify", method = RequestMethod.GET)
+	public void wxPayFrontendNotify(@RequestParam(value = "msg", required = true) String msg, 
+			@RequestParam(value = "orderNo", required = true) String orderNo,
+			HttpServletResponse resp,
+			HttpServletRequest request) throws Exception
+	{
+		System.out.println("fanhuizhi:" + msg);
+		if(msg.equalsIgnoreCase("get_brand_wcpay_request:ok") && wxPayService.isOrderPaid(orderNo)) {
+			//成功则更新订单状态
+			Order or = ordersService.getOrdersByOrderNumber(orderNo);
+			or.setStatus(OrderStatus.paid.getValue());
+			or.setUserDisplayStatus(OrderStatusUserDisney.paid.getValue());
+			or.setPayment(Payment.weixin.getValue());
+			ordersService.saveOrder(or);
+		}
+		resp.sendRedirect(UrlConstant.ORDERS);
 	}
 
 	@RequestMapping(value = "unionpayFrontRec", method = RequestMethod.POST)
@@ -129,16 +151,16 @@ public class OrderPayController
 
 		if (valideData.get("respCode").equals("00") && AcpService.validate(valideData, UnionPayConstant.encoding_UTF8))
 		{
-			s = "/html/orderpay/payresult.html?msg=支付成功&redirect=/html/user/home/orders.html";
+			s = UrlConstant.PAYRESULT + "?msg=支付成功&redirect=" + UrlConstant.ORDERS;
 			Order or = ordersService.getOrdersById(valideData.get("orderId"));
-			or.setStatus(2);
-			or.setUserDisplayStatus(3);
-			or.setPayment(3);
+			or.setStatus(OrderStatus.paid.getValue());
+			or.setUserDisplayStatus(OrderStatusUserDisney.paid.getValue());
+			or.setPayment(Payment.zhifubao.getValue());
 			ordersService.saveOrder(or);
 
 		} else
 		{
-			s = "/html/orderpay/payresult.html?msg=付款异常，如您在银联已付款将被退回&redirect=/html/user/home/orders.html";
+			s = UrlConstant.PAYRESULT + "?msg=付款异常，如您在银联已付款将被退回&redirect=" + UrlConstant.ORDERS;
 			System.out.println(valideData.get("orderId")); //其他字段也可用类似方式获取
 		}
 

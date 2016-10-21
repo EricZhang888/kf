@@ -182,4 +182,4 @@ function init(e) {
 	}
 	
 try{ document.domain = 'bohosi.com';}catch(e){}
-            window.g_base = {"sitebase":"http://localhost","apibase":"http://1hf.bohosi.com/api"}
+            window.g_base = {"sitebase":"http://1hf.bohosi.com","apibase":"http://1hf.bohosi.com/api"}

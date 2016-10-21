@@ -14,9 +14,11 @@ public interface OrderRepo extends PagingAndSortingRepository<Order, Serializabl
 
 	public Page<Order> findByBookerIdAndStatusOrderByCreateTimeDesc(String userId, int status, Pageable pageable);
 
-	public Page<Order> findByBookerId(String userId, Pageable pageable);
+	public Page<Order> findByBookerIdOrderByCreateTimeDesc(String userId, Pageable pageable);
 
 	public List<Order> findByStatus(int status);
 
 	public Order findById(String id);
+	
+	public Order findByOrderNumber(String orderNo);
 }

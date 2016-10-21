@@ -26,7 +26,6 @@ import com.ddkfang.util.priceCalendar.PriceCalendarUtil;
 @Service
 public class OrdersServiceImpl implements IOrdersService
 {
-
 	@Autowired
 	OrderRepo orderRepo;
 
@@ -110,7 +109,7 @@ public class OrdersServiceImpl implements IOrdersService
 
 	public Page<Order> getOrdersByBooker(String userId, Pageable pageable) throws Exception
 	{
-		Page<Order> po = orderRepo.findByBookerId(userId, pageable);
+		Page<Order> po = orderRepo.findByBookerIdOrderByCreateTimeDesc(userId, pageable);
 		return po;
 	}
 
@@ -166,6 +165,13 @@ public class OrdersServiceImpl implements IOrdersService
 			return false;
 		}
 		return true;
+	}
+
+	public Order getOrdersByOrderNumber(String orderNo) throws Exception
+	{
+		Order or = orderRepo.findByOrderNumber(orderNo);
+		
+		return or;
 	}
 
 }
