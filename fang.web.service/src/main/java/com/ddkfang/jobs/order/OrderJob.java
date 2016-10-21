@@ -9,18 +9,22 @@ import org.springframework.stereotype.Component;
 import com.ddkfang.service.order.IOrdersService;
 
 @Component
-public class OrderJob {
+public class OrderJob
+{
 
 	@Autowired
 	IOrdersService ordersService;
-	
-	@Scheduled(cron="0 0/5 * * * ? ")
-	public void updateExpiredOrder(){
-		try {
+
+	@Scheduled(cron = "0 0/5 * * * ? ")
+	public void updateExpiredOrder()
+	{
+		try
+		{
 			System.out.println(new Date().toString() + "start overtime order handling");
 			ordersService.updateExpiredOrdersCalendar();
 			System.out.println(new Date().toString() + "finish overtime order handling");
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

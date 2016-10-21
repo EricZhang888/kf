@@ -23,7 +23,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @ComponentScan(basePackages = "com.ddkfang")
-public class RestServletContextConfiguration extends WebMvcConfigurerAdapter {
+public class RestServletContextConfiguration extends WebMvcConfigurerAdapter
+{
 	@Autowired
 	ApplicationContext applicationContext;
 
@@ -45,16 +46,15 @@ public class RestServletContextConfiguration extends WebMvcConfigurerAdapter {
 		converters.add(new SourceHttpMessageConverter<Source>());
 
 		MarshallingHttpMessageConverter xmlConverter = new MarshallingHttpMessageConverter();
-		xmlConverter.setSupportedMediaTypes(
-				Arrays.asList(new MediaType("application", "xml", Charset.forName("UTF-8")),
-						new MediaType("text", "xml", Charset.forName("UTF-8"))));
+		xmlConverter.setSupportedMediaTypes(Arrays.asList(new MediaType("application", "xml", Charset.forName("UTF-8")),
+				new MediaType("text", "xml", Charset.forName("UTF-8"))));
 		//xmlConverter.setMarshaller(this.marshaller);
 		//xmlConverter.setUnmarshaller(this.unmarshaller);
 		converters.add(xmlConverter);
 
 		MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
-		jsonConverter.setSupportedMediaTypes(
-				Arrays.asList(new MediaType("application", "json", Charset.forName("UTF-8")),
+		jsonConverter
+				.setSupportedMediaTypes(Arrays.asList(new MediaType("application", "json", Charset.forName("UTF-8")),
 						new MediaType("text", "json", Charset.forName("UTF-8"))));
 		//jsonConverter.setObjectMapper(this.objectMapper);
 		converters.add(jsonConverter);

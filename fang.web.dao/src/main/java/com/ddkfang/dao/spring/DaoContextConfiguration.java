@@ -34,8 +34,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //@ComponentScan(basePackages = "com.ddkfang.dao")
 @EnableAsync(mode = AdviceMode.PROXY, proxyTargetClass = false, order = Ordered.HIGHEST_PRECEDENCE)
 @EnableTransactionManagement(mode = AdviceMode.PROXY, proxyTargetClass = false, order = Ordered.LOWEST_PRECEDENCE)
-@EnableJpaRepositories(queryLookupStrategy= Key.CREATE_IF_NOT_FOUND, basePackages = "com.ddkfang.dao.repositories", entityManagerFactoryRef = "entityManagerFactoryBean", transactionManagerRef = "jpaTransactionManager")
-public class DaoContextConfiguration implements AsyncConfigurer, SchedulingConfigurer {
+@EnableJpaRepositories(queryLookupStrategy = Key.CREATE_IF_NOT_FOUND, basePackages = "com.ddkfang.dao.repositories", entityManagerFactoryRef = "entityManagerFactoryBean", transactionManagerRef = "jpaTransactionManager")
+public class DaoContextConfiguration implements AsyncConfigurer, SchedulingConfigurer
+{
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean()
@@ -57,7 +58,7 @@ public class DaoContextConfiguration implements AsyncConfigurer, SchedulingConfi
 		factory.setJpaPropertyMap(properties);
 		return factory;
 	}
-	
+
 	@Bean
 	public PlatformTransactionManager jpaTransactionManager()
 	{
@@ -70,18 +71,21 @@ public class DaoContextConfiguration implements AsyncConfigurer, SchedulingConfi
 		JndiDataSourceLookup lookup = new JndiDataSourceLookup();
 		return lookup.getDataSource("jdbc/ddkfang");
 	}
-	
-	public void configureTasks(ScheduledTaskRegistrar arg0) {
+
+	public void configureTasks(ScheduledTaskRegistrar arg0)
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public Executor getAsyncExecutor() {
+	public Executor getAsyncExecutor()
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+	public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler()
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}

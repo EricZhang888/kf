@@ -1,6 +1,5 @@
 package com.ddkfang.dao.repositories.base;
 
-
 import static org.springframework.data.jpa.repository.query.QueryUtils.toOrders;
 
 import java.io.Serializable;
@@ -18,45 +17,40 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-public abstract class AbstractSearchableJpaRepository<T>
-        extends AbstractDomainClassAwareRepository<T>
-        implements IBaseRepo<T, Serializable>
+public abstract class AbstractSearchableJpaRepository<T> extends AbstractDomainClassAwareRepository<T>
+		implements
+			IBaseRepo<T, Serializable>
 {
-    @PersistenceContext 
-    protected EntityManager entityManager;
+	@PersistenceContext
+	protected EntityManager entityManager;
 
-    @Override
-    public Page<T> search(SearchCriteria criteria, Pageable pageable)
-    {
-        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+	@Override
+	public Page<T> search(SearchCriteria criteria, Pageable pageable)
+	{
+		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
-        CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-        Root<T> countRoot = countCriteria.from(this.domainClass);
-        long total = this.entityManager.createQuery(
-                countCriteria.select(builder.count(countRoot))
-                        .where(toPredicates(criteria, countRoot, builder))
-        ).getSingleResult();
+		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+		Root<T> countRoot = countCriteria.from(this.domainClass);
+		long total = this.entityManager.createQuery(
+				countCriteria.select(builder.count(countRoot)).where(toPredicates(criteria, countRoot, builder)))
+				.getSingleResult();
 
-        CriteriaQuery<T> pageCriteria = builder.createQuery(this.domainClass);
-        Root<T> pageRoot = pageCriteria.from(this.domainClass);
-        List<T> list = this.entityManager.createQuery(
-                pageCriteria.select(pageRoot)
-                        .where(toPredicates(criteria, pageRoot, builder))
-                        .orderBy(toOrders(pageable.getSort(), pageRoot, builder))
-        ).setFirstResult(pageable.getOffset())
-                .setMaxResults(pageable.getPageSize())
-                .getResultList();
+		CriteriaQuery<T> pageCriteria = builder.createQuery(this.domainClass);
+		Root<T> pageRoot = pageCriteria.from(this.domainClass);
+		List<T> list = this.entityManager
+				.createQuery(pageCriteria.select(pageRoot).where(toPredicates(criteria, pageRoot, builder))
+						.orderBy(toOrders(pageable.getSort(), pageRoot, builder)))
+				.setFirstResult(pageable.getOffset()).setMaxResults(pageable.getPageSize()).getResultList();
 
-        return new PageImpl(new ArrayList(list), pageable, total);
-    }
+		return new PageImpl(new ArrayList(list), pageable, total);
+	}
 
-    private static Predicate[] toPredicates(SearchCriteria criteria, Root<?> root,
-                                            CriteriaBuilder builder)
-    {
-        Predicate[] predicates = new Predicate[criteria.size()];
-        int i = 0;
-        for(Criterion c : criteria)
-            predicates[i++] = c.getOperator().toPredicate(c, root, builder);
-        return predicates;
-    }
+	private static Predicate[] toPredicates(SearchCriteria criteria, Root<?> root, CriteriaBuilder builder)
+	{
+		Predicate[] predicates = new Predicate[criteria.size()];
+		int i = 0;
+		for (Criterion c : criteria)
+			predicates[i++] = c.getOperator().toPredicate(c, root, builder);
+		return predicates;
+	}
 }

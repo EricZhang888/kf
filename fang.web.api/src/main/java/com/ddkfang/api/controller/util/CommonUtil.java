@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ddkfang.api.controller.BaseController;
 @RestController
 @RequestMapping("/api/commUtil")
-public class CommonUtil extends BaseController {
+public class CommonUtil extends BaseController
+{
 
 	@RequestMapping(value = "getUTC0SysTime", method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> getUTC0SysTime(){
+	public @ResponseBody Map<String, Object> getUTC0SysTime()
+	{
 		Date d = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		sf.setTimeZone(TimeZone.getTimeZone("Greenwich"));
@@ -26,8 +28,9 @@ public class CommonUtil extends BaseController {
 		time.put("now", s);
 		return time; //"{\"now\": \"" + s +  "\" }";
 	}
-	
-	public static void main(String[] args) {
+
+	public static void main(String[] args)
+	{
 		Date d = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		sf.setTimeZone(TimeZone.getTimeZone("Greenwich"));

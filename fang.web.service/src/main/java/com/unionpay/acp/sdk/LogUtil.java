@@ -22,15 +22,21 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LogUtil {
+public class LogUtil
+{
 
 	private final static Logger GATELOG = LoggerFactory.getLogger("ACP_SDK_LOG");
+
 	private final static Logger GATELOG_ERROR = LoggerFactory.getLogger("SDK_ERR_LOG");
+
 	private final static Logger GATELOG_MESSAGE = LoggerFactory.getLogger("SDK_MSG_LOG");
 
 	final static String LOG_STRING_REQ_MSG_BEGIN = "============================== SDK REQ MSG BEGIN ==============================";
+
 	final static String LOG_STRING_REQ_MSG_END = "==============================  SDK REQ MSG END  ==============================";
+
 	final static String LOG_STRING_RSP_MSG_BEGIN = "============================== SDK RSP MSG BEGIN ==============================";
+
 	final static String LOG_STRING_RSP_MSG_END = "==============================  SDK RSP MSG END  ==============================";
 
 	/**
@@ -38,7 +44,8 @@ public class LogUtil {
 	 * 
 	 * @param cont
 	 */
-	public static void writeLog(String cont) {
+	public static void writeLog(String cont)
+	{
 		GATELOG.info(cont);
 	}
 
@@ -47,7 +54,8 @@ public class LogUtil {
 	 * 
 	 * @param cont
 	 */
-	public static void writeErrorLog(String cont) {
+	public static void writeErrorLog(String cont)
+	{
 		GATELOG_ERROR.error(cont);
 	}
 
@@ -57,7 +65,8 @@ public class LogUtil {
 	 * @param cont
 	 * @param ex
 	 */
-	public static void writeErrorLog(String cont, Throwable ex) {
+	public static void writeErrorLog(String cont, Throwable ex)
+	{
 		GATELOG_ERROR.error(cont, ex);
 	}
 
@@ -66,7 +75,8 @@ public class LogUtil {
 	 * 
 	 * @param msg
 	 */
-	public static void writeMessage(String msg) {
+	public static void writeMessage(String msg)
+	{
 		GATELOG_MESSAGE.info(msg);
 	}
 
@@ -75,10 +85,12 @@ public class LogUtil {
 	 * 
 	 * @param reqParam
 	 */
-	public static void printRequestLog(Map<String, String> reqParam) {
+	public static void printRequestLog(Map<String, String> reqParam)
+	{
 		writeMessage(LOG_STRING_REQ_MSG_BEGIN);
 		Iterator<Entry<String, String>> it = reqParam.entrySet().iterator();
-		while (it.hasNext()) {
+		while (it.hasNext())
+		{
 			Entry<String, String> en = it.next();
 			writeMessage("[" + en.getKey() + "] = [" + en.getValue() + "]");
 		}
@@ -90,7 +102,8 @@ public class LogUtil {
 	 * 
 	 * @param res
 	 */
-	public static void printResponseLog(String res) {
+	public static void printResponseLog(String res)
+	{
 		writeMessage(LOG_STRING_RSP_MSG_BEGIN);
 		writeMessage(res);
 		writeMessage(LOG_STRING_RSP_MSG_END);
@@ -101,8 +114,10 @@ public class LogUtil {
 	 * 
 	 * @param cont
 	 */
-	public static void debug(String cont) {
-		if (GATELOG.isDebugEnabled()) {
+	public static void debug(String cont)
+	{
+		if (GATELOG.isDebugEnabled())
+		{
 			GATELOG.debug(cont);
 		}
 	}

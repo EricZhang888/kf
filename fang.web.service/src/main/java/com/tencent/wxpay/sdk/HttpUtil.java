@@ -3,6 +3,7 @@ package com.tencent.wxpay.sdk;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
@@ -11,9 +12,9 @@ import java.util.Map;
 
 /**
  * @author Administrator
- * 
  */
-public class HttpUtil {
+public class HttpUtil
+{
 
 	/**
 	 * 使用Get方式获取数据
@@ -23,10 +24,12 @@ public class HttpUtil {
 	 * @param charset
 	 * @return
 	 */
-	public static String sendGet(String url, String charset) {
+	public static String sendGet(String url, String charset)
+	{
 		String result = "";
 		BufferedReader in = null;
-		try {
+		try
+		{
 			URL realUrl = new URL(url);
 			// 打开和URL之间的连接
 			URLConnection connection = realUrl.openConnection();
@@ -39,20 +42,26 @@ public class HttpUtil {
 			// 定义 BufferedReader输入流来读取URL的响应
 			in = new BufferedReader(new InputStreamReader(connection.getInputStream(), charset));
 			String line;
-			while ((line = in.readLine()) != null) {
+			while ((line = in.readLine()) != null)
+			{
 				result += line;
 			}
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			System.out.println("发送GET请求出现异常！" + e);
 			e.printStackTrace();
 		}
 		// 使用finally块来关闭输入流
-		finally {
-			try {
-				if (in != null) {
+		finally
+		{
+			try
+			{
+				if (in != null)
+				{
 					in.close();
 				}
-			} catch (Exception e2) {
+			} catch (Exception e2)
+			{
 				e2.printStackTrace();
 			}
 		}
@@ -69,12 +78,14 @@ public class HttpUtil {
 	 * @param charset
 	 *            编码方式
 	 */
-	public static String sendPostUrl(String url, String param, String charset) {
+	public static String sendPostUrl(String url, String param, String charset)
+	{
 
-		PrintWriter out = null;
+		OutputStreamWriter out = null;
 		BufferedReader in = null;
 		String result = "";
-		try {
+		try
+		{
 			URL realUrl = new URL(url);
 			// 打开和URL之间的连接
 			URLConnection conn = realUrl.openConnection();
@@ -86,31 +97,38 @@ public class HttpUtil {
 			conn.setDoOutput(true);
 			conn.setDoInput(true);
 			// 获取URLConnection对象对应的输出流
-			out = new PrintWriter(conn.getOutputStream());
+			out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
 			// 发送请求参数
-			out.print(param);
+			out.write(param);//.print(param);
 			// flush输出流的缓冲
 			out.flush();
 			// 定义BufferedReader输入流来读取URL的响应
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream(), charset));
 			String line;
-			while ((line = in.readLine()) != null) {
+			while ((line = in.readLine()) != null)
+			{
 				result += line;
 			}
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			System.out.println("发送 POST 请求出现异常！" + e);
 			e.printStackTrace();
 		}
 		// 使用finally块来关闭输出流、输入流
-		finally {
-			try {
-				if (out != null) {
+		finally
+		{
+			try
+			{
+				if (out != null)
+				{
 					out.close();
 				}
-				if (in != null) {
+				if (in != null)
+				{
 					in.close();
 				}
-			} catch (IOException ex) {
+			} catch (IOException ex)
+			{
 				ex.printStackTrace();
 			}
 		}
@@ -127,11 +145,14 @@ public class HttpUtil {
 	 * @param charset
 	 *            编码方式
 	 */
-	public static String sendPost(String url, Map<String, String> param, String charset) {
+	public static String sendPost(String url, Map<String, String> param, String charset)
+	{
 
 		StringBuffer buffer = new StringBuffer();
-		if (param != null && !param.isEmpty()) {
-			for (Map.Entry<String, String> entry : param.entrySet()) {
+		if (param != null && !param.isEmpty())
+		{
+			for (Map.Entry<String, String> entry : param.entrySet())
+			{
 				buffer.append(entry.getKey()).append("=").append(URLEncoder.encode(entry.getValue())).append("&");
 
 			}
@@ -141,7 +162,8 @@ public class HttpUtil {
 		PrintWriter out = null;
 		BufferedReader in = null;
 		String result = "";
-		try {
+		try
+		{
 			URL realUrl = new URL(url);
 			// 打开和URL之间的连接
 			URLConnection conn = realUrl.openConnection();
@@ -161,29 +183,37 @@ public class HttpUtil {
 			// 定义BufferedReader输入流来读取URL的响应
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream(), charset));
 			String line;
-			while ((line = in.readLine()) != null) {
+			while ((line = in.readLine()) != null)
+			{
 				result += line;
 			}
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			System.out.println("发送 POST 请求出现异常！" + e);
 			e.printStackTrace();
 		}
 		// 使用finally块来关闭输出流、输入流
-		finally {
-			try {
-				if (out != null) {
+		finally
+		{
+			try
+			{
+				if (out != null)
+				{
 					out.close();
 				}
-				if (in != null) {
+				if (in != null)
+				{
 					in.close();
 				}
-			} catch (IOException ex) {
+			} catch (IOException ex)
+			{
 				ex.printStackTrace();
 			}
 		}
 		return result;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 	}
 }

@@ -8,368 +8,429 @@ import org.hibernate.annotations.GenericGenerator;
 import java.sql.Timestamp;
 import java.util.List;
 
-
 /**
  * The persistent class for the tb_room database table.
- * 
  */
 @Entity
-@Table(name="tb_room")
-@NamedQuery(name="Room.findAll", query="SELECT r FROM Room r")
-public class Room implements Serializable {
+@Table(name = "tb_room")
+@NamedQuery(name = "Room.findAll", query = "SELECT r FROM Room r")
+public class Room implements Serializable
+{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="room_id")
+	@Column(name = "room_id")
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String roomId;
 
-	@Column(name="room_address")
+	@Column(name = "room_address")
 	private String roomAddress;
 
-	@Column(name="room_balcony_count")
+	@Column(name = "room_balcony_count")
 	private int roomBalconyCount;
 
-	@Column(name="room_basic_price")
+	@Column(name = "room_basic_price")
 	private int roomBasicPrice;
 
-	@Column(name="room_bathroom_count")
+	@Column(name = "room_bathroom_count")
 	private int roomBathroomCount;
 
-	@Column(name="room_bed_count")
+	@Column(name = "room_bed_count")
 	private String roomBedCount;
 
-	@Column(name="room_bedroom_count")
+	@Column(name = "room_bedroom_count")
 	private int roomBedroomCount;
 
-	@Column(name="room_city_id")
+	@Column(name = "room_city_id")
 	private String roomCityId;
 
-	@Column(name="room_city_name")
+	@Column(name = "room_city_name")
 	private String roomCityName;
 
-	@Column(name="room_create_time")
+	@Column(name = "room_create_time")
 	private Timestamp roomCreateTime;
 
-	@Column(name="room_enters_number")
+	@Column(name = "room_enters_number")
 	private int roomEntersNumber;
-	
+
 	@Lob
-	@Column(name="room_images")
+	@Column(name = "room_images")
 	private String roomImages;
 
-	@Column(name="room_kitchen_count")
+	@Column(name = "room_kitchen_count")
 	private int roomKitchenCount;
 
-	@Column(name="room_latitude")
+	@Column(name = "room_latitude")
 	private String roomLatitude;
 
-	@Column(name="room_likes")
+	@Column(name = "room_likes")
 	private int roomLikes;
 
-	@Column(name="room_longitude")
+	@Column(name = "room_longitude")
 	private String roomLongitude;
 
-	@Column(name="room_map_type")
+	@Column(name = "room_map_type")
 	private int roomMapType;
 
-	@Column(name="room_max_area")
+	@Column(name = "room_max_area")
 	private int roomMaxArea;
 
-	@Column(name="room_min_area")
+	@Column(name = "room_min_area")
 	private int roomMinArea;
 
-	@Column(name="room_name")
+	@Column(name = "room_name")
 	private String roomName;
 
-	@Column(name="room_price")
+	@Column(name = "room_price")
 	private int roomPrice;
 
-	@Column(name="room_score")
+	@Column(name = "room_score")
 	private String roomScore;
 
-	@Column(name="room_sitting_count")
+	@Column(name = "room_sitting_count")
 	private int roomSittingCount;
 
-	@Column(name="room_type_desc")
+	@Column(name = "room_type_desc")
 	private String roomTypeDesc;
 
-	@Column(name="room_type_id")
+	@Column(name = "room_type_id")
 	private String roomTypeId;
 
-	@Column(name="room_type_mini_desc")
+	@Column(name = "room_type_mini_desc")
 	private String roomTypeMiniDesc;
 
-	@Column(name="room_type_tags")
+	@Column(name = "room_type_tags")
 	private String roomTypeTags;
 
-	@Column(name="room_type_tips")
+	@Column(name = "room_type_tips")
 	private String roomTypeTips;
 
-	@Column(name="room_update_time")
+	@Column(name = "room_update_time")
 	private Timestamp roomUpdateTime;
 
 	//bi-directional many-to-one association to TbRoomApartment
 	@ManyToOne
-	@JoinColumn(name="room_apartment_id")
+	@JoinColumn(name = "room_apartment_id")
 	private RoomApartment roomApartment;
 
 	//bi-directional many-to-many association to TbRoomAmenity
-	@JoinTable(name="tb_room_amenities_mapping",
-			joinColumns={@JoinColumn(name="room_id")}, 
-			inverseJoinColumns={@JoinColumn(name="amenities_id")})
-	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name = "tb_room_amenities_mapping", joinColumns = {@JoinColumn(name = "room_id")}, inverseJoinColumns = {
+			@JoinColumn(name = "amenities_id")})
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<RoomAmenity> tbRoomAmenities;
 
-	public Room() {
+	public Room()
+	{
 	}
 
-	public String getRoomId() {
+	public String getRoomId()
+	{
 		return this.roomId;
 	}
 
-	public void setRoomId(String roomId) {
+	public void setRoomId(String roomId)
+	{
 		this.roomId = roomId;
 	}
 
-	public String getRoomAddress() {
+	public String getRoomAddress()
+	{
 		return this.roomAddress;
 	}
 
-	public void setRoomAddress(String roomAddress) {
+	public void setRoomAddress(String roomAddress)
+	{
 		this.roomAddress = roomAddress;
 	}
 
-	public int getRoomBalconyCount() {
+	public int getRoomBalconyCount()
+	{
 		return this.roomBalconyCount;
 	}
 
-	public void setRoomBalconyCount(int roomBalconyCount) {
+	public void setRoomBalconyCount(int roomBalconyCount)
+	{
 		this.roomBalconyCount = roomBalconyCount;
 	}
 
-	public int getRoomBasicPrice() {
+	public int getRoomBasicPrice()
+	{
 		return this.roomBasicPrice;
 	}
 
-	public void setRoomBasicPrice(int roomBasicPrice) {
+	public void setRoomBasicPrice(int roomBasicPrice)
+	{
 		this.roomBasicPrice = roomBasicPrice;
 	}
 
-	public int getRoomBathroomCount() {
+	public int getRoomBathroomCount()
+	{
 		return this.roomBathroomCount;
 	}
 
-	public void setRoomBathroomCount(int roomBathroomCount) {
+	public void setRoomBathroomCount(int roomBathroomCount)
+	{
 		this.roomBathroomCount = roomBathroomCount;
 	}
 
-	public String getRoomBedCount() {
+	public String getRoomBedCount()
+	{
 		return this.roomBedCount;
 	}
 
-	public void setRoomBedCount(String roomBedCount) {
+	public void setRoomBedCount(String roomBedCount)
+	{
 		this.roomBedCount = roomBedCount;
 	}
 
-	public int getRoomBedroomCount() {
+	public int getRoomBedroomCount()
+	{
 		return this.roomBedroomCount;
 	}
 
-	public void setRoomBedroomCount(int roomBedroomCount) {
+	public void setRoomBedroomCount(int roomBedroomCount)
+	{
 		this.roomBedroomCount = roomBedroomCount;
 	}
 
-	public String getRoomCityId() {
+	public String getRoomCityId()
+	{
 		return this.roomCityId;
 	}
 
-	public void setRoomCityId(String roomCityId) {
+	public void setRoomCityId(String roomCityId)
+	{
 		this.roomCityId = roomCityId;
 	}
 
-	public String getRoomCityName() {
+	public String getRoomCityName()
+	{
 		return this.roomCityName;
 	}
 
-	public void setRoomCityName(String roomCityName) {
+	public void setRoomCityName(String roomCityName)
+	{
 		this.roomCityName = roomCityName;
 	}
 
-	public Timestamp getRoomCreateTime() {
+	public Timestamp getRoomCreateTime()
+	{
 		return this.roomCreateTime;
 	}
 
-	public void setRoomCreateTime(Timestamp roomCreateTime) {
+	public void setRoomCreateTime(Timestamp roomCreateTime)
+	{
 		this.roomCreateTime = roomCreateTime;
 	}
 
-	public int getRoomEntersNumber() {
+	public int getRoomEntersNumber()
+	{
 		return this.roomEntersNumber;
 	}
 
-	public void setRoomEntersNumber(int roomEntersNumber) {
+	public void setRoomEntersNumber(int roomEntersNumber)
+	{
 		this.roomEntersNumber = roomEntersNumber;
 	}
 
-	public String getRoomImages() {
+	public String getRoomImages()
+	{
 		return this.roomImages;
 	}
 
-	public void setRoomImages(String roomImages) {
+	public void setRoomImages(String roomImages)
+	{
 		this.roomImages = roomImages;
 	}
 
-	public int getRoomKitchenCount() {
+	public int getRoomKitchenCount()
+	{
 		return this.roomKitchenCount;
 	}
 
-	public void setRoomKitchenCount(int roomKitchenCount) {
+	public void setRoomKitchenCount(int roomKitchenCount)
+	{
 		this.roomKitchenCount = roomKitchenCount;
 	}
 
-	public String getRoomLatitude() {
+	public String getRoomLatitude()
+	{
 		return this.roomLatitude;
 	}
 
-	public void setRoomLatitude(String roomLatitude) {
+	public void setRoomLatitude(String roomLatitude)
+	{
 		this.roomLatitude = roomLatitude;
 	}
 
-	public int getRoomLikes() {
+	public int getRoomLikes()
+	{
 		return this.roomLikes;
 	}
 
-	public void setRoomLikes(int roomLikes) {
+	public void setRoomLikes(int roomLikes)
+	{
 		this.roomLikes = roomLikes;
 	}
 
-	public String getRoomLongitude() {
+	public String getRoomLongitude()
+	{
 		return this.roomLongitude;
 	}
 
-	public void setRoomLongitude(String roomLongitude) {
+	public void setRoomLongitude(String roomLongitude)
+	{
 		this.roomLongitude = roomLongitude;
 	}
 
-	public int getRoomMapType() {
+	public int getRoomMapType()
+	{
 		return this.roomMapType;
 	}
 
-	public void setRoomMapType(int roomMapType) {
+	public void setRoomMapType(int roomMapType)
+	{
 		this.roomMapType = roomMapType;
 	}
 
-	public int getRoomMaxArea() {
+	public int getRoomMaxArea()
+	{
 		return this.roomMaxArea;
 	}
 
-	public void setRoomMaxArea(int roomMaxArea) {
+	public void setRoomMaxArea(int roomMaxArea)
+	{
 		this.roomMaxArea = roomMaxArea;
 	}
 
-	public int getRoomMinArea() {
+	public int getRoomMinArea()
+	{
 		return this.roomMinArea;
 	}
 
-	public void setRoomMinArea(int roomMinArea) {
+	public void setRoomMinArea(int roomMinArea)
+	{
 		this.roomMinArea = roomMinArea;
 	}
 
-	public String getRoomName() {
+	public String getRoomName()
+	{
 		return this.roomName;
 	}
 
-	public void setRoomName(String roomName) {
+	public void setRoomName(String roomName)
+	{
 		this.roomName = roomName;
 	}
 
-	public int getRoomPrice() {
+	public int getRoomPrice()
+	{
 		return this.roomPrice;
 	}
 
-	public void setRoomPrice(int roomPrice) {
+	public void setRoomPrice(int roomPrice)
+	{
 		this.roomPrice = roomPrice;
 	}
 
-	public String getRoomScore() {
+	public String getRoomScore()
+	{
 		return this.roomScore;
 	}
 
-	public void setRoomScore(String roomScore) {
+	public void setRoomScore(String roomScore)
+	{
 		this.roomScore = roomScore;
 	}
 
-	public int getRoomSittingCount() {
+	public int getRoomSittingCount()
+	{
 		return this.roomSittingCount;
 	}
 
-	public void setRoomSittingCount(int roomSittingCount) {
+	public void setRoomSittingCount(int roomSittingCount)
+	{
 		this.roomSittingCount = roomSittingCount;
 	}
 
-	public String getRoomTypeDesc() {
+	public String getRoomTypeDesc()
+	{
 		return this.roomTypeDesc;
 	}
 
-	public void setRoomTypeDesc(String roomTypeDesc) {
+	public void setRoomTypeDesc(String roomTypeDesc)
+	{
 		this.roomTypeDesc = roomTypeDesc;
 	}
 
-	public String getRoomTypeId() {
+	public String getRoomTypeId()
+	{
 		return this.roomTypeId;
 	}
 
-	public void setRoomTypeId(String roomTypeId) {
+	public void setRoomTypeId(String roomTypeId)
+	{
 		this.roomTypeId = roomTypeId;
 	}
 
-	public String getRoomTypeMiniDesc() {
+	public String getRoomTypeMiniDesc()
+	{
 		return this.roomTypeMiniDesc;
 	}
 
-	public void setRoomTypeMiniDesc(String roomTypeMiniDesc) {
+	public void setRoomTypeMiniDesc(String roomTypeMiniDesc)
+	{
 		this.roomTypeMiniDesc = roomTypeMiniDesc;
 	}
 
-	public String getRoomTypeTags() {
+	public String getRoomTypeTags()
+	{
 		return this.roomTypeTags;
 	}
 
-	public void setRoomTypeTags(String roomTypeTags) {
+	public void setRoomTypeTags(String roomTypeTags)
+	{
 		this.roomTypeTags = roomTypeTags;
 	}
 
-	public String getRoomTypeTips() {
+	public String getRoomTypeTips()
+	{
 		return this.roomTypeTips;
 	}
 
-	public void setRoomTypeTips(String roomTypeTips) {
+	public void setRoomTypeTips(String roomTypeTips)
+	{
 		this.roomTypeTips = roomTypeTips;
 	}
 
-	public Timestamp getRoomUpdateTime() {
+	public Timestamp getRoomUpdateTime()
+	{
 		return this.roomUpdateTime;
 	}
 
-	public void setRoomUpdateTime(Timestamp roomUpdateTime) {
+	public void setRoomUpdateTime(Timestamp roomUpdateTime)
+	{
 		this.roomUpdateTime = roomUpdateTime;
 	}
 
-	public RoomApartment getRoomApartment() {
+	public RoomApartment getRoomApartment()
+	{
 		return this.roomApartment;
 	}
 
-	public void setRoomApartment(RoomApartment roomApartment) {
+	public void setRoomApartment(RoomApartment roomApartment)
+	{
 		this.roomApartment = roomApartment;
 	}
 
-	public List<RoomAmenity> getTbRoomAmenities() {
+	public List<RoomAmenity> getTbRoomAmenities()
+	{
 		return this.tbRoomAmenities;
 	}
 
-	public void setTbRoomAmenities(List<RoomAmenity> tbRoomAmenities) {
+	public void setTbRoomAmenities(List<RoomAmenity> tbRoomAmenities)
+	{
 		this.tbRoomAmenities = tbRoomAmenities;
 	}
 

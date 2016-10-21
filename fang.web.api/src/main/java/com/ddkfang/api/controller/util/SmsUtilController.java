@@ -21,21 +21,26 @@ import com.ddkfang.service.common.IVerifyCodeService;
 import com.ddkfang.util.verify.VerifyCodeUtil;
 @RestController
 @RequestMapping("/api/smsUtil")
-public class SmsUtilController extends BaseController{
+public class SmsUtilController extends BaseController
+{
 
 	@Autowired
 	IVerifyCodeService verifyCodeService;
+
 	@RequestMapping(value = "sendVerifyCode", method = RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> sendSms(@RequestBody JSONObject json) {
-		
+	public ResponseEntity<Map<String, Object>> sendSms(@RequestBody JSONObject json)
+	{
+
 		Map<String, Object> responseMap = new HashMap<String, Object>();
-		try {
+		try
+		{
 			//gen sms code
 			String code = VerifyCodeUtil.createSmsCode();
-			
-			boolean isSent = VerifyCodeUtil.sendVerifyCode(json.getString("mobile"), code, 
+
+			boolean isSent = VerifyCodeUtil.sendVerifyCode(json.getString("mobile"), code,
 					VerifyCodeUtil.getSmsTemp(json.getIntValue("type")));
-			if(isSent) {
+			if (isSent)
+			{
 				VerifyCode codeBean = new VerifyCode();
 				codeBean.setCode(code);
 				codeBean.setPhone(json.getString("mobile"));
@@ -45,7 +50,8 @@ public class SmsUtilController extends BaseController{
 			responseMap.put("status", HttpStatusConstant.userAccount.ok.getCode());
 			responseMap.put("msg", HttpStatusConstant.userAccount.ok.getMsg());
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

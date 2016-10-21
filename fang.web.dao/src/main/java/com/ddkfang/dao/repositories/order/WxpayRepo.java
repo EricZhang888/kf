@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.ddkfang.dao.entity.order.UnionpayRes;
+import com.ddkfang.dao.entity.order.WxpayRes;
 
-public interface UnionpayRepo extends CrudRepository<UnionpayRes, Serializable>
+public interface WxpayRepo extends CrudRepository<WxpayRes, Serializable>
 {
 
 }

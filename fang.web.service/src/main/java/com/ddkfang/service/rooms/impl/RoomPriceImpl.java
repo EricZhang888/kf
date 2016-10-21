@@ -8,21 +8,30 @@ import org.springframework.stereotype.Service;
 import com.ddkfang.dao.entity.rooms.RoomPriceCalendar;
 import com.ddkfang.dao.entity.rooms.RoomPriceCalendarPK;
 import com.ddkfang.dao.repositories.room.RoomPriceRepo;
+import com.ddkfang.exception.OrderDateConflictException;
 import com.ddkfang.service.rooms.IRoomPrice;
 import com.ddkfang.util.priceCalendar.PriceCalendarUtil;
 @Service
-public class RoomPriceImpl implements IRoomPrice {
+public class RoomPriceImpl implements IRoomPrice
+{
 
 	@Autowired
 	RoomPriceRepo roomPriceRepo;
-	
-	public void saveOrUpdatePriceCalendar(String roomId, Date date, int status, int price) {
+
+	public void saveOrUpdatePriceCalendar(String roomId, Date date, int status, int price) throws Exception
+	{
 		RoomPriceCalendar rpc = roomPriceRepo.findById_RoomIdAndId_RoomDate(roomId, date);
-		if(rpc != null) {
+		if (rpc != null)
+		{
+			if (rpc.getStatus() == 1)
+			{
+				throw new OrderDateConflictException();
+			}
 			rpc.setStatus(status);
 			rpc.setUpdateTime(PriceCalendarUtil.getCurrentTimestamp());
 			roomPriceRepo.save(rpc);
-		} else {
+		} else
+		{
 			RoomPriceCalendar rpcNew = new RoomPriceCalendar();
 			RoomPriceCalendarPK pk = new RoomPriceCalendarPK();
 			pk.setRoomDate(date);
@@ -38,12 +47,14 @@ public class RoomPriceImpl implements IRoomPrice {
 		}
 	}
 
-	public void saveOrUpdatePriceCalendar(RoomPriceCalendar rpc) {
+	public void saveOrUpdatePriceCalendar(RoomPriceCalendar rpc)
+	{
 		// TODO Auto-generated method stub
 
 	}
 
-	public void saveOrUpdatePriceCalendar(String roomId, Date date, int status) {
+	public void saveOrUpdatePriceCalendar(String roomId, Date date, int status) throws Exception
+	{
 		saveOrUpdatePriceCalendar(roomId, date, status, 0);
 	}
 

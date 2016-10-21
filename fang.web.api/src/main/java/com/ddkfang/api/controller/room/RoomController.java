@@ -30,68 +30,80 @@ import com.ddkfang.util.priceCalendar.PriceCalendarUtil;
 
 @RestController
 @RequestMapping("/api/room")
-public class RoomController {
+public class RoomController
+{
 
 	@Autowired
 	IRoomBasic roomBasic;
-	
+
 	@RequestMapping(value = "getRoomDetail", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> getRoomDetail(@RequestParam(value = "id", required = true) String id,HttpServletRequest request)
-	{	
-		
+	public ResponseEntity<Map<String, Object>> getRoomDetail(@RequestParam(value = "id", required = true) String id,
+			HttpServletRequest request)
+	{
+
 		Map<String, Object> responseMap = new HashMap<String, Object>();
-		try {
-		
+		try
+		{
+
 			Room room = roomBasic.getRoomDetailById(id);
-			if(room != null) {
+			if (room != null)
+			{
 				responseMap.put("data", room);
 				responseMap.put("status", HttpStatusConstant.roomStatus.ok.getCode());
 				responseMap.put("msg", HttpStatusConstant.roomStatus.ok.getMsg());
-				
+
 				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
-			} else {
+			} else
+			{
 				responseMap.put("data", null);
 				responseMap.put("status", HttpStatusConstant.roomStatus.roomNotExist.getCode());
 				responseMap.put("msg", HttpStatusConstant.roomStatus.roomNotExist.getMsg());
 				return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 			}
-		} catch(Exception e){
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 			responseMap.put("data", null);
 			responseMap.put("status", HttpStatusConstant.roomStatus.roomNotAvalibale.getCode());
 			responseMap.put("msg", HttpStatusConstant.roomStatus.roomNotAvalibale.getMsg());
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.INTERNAL_SERVER_ERROR);
-		}	
+		}
 	}
-	
+
 	@RequestMapping(value = "getPriceCalendar", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> getPriceCalendar(@RequestParam(value = "id", required = true) String id, HttpServletRequest request) {
+	public ResponseEntity<Map<String, Object>> getPriceCalendar(@RequestParam(value = "id", required = true) String id,
+			HttpServletRequest request)
+	{
 		Map<String, Object> responseMap = new HashMap<String, Object>();
-		try {
+		try
+		{
 			//获取房间信息
 			Room room = roomBasic.getRoomDetailById(id);
-			
+
 			//获取3个月的日历天数
 			Set<String> cal = PriceCalendarUtil.genCalendar();
 			String[] dates = new String[]{};
 			dates = cal.toArray(dates);
 			List<PriceCalendar> calList = new ArrayList<PriceCalendar>();
-			
+
 			//获取系统已设置的价格日历
-			Map<String, RoomPriceCalendar> map = roomBasic.getRoomPriceCalendar(id, dates[0], dates[dates.length-1]);
-			for(String s : cal) {
+			Map<String, RoomPriceCalendar> map = roomBasic.getRoomPriceCalendar(id, dates[0], dates[dates.length - 1]);
+			for (String s : cal)
+			{
 				PriceCalendar pc = new PriceCalendar();
-				
+
 				//通过日期匹配价格日历，如果没有匹配到 则使用Room默认价格
 				RoomPriceCalendar rpc = map.get(s);
 				pc.setDate(s);
-				if(rpc != null) {
-					pc.setIs_full_booked(rpc.getStatus()==0? 0 : 1);
+				if (rpc != null)
+				{
+					pc.setIs_full_booked(rpc.getStatus() == 0 ? 0 : 1);
 					pc.setPrice(rpc.getRoomDatePrice());
 					pc.setIs_preferential_price(0);
-				} else {
+				} else
+				{
 					pc.setIs_full_booked(0);
 					pc.setPrice(room.getRoomPrice());
 					pc.setIs_preferential_price(0);
@@ -102,48 +114,53 @@ public class RoomController {
 			responseMap.put("status", HttpStatusConstant.roomStatus.ok.getCode());
 			responseMap.put("msg", HttpStatusConstant.roomStatus.ok.getMsg());
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
-		} catch (ParseException e) {
+		} catch (ParseException e)
+		{
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	@RequestMapping(value="calculateTotalPrice")
-	public ResponseEntity<Map<String, Object>> calculateTotalPrice(@RequestParam(value = "id", required = true) String id, 
+
+	@RequestMapping(value = "calculateTotalPrice")
+	public ResponseEntity<Map<String, Object>> calculateTotalPrice(
+			@RequestParam(value = "id", required = true) String id,
 			@RequestParam(value = "beginDate", required = true) String beginDate,
-			@RequestParam(value = "endDate", required = true) String endDate,
-			HttpServletRequest request) throws ParseException {
-		
+			@RequestParam(value = "endDate", required = true) String endDate, HttpServletRequest request)
+			throws ParseException
+	{
+
 		Map<String, Object> responseMap = new HashMap<String, Object>();
 		Room room = roomBasic.getRoomDetailById(id);
 		//获取用户所选区间的已设置价格日历
 		Map<String, RoomPriceCalendar> map = roomBasic.getRoomPriceCalendar(id, beginDate, endDate);
 		int days = PriceCalendarUtil.dateDiff(endDate, beginDate);
-		Set<String> cal = PriceCalendarUtil.genCalendarWithStr(beginDate,days);
+		Set<String> cal = PriceCalendarUtil.genCalendarWithStr(beginDate, days);
 		List<DayPrice> dayDetailList = new ArrayList<DayPrice>();
-		
+
 		int totalPrice = 0;
 		int totalBasicPrice = days * room.getRoomBasicPrice();
-		
+
 		TotalPrice tp = new TotalPrice();
-		
-		
+
 		tp.setTotal_basic_price(totalBasicPrice);
 		tp.setTotal_standard_price(totalBasicPrice);
-		
-		for(String s : cal) {
+
+		for (String s : cal)
+		{
 			DayPrice dp = new DayPrice();
-			
+
 			//通过日期匹配价格日历，如果没有匹配到 则使用Room默认价格
 			RoomPriceCalendar rpc = map.get(s);
 			dp.setDate(s);
 			dp.setBasic_price(room.getRoomBasicPrice());
-			
-			if(rpc != null) {
+
+			if (rpc != null)
+			{
 				totalPrice += rpc.getRoomDatePrice();
 				dp.setPreferential_price(rpc.getRoomDatePrice());
 				dp.setStandard_price(rpc.getRoomDatePrice());
-			} else {
+			} else
+			{
 				totalPrice += room.getRoomPrice();
 				dp.setStandard_price(room.getRoomPrice());
 				dp.setPreferential_price(room.getRoomBasicPrice());
@@ -152,15 +169,15 @@ public class RoomController {
 		}
 		tp.setTotal_price(totalPrice);
 		tp.setDay_price_list(dayDetailList);
-		
+
 		responseMap.put("data", tp);
 		responseMap.put("status", HttpStatusConstant.roomStatus.ok.getCode());
 		responseMap.put("msg", HttpStatusConstant.roomStatus.ok.getMsg());
 		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 	}
-	
-	
-	public static void main(String[] args) {
+
+	public static void main(String[] args)
+	{
 		Date d = new Date();
 	}
 }

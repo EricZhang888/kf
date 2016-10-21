@@ -5,15 +5,14 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
-
 /**
  * The persistent class for the tb_unionpay_res database table.
- * 
  */
 @Entity
-@Table(name="tb_unionpay_res")
-@NamedQuery(name="UnionpayRes.findAll", query="SELECT u FROM UnionpayRes u")
-public class UnionpayRes implements Serializable {
+@Table(name = "tb_unionpay_res")
+@NamedQuery(name = "UnionpayRes.findAll", query = "SELECT u FROM UnionpayRes u")
+public class UnionpayRes implements Serializable
+{
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -21,146 +20,173 @@ public class UnionpayRes implements Serializable {
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id;
 
-	@Column(name="acc_no")
+	@Column(name = "acc_no")
 	private String accNo;
 
-	@Column(name="cert_id")
+	@Column(name = "cert_id")
 	private String certId;
 
-	@Column(name="order_id")
+	@Column(name = "order_id")
 	private String orderId;
 
-	@Column(name="query_id")
+	@Column(name = "query_id")
 	private String queryId;
 
-	@Column(name="resp_code")
+	@Column(name = "resp_code")
 	private String respCode;
 
-	@Column(name="resp_msg")
+	@Column(name = "resp_msg")
 	private String respMsg;
 
-	@Column(name="settle_currency_code")
+	@Column(name = "settle_currency_code")
 	private String settleCurrencyCode;
 
-	@Column(name="settle_date")
+	@Column(name = "settle_date")
 	private String settleDate;
 
-	@Column(name="trace_no")
+	@Column(name = "trace_no")
 	private String traceNo;
 
-	@Column(name="txn_sub_type")
+	@Column(name = "txn_sub_type")
 	private String txnSubType;
 
-	@Column(name="txn_time")
+	@Column(name = "txn_time")
 	private String txnTime;
 
-	@Column(name="txn_type")
+	@Column(name = "txn_type")
 	private String txnType;
 
-	public UnionpayRes() {
+	public UnionpayRes()
+	{
 	}
 
-	public String getId() {
+	public String getId()
+	{
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(String id)
+	{
 		this.id = id;
 	}
 
-	public String getAccNo() {
+	public String getAccNo()
+	{
 		return this.accNo;
 	}
 
-	public void setAccNo(String accNo) {
+	public void setAccNo(String accNo)
+	{
 		this.accNo = accNo;
 	}
 
-	public String getCertId() {
+	public String getCertId()
+	{
 		return this.certId;
 	}
 
-	public void setCertId(String certId) {
+	public void setCertId(String certId)
+	{
 		this.certId = certId;
 	}
 
-	public String getOrderId() {
+	public String getOrderId()
+	{
 		return this.orderId;
 	}
 
-	public void setOrderId(String orderId) {
+	public void setOrderId(String orderId)
+	{
 		this.orderId = orderId;
 	}
 
-	public String getQueryId() {
+	public String getQueryId()
+	{
 		return this.queryId;
 	}
 
-	public void setQueryId(String queryId) {
+	public void setQueryId(String queryId)
+	{
 		this.queryId = queryId;
 	}
 
-	public String getRespCode() {
+	public String getRespCode()
+	{
 		return this.respCode;
 	}
 
-	public void setRespCode(String respCode) {
+	public void setRespCode(String respCode)
+	{
 		this.respCode = respCode;
 	}
 
-	public String getRespMsg() {
+	public String getRespMsg()
+	{
 		return this.respMsg;
 	}
 
-	public void setRespMsg(String respMsg) {
+	public void setRespMsg(String respMsg)
+	{
 		this.respMsg = respMsg;
 	}
 
-	public String getSettleCurrencyCode() {
+	public String getSettleCurrencyCode()
+	{
 		return this.settleCurrencyCode;
 	}
 
-	public void setSettleCurrencyCode(String settleCurrencyCode) {
+	public void setSettleCurrencyCode(String settleCurrencyCode)
+	{
 		this.settleCurrencyCode = settleCurrencyCode;
 	}
 
-	public String getSettleDate() {
+	public String getSettleDate()
+	{
 		return this.settleDate;
 	}
 
-	public void setSettleDate(String settleDate) {
+	public void setSettleDate(String settleDate)
+	{
 		this.settleDate = settleDate;
 	}
 
-	public String getTraceNo() {
+	public String getTraceNo()
+	{
 		return this.traceNo;
 	}
 
-	public void setTraceNo(String traceNo) {
+	public void setTraceNo(String traceNo)
+	{
 		this.traceNo = traceNo;
 	}
 
-	public String getTxnSubType() {
+	public String getTxnSubType()
+	{
 		return this.txnSubType;
 	}
 
-	public void setTxnSubType(String txnSubType) {
+	public void setTxnSubType(String txnSubType)
+	{
 		this.txnSubType = txnSubType;
 	}
 
-	public String getTxnTime() {
+	public String getTxnTime()
+	{
 		return this.txnTime;
 	}
 
-	public void setTxnTime(String txnTime) {
+	public void setTxnTime(String txnTime)
+	{
 		this.txnTime = txnTime;
 	}
 
-	public String getTxnType() {
+	public String getTxnType()
+	{
 		return this.txnType;
 	}
 
-	public void setTxnType(String txnType) {
+	public void setTxnType(String txnType)
+	{
 		this.txnType = txnType;
 	}
 

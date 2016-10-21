@@ -19,7 +19,8 @@ import com.ddkfang.service.rooms.IRoomBasic;
 
 @RestController
 @RequestMapping("/api/home")
-public class HomePageController {
+public class HomePageController
+{
 
 	@Autowired
 	private IRoomBasic roomBasic;
@@ -34,21 +35,25 @@ public class HomePageController {
 	@ResponseBody
 	public Page<Room> getAllAvaliableRooms(@RequestParam(value = "city", required = false) String city,
 			@RequestParam(value = "site", required = false) String site, //所属景点名
-			@RequestParam(value = "checkInDate", required = false) String checkInDate, 
-			@RequestParam(value = "checkOutDate", required = false) String checkOutDate,
-			Pageable pageable) {
-		
+			@RequestParam(value = "checkInDate", required = false) String checkInDate,
+			@RequestParam(value = "checkOutDate", required = false) String checkOutDate, Pageable pageable)
+	{
+
 		SearchCriteria criteria = SearchCriteria.Builder.create();
-		if(!StringUtils.isEmpty(city)) {
+		if (!StringUtils.isEmpty(city))
+		{
 			criteria.add(new Criterion("roomCityName", Criterion.Operator.EQ, city));
 		}
-		if(!StringUtils.isEmpty(site)) {
+		if (!StringUtils.isEmpty(site))
+		{
 			criteria.add(new Criterion("roomApartment_apartmentName", Criterion.Operator.EQ, site));
 		}
-		if(!StringUtils.isEmpty(checkInDate)) {
+		if (!StringUtils.isEmpty(checkInDate))
+		{
 			criteria.add(new Criterion("roomSite", Criterion.Operator.EQ, checkInDate));
 		}
-		if(!StringUtils.isEmpty(checkOutDate)) {
+		if (!StringUtils.isEmpty(checkOutDate))
+		{
 			criteria.add(new Criterion("roomSite", Criterion.Operator.EQ, checkOutDate));
 		}
 		return roomBasic.getAllAvaliableRooms(criteria, pageable);
@@ -61,7 +66,8 @@ public class HomePageController {
 	 */
 	@RequestMapping(value = "getActivityBanner", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Room> getActivityBanner() {
+	public List<Room> getActivityBanner()
+	{
 		return roomBasic.getActivityBanner();
 	}
 
@@ -73,7 +79,8 @@ public class HomePageController {
 	 */
 	@RequestMapping(value = "getRoomDetailById", method = RequestMethod.GET)
 	@ResponseBody
-	public Room getRecRooms(@RequestParam String roomId) {
+	public Room getRecRooms(@RequestParam String roomId)
+	{
 		Room r = roomBasic.getRoomDetailById(roomId);
 		return r;
 	}

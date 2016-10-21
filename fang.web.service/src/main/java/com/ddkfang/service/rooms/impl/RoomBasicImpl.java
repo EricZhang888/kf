@@ -20,50 +20,59 @@ import com.ddkfang.dao.repositories.room.RoomPriceRepo;
 import com.ddkfang.service.rooms.IRoomBasic;
 import com.ddkfang.util.priceCalendar.PriceCalendarUtil;
 @Service
-public class RoomBasicImpl implements IRoomBasic {
+public class RoomBasicImpl implements IRoomBasic
+{
 
 	@Autowired
 	private RoomBasicRepo roomBasicRepo;
-	
+
 	@Autowired
 	private RoomPriceRepo roomPriceRepo;
-	
-	public Room getRoomDetailById(String roomId) {
+
+	public Room getRoomDetailById(String roomId)
+	{
 		Room room = roomBasicRepo.findOneByRoomId(roomId);
 		return room;
 	}
 
-	public void saveRoom(Room room) {
+	public void saveRoom(Room room)
+	{
 		roomBasicRepo.save(room);
 	}
 
-	public List<Room> getActivityBanner() {
+	public List<Room> getActivityBanner()
+	{
 		return null;
 	}
 
-	public Page<Room> getAllAvaliableRooms(SearchCriteria searchCriteria, Pageable pageable) {
+	public Page<Room> getAllAvaliableRooms(SearchCriteria searchCriteria, Pageable pageable)
+	{
 		return roomBasicRepo.search(searchCriteria, pageable);
 	}
 
-	public Map<String, RoomPriceCalendar> getRoomPriceCalendar(String roomId, String start, String end) {
+	public Map<String, RoomPriceCalendar> getRoomPriceCalendar(String roomId, String start, String end)
+	{
 		List<RoomPriceCalendar> pc = new ArrayList<RoomPriceCalendar>();
 		Map<String, RoomPriceCalendar> map = new HashMap<String, RoomPriceCalendar>();
-		try {
-			pc = (ArrayList<RoomPriceCalendar>)roomPriceRepo.findById_RoomIdAndId_RoomDateBetween(roomId, PriceCalendarUtil.stringToSimpleDate(start), PriceCalendarUtil.stringToSimpleDate(end));
-			if(pc != null && pc.size() > 0) {
-				for(RoomPriceCalendar rpc : pc) {
+		try
+		{
+			pc = (ArrayList<RoomPriceCalendar>) roomPriceRepo.findById_RoomIdAndId_RoomDateBetween(roomId,
+					PriceCalendarUtil.stringToSimpleDate(start), PriceCalendarUtil.stringToSimpleDate(end));
+			if (pc != null && pc.size() > 0)
+			{
+				for (RoomPriceCalendar rpc : pc)
+				{
 					map.put(PriceCalendarUtil.simpleDateToString(rpc.getId().getRoomDate()), rpc);
 				}
-			} 
+			}
 			return map;
-		} catch (ParseException e) {
+		} catch (ParseException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(pc.size());
 		return null;
 	}
-	
-	
 
 }

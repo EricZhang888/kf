@@ -8,32 +8,31 @@ import org.springframework.data.domain.Pageable;
 
 abstract class AbstractDomainClassAwareRepository<T>
 {
-    protected final Class<T> domainClass;
+	protected final Class<T> domainClass;
 
-    @SuppressWarnings("unchecked")
-    protected AbstractDomainClassAwareRepository()
-    {
-        Type genericSuperclass = this.getClass().getGenericSuperclass();
-        while(!(genericSuperclass instanceof ParameterizedType))
-        {
-            if(!(genericSuperclass instanceof Class))
-                throw new IllegalStateException("Unable to determine type " +
-                        "arguments because generic superclass neither " +
-                        "parameterized type nor class.");
-            if(genericSuperclass == AbstractSearchableJpaRepository.class)
-                throw new IllegalStateException("Unable to determine type " +
-                        "arguments because no parameterized generic superclass " +
-                        "found.");
+	@SuppressWarnings("unchecked")
+	protected AbstractDomainClassAwareRepository()
+	{
+		Type genericSuperclass = this.getClass().getGenericSuperclass();
+		while (!(genericSuperclass instanceof ParameterizedType))
+		{
+			if (!(genericSuperclass instanceof Class))
+				throw new IllegalStateException("Unable to determine type "
+						+ "arguments because generic superclass neither " + "parameterized type nor class.");
+			if (genericSuperclass == AbstractSearchableJpaRepository.class)
+				throw new IllegalStateException("Unable to determine type "
+						+ "arguments because no parameterized generic superclass " + "found.");
 
-            genericSuperclass = ((Class)genericSuperclass).getGenericSuperclass();
-        }
+			genericSuperclass = ((Class) genericSuperclass).getGenericSuperclass();
+		}
 
-        ParameterizedType type = (ParameterizedType)genericSuperclass;
-        Type[] arguments = type.getActualTypeArguments();
-        this.domainClass = (Class<T>)arguments[0];
-    }
+		ParameterizedType type = (ParameterizedType) genericSuperclass;
+		Type[] arguments = type.getActualTypeArguments();
+		this.domainClass = (Class<T>) arguments[0];
+	}
 
-	public Page<T> search(SearchCriteria criteria, Pageable pageable) {
+	public Page<T> search(SearchCriteria criteria, Pageable pageable)
+	{
 		return null;
 	}
 }

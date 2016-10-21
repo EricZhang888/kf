@@ -1,6 +1,7 @@
 package com.ddkfang.exception;
 
-public class OrderPriceException extends Exception {
+public class OrderPriceException extends Exception
+{
 
 	/**
 	 * 
