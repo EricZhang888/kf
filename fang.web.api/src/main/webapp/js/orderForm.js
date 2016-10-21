@@ -24,7 +24,7 @@ $(".warm-tip p").text("允许变更/取消,该订单允许在" + date[0] +"年" 
 $("#roomId").val(sPara.roomId);
 //initial end
 
-$(".submit-order").on("click tap", function() {
+$(".submit-order").on("click tap",function() {
     const e = this;
     var t = $(".checkin-man").val()
       , a = $(".checkin-phone").val();
