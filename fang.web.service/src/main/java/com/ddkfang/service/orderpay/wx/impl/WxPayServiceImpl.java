@@ -30,7 +30,7 @@ public class WxPayServiceImpl implements IWxPayService
 		paraMap.put("openid", openid);
 		paraMap.put("out_trade_no", orderNo);
 		paraMap.put("spbill_create_ip", ip);
-		paraMap.put("total_fee", price);
+		paraMap.put("total_fee", price * 100);
 		paraMap.put("trade_type", "JSAPI");
 		paraMap.put("notify_url", "http://1hf.bohosi.com/api/order/pay/wxPayBackendNotify");// 此路径是微信服务器调用支付结果通知路径  
 		String sign = WxPayUtil.getSign(paraMap);
