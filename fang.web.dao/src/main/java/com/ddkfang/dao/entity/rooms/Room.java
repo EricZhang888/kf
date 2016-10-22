@@ -24,6 +24,45 @@ public class Room implements Serializable
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String roomId;
 
+	@Column(name = "room_number")
+	private String roomNumber;
+	
+	public String getRoomNumber()
+	{
+		return roomNumber;
+	}
+
+	public void setRoomNumber(String roomNumber)
+	{
+		this.roomNumber = roomNumber;
+	}
+
+	public String getRoomBuilding()
+	{
+		return roomBuilding;
+	}
+
+	public void setRoomBuilding(String roomBuilding)
+	{
+		this.roomBuilding = roomBuilding;
+	}
+
+	public String getRoomFloor()
+	{
+		return roomFloor;
+	}
+
+	public void setRoomFloor(String roomFloor)
+	{
+		this.roomFloor = roomFloor;
+	}
+
+	@Column(name = "room_building")
+	private String roomBuilding;
+	
+	@Column(name = "room_floor")
+	private String roomFloor;
+	
 	@Column(name = "room_address")
 	private String roomAddress;
 

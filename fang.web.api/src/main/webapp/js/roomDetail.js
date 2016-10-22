@@ -101,7 +101,7 @@ function genRoomInfo(e) {
 
 function genRoomDesc(e) {
 	var t = "";
-    t += '<div class="character">',
+    /*t += '<div class="character">',
     t += "<h2>特色描述</h2>",
     t += '<p class="shortDes tc">' + e.roomTypeMiniDesc + "</p>",
     //t += "<ul>";
@@ -113,7 +113,8 @@ function genRoomDesc(e) {
   //  e.intro ? (t += '<img src="' + e.intro.cover_image + '" />',
    // t += '<p class="des">' + e.intro.cover_desc + "</p>",
   //  t += '<p class="tc"><a href="' + e.intro.desc_url + '" class="look-all-btn" id="findAllchar">查看全部</a></p>') : t += e.room_type_desc ? e.room_type_desc : "",
-    t += "</div>"
+    t += "</div>"*/
+	return t;
 }
 
 function genRoomAmenities(e){
@@ -121,7 +122,8 @@ function genRoomAmenities(e){
 	t += '<div class="facilitiesAll">',
 	t += "<h2>设施服务</h2>",
 	t += '<ul class="fac-ul">';
-	for (var a = 0; a < Math.min(e.tbRoomAmenities.length, 10); a++) {
+	//for (var a = 0; a < Math.min(e.tbRoomAmenities.length, 10); a++) {
+	for (var a = 0; a <e.tbRoomAmenities.length; a++) {
 		t += '<li><i class="icon-' + e.tbRoomAmenities[a].icon + '"></i><span>' + e.tbRoomAmenities[a].amenityName + "</span></li>";
 	}
 	/*if (Math.min(e.tbRoomAmenities.length, 10) < 10){
@@ -130,7 +132,7 @@ function genRoomAmenities(e){
 		}
 	} */
 	return t += "</ul>",
-	e.tbRoomAmenities.length + e.tbRoomAmenities.length > 10 && (t += '<p><span class="look-all-btn" id="findAllFac">查看全部</span></p>'),
+	//e.tbRoomAmenities.length + e.tbRoomAmenities.length > 10 && (t += '<p><span class="look-all-btn" id="findAllFac">查看全部</span></p>'),
 	t += "</div>"
 }
 

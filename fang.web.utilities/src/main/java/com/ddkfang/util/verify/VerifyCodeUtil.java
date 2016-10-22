@@ -1,6 +1,9 @@
 package com.ddkfang.util.verify;
 
+import org.springframework.scheduling.annotation.Async;
+
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -16,6 +19,7 @@ public class VerifyCodeUtil
 
 	final static String secret = "3f5f55f698111f5ce29740410ea41f68";
 
+	@Async
 	public static boolean sendVerifyCode(String mobile, String code, String bizType) throws ApiException
 	{
 		TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
@@ -36,6 +40,27 @@ public class VerifyCodeUtil
 			return false;
 		}
 		return true;
+	}
+	
+	@Async
+	public static void sendRoomPaid(String mobile, String roomInfo, String template) throws ApiException
+	{
+		TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
+		AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
+		req.setExtend(mobile);
+		req.setSmsType("normal");
+		req.setSmsFreeSignName("1号房");
+		req.setSmsParamString("{\"roomInfo\":\" " + roomInfo + " \"}");
+		req.setRecNum(mobile);
+		req.setSmsTemplateCode(template);
+		AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
+
+		System.out.println(rsp.getBody());
+		//发送成功
+		JSONObject object = JSONObject.parseObject(rsp.getBody());
+		if (object.containsKey("error_response"))
+		{
+		}
 	}
 
 	//	public static boolean checkVerifyCode(String code) {

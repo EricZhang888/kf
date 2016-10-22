@@ -8,4 +8,6 @@ public interface IVerifyCodeService
 	public void insertNewCode(VerifyCode code);
 
 	public String findLatestCodeByPhone(String phone);
+	
+	public void sendOrderSmsNotice(String orderNo);
 }

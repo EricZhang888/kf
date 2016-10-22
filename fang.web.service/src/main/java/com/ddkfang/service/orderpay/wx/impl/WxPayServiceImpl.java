@@ -6,10 +6,13 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
 import com.ddkfang.constant.WxPayConstant;
+import com.ddkfang.service.common.IVerifyCodeService;
+import com.ddkfang.service.common.impl.VerifyCodeServiceImpl;
 import com.ddkfang.service.orderpay.wx.IWxPayService;
 import com.ddkfang.util.verify.XMLParser;
 import com.ddkfang.util.wxpay.WxPayUtil;
@@ -17,6 +20,8 @@ import com.tencent.wxpay.sdk.HttpUtil;
 @Service
 public class WxPayServiceImpl implements IWxPayService
 {
+	@Autowired
+	IVerifyCodeService verifyCodeService;
 
 	public String genPayData(String orderNo, String openid, int price, String ip) throws Exception
 	{
@@ -83,6 +88,7 @@ public class WxPayServiceImpl implements IWxPayService
 			if(map.get("return_code").equals("SUCCESS")) {
 				if(map.get("result_code").equals("SUCCESS")) {
 					if(map.get("trade_state").equals("SUCCESS")) {
+						verifyCodeService.sendOrderSmsNotice(orderNo);
 						return true;
 					}
 				}
