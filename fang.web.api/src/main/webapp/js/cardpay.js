@@ -1,7 +1,7 @@
 checkLogin(orderPayPage);
 
 function orderPayPage(user) {
-	if(user == null) {
+	if(user == null || user.isLogin === 0) {
 		location.href = "/html/user/login.html?redirect=" + encodeURIComponent(window.location.href);
 	} else {
 		init(user);

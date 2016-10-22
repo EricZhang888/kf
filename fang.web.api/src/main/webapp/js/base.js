@@ -1,5 +1,5 @@
 // JavaScript Document
-
+var user;
 
 $(document).ready(function(){
 	
@@ -83,8 +83,9 @@ function checkLogin(callBack) {
         },
         dataType: "json",
         success: function(s) {
-            if("A00000" == s.status && s.data != null) {
+            if("A00000" == s.status && s.data != null && s.data.isLogin === 1) {
             	$("#logined").removeClass("hide");
+            	user = s.data;
             	callBack(s.data)
             } else {
             	$("#notLogin").removeClass("hide");
@@ -95,7 +96,7 @@ function checkLogin(callBack) {
 };
 
 function init(e) {
-    e != null ? 
+    (e != null && e.isLogin === 1) ? 
    		 $("#loginInfoWrap").html('<a href="/html/user/home/index.html" class="sider-mine">个人中心</a>') : 
    			$("#loginInfoWrap").html('<a href="/html/user/login.html" class="sider-mine">个人中心<span>(未登录)</span></a>');
 };

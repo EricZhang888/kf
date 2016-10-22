@@ -1,11 +1,13 @@
 //登陆判断
 checkLogin(initialLoginIndex);
-
 function initialLoginIndex(user) {
-	if(user == null) {
+	if(user == null || user.isLogin === 0) {
 		location.href = "/";
 	}
 	
+	$("#noPayOrders").text(user.noPayOrders);
+	$("#noCheckInOrders").text(user.noCheckInOrders);
+	$("#noMarkOrders").text(user.noMarkOrders);
 	$(".user-content .phone .has-phone").text(user.bookerMobile);
 	$(".password-page .input-contain .phone").attr("value", user.bookerMobile);
 	if(user.bookerPwd != null) {

@@ -35,13 +35,13 @@
           <div class="order-type-contain">
             <section class="order-type" onclick="window.location.assign('orders.html#no-pay')">
               <i class="icon-credit"></i>
-              <br>待支付 (0)</section>
+              <br>待支付 (<span id="noPayOrders"></span>)</section>
             <section class="order-type" onclick="window.location.assign('orders.html#no-checkin')">
               <i class="icon-apartment"></i>
-              <br>待入住(0)</section>
+              <br>待入住(<span id="noCheckInOrders"></span>)</section>
             <section class="order-type" onclick="window.location.assign('orders.html#no-remark')">
               <i class="icon-message"></i>
-              <br>待评价(0)</section></div>
+              <br>待评价(<span id="noMarkOrders"></span>)</section></div>
           <div class="replace-margin"></div>
           <div class="module-enter">
             <section class="item-info order-add" onclick="window.location.assign('orders.html')">
@@ -186,7 +186,6 @@
         <ul>
           <li>
             <a href="/" class="home">首页</a></li>
-          <li id="loginInfoWrap"></li>
         </ul>
       </nav>
     </aside>

@@ -3,7 +3,7 @@ var sIndex =0;
 var load = true;
 
 function ordersPage(user) {
-	if(user == null) {
+	if(user == null || user.isLogin === 0) {
 		location.href = "/html/user/login.html?redirect=" + encodeURIComponent(window.location.href);
 	} else {
 		init(user);
@@ -114,14 +114,14 @@ $(".order-type-contain .order-type").on("click", function(a) {
     }
 });
 
-/*"#no-pay" == location.hash && ($(".order-type-contain .slide-chunk").addClass("no-pay"),
-$(".order-contain").addClass("no-pay"),this.sIndex = 1);
+"#no-pay" == location.hash && ($(".order-type-contain .slide-chunk").addClass("no-pay"),
+$(".order-contain").addClass("no-pay"),window.sIndex = 1);
 
 "#no-checkin" == location.hash && ($(".order-type-contain .slide-chunk").addClass("no-checkin"),
-$(".order-contain").addClass("no-checkin"),this.sIndex = 2);
+$(".order-contain").addClass("no-checkin"),window.sIndex = 2);
 
 "#no-remark" == location.hash && ($(".order-type-contain .slide-chunk").addClass("no-remark"),
-$(".order-contain").addClass("no-remark"),this.sIndex = 6);*/
+$(".order-contain").addClass("no-remark"),window.sIndex = 6);
 
 
 function genOrderHtml(a) {

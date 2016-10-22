@@ -1,5 +1,6 @@
 package com.ddkfang.service.order;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,6 +25,8 @@ public interface IOrdersService
 	public Order getOrdersById(String id) throws Exception;
 	
 	public Order getOrdersByOrderNumber(String orderNo) throws Exception;
+	
+	public List<Object[]> countOrderStatus(String bookerId) throws Exception;
 
 	public boolean isOrdersExpired(String id) throws Exception;
 

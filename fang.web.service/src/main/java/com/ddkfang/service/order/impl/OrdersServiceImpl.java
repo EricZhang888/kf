@@ -174,4 +174,10 @@ public class OrdersServiceImpl implements IOrdersService
 		return or;
 	}
 
+	public List<Object[]> countOrderStatus(String bookerId) throws Exception
+	{
+		List<Object[]> s = orderRepo.countOrderStatus(bookerId);
+		return s;
+	}
+
 }

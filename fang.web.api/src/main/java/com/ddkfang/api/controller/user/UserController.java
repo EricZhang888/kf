@@ -1,6 +1,7 @@
 package com.ddkfang.api.controller.user;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ddkfang.api.bean.User;
 import com.ddkfang.api.controller.BaseController;
 import com.ddkfang.constant.HttpStatusConstant;
+import com.ddkfang.constant.OrderStatus;
 import com.ddkfang.dao.entity.user.Booker;
 import com.ddkfang.service.common.IVerifyCodeService;
+import com.ddkfang.service.order.IOrdersService;
 import com.ddkfang.service.user.IUserAccountService;
 import com.ddkfang.util.verify.BCryptUtil;
 import com.yhf.dao.util.QueryTool;
@@ -33,6 +37,9 @@ public class UserController extends BaseController
 
 	@Autowired
 	IVerifyCodeService verifyCodeService;
+	
+	@Autowired
+	IOrdersService ordersService;
 
 	/**
 	 * 用户根据手机，验证码 修改密码
@@ -193,7 +200,16 @@ public class UserController extends BaseController
 	{
 
 		Map<String, Object> responseMap = new HashMap<String, Object>();
-		Booker user = (Booker) request.getSession().getAttribute("user");
+		User user = new User();
+		Booker booker = (Booker) request.getSession().getAttribute("user");
+		if(booker != null) {
+			user = bookerToUser(booker);
+			user = setUserInfo(user);
+			user.setRole("booker");
+			user.setIsLogin(1);
+		} else {
+			user.setIsLogin(0);
+		}
 		responseMap.put("data", user);
 		responseMap.put("status", HttpStatusConstant.userAccount.ok.getCode());
 		responseMap.put("msg", HttpStatusConstant.userAccount.ok.getMsg());
@@ -210,5 +226,35 @@ public class UserController extends BaseController
 		responseMap.put("msg", HttpStatusConstant.userAccount.ok.getMsg());
 		return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 	}
+	
+	private User setUserInfo(User u) {
+		try
+		{
+			List<Object[]> li = ordersService.countOrderStatus(u.getId());
+			for(Object[] o : li) {
+				
+				if(OrderStatus.needPay.getValue() == Integer.valueOf(o[0].toString())) {
+					u.setNoPayOrders(Integer.valueOf(o[1].toString()));
+				} else if(OrderStatus.paid.getValue() == Integer.valueOf(o[0].toString())) {
+					u.setNoCheckInOrders(Integer.valueOf(o[1].toString()));
+				} else if(OrderStatus.finishedNormal.getValue() == Integer.valueOf(o[0].toString())) {
+					u.setNoMarkOrders(Integer.valueOf(o[1].toString()));
+				}
+			} 
+			
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
+	private User bookerToUser(Booker b) {
+		User user = new User();
+		user.setPhone(b.getBookerMobile());
+		user.setId(b.getId());
+		return user;
+	}	
 
 }

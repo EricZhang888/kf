@@ -2,7 +2,7 @@ package com.ddkfang.constant;
 
 public enum OrderStatusUserDisney
 {
-	needPay(1), paid(3), overTime(3), adminCancel(4), checkedIn(5), finishedNormal(6);
+	needPay(1), paid(3), overTime(3), adminCancel(4), needMark(5), finishedNormal(6);
 	
 	private final int value;
 	

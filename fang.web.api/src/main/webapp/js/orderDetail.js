@@ -3,7 +3,7 @@ checkLogin(orderDetailLogin);
 var sPara = parseQuery(window.location.search);
 
 function orderDetailLogin(user) {
-	if(user ==null) {
+	if(user ==null || user.isLogin === 0) {
 		window.location.href="/html/user/login.html?redirect=" + encodeURIComponent(window.location.href);
 	} else {
 		init(user);
