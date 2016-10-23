@@ -49,7 +49,7 @@ public class VerifyCodeServiceImpl implements IVerifyCodeService
 		return "";
 	}
 
-	@Async
+	
 	public void sendOrderSmsNotice(String orderNo)
 	{
 		try

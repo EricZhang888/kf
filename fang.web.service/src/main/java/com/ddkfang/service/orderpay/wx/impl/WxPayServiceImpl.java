@@ -88,7 +88,7 @@ public class WxPayServiceImpl implements IWxPayService
 			if(map.get("return_code").equals("SUCCESS")) {
 				if(map.get("result_code").equals("SUCCESS")) {
 					if(map.get("trade_state").equals("SUCCESS")) {
-						verifyCodeService.sendOrderSmsNotice(orderNo);
+						//verifyCodeService.sendOrderSmsNotice(orderNo);
 						return true;
 					}
 				}

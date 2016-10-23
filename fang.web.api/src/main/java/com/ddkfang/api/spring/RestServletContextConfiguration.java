@@ -22,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@EnableAsync
+//@EnableAsync
 @EnableSpringDataWebSupport
 @ComponentScan(basePackages = "com.ddkfang")
 public class RestServletContextConfiguration extends WebMvcConfigurerAdapter
