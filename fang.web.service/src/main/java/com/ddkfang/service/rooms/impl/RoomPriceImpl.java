@@ -2,6 +2,8 @@ package com.ddkfang.service.rooms.impl;
 
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import com.ddkfang.util.priceCalendar.PriceCalendarUtil;
 public class RoomPriceImpl implements IRoomPrice
 {
 
+	private final static Logger logger = LoggerFactory.getLogger(RoomPriceImpl.class);
+	
 	@Autowired
 	RoomPriceRepo roomPriceRepo;
 
@@ -22,6 +26,7 @@ public class RoomPriceImpl implements IRoomPrice
 		RoomPriceCalendar rpc = roomPriceRepo.findById_RoomIdAndId_RoomDate(roomId, date);
 		if (rpc != null)
 		{
+			logger.info("start update RoomPriceCalendar roomId:{} date:{} status from {} to {}", roomId, date, rpc.getStatus(), status);
 			rpc.setStatus(status);
 			rpc.setUpdateTime(PriceCalendarUtil.getCurrentTimestamp());
 			roomPriceRepo.save(rpc);
@@ -39,6 +44,7 @@ public class RoomPriceImpl implements IRoomPrice
 			rpcNew.setRoomDatePrice(price);
 			rpcNew.setId(pk);
 			roomPriceRepo.save(rpcNew);
+			logger.info("create new RoomPriceCalendar {}", rpcNew.toString());
 		}
 	}
 

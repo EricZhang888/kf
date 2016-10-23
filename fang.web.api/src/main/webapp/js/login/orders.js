@@ -58,7 +58,7 @@ $(".order-content").scroll(function(e) {
 		        url: window.g_base.apibase + "/order/getOrdersByBooker?key=" + Math.random(),//"/js/myorders.json",//,
 		        data: {
 		            status: e,
-		            page: $(".order-content." + s[e]).data("index"),
+		            page: $(".order-content." + s[e]).attr("data-index"),
 		            size: 10
 		        },
 		        cache: !1,

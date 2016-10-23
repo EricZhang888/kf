@@ -398,4 +398,10 @@ public class Order implements Serializable
 		this.updateTime = updateTime;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "orderId:"+id + " roomId:" + roomId + " bookerId:"+bookerId + " checkIn:"+dateStart + " checkOut:"+ dateEnd;
+	}
+
 }

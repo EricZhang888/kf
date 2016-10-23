@@ -8,9 +8,9 @@ function initialLoginIndex(user) {
 	$("#noPayOrders").text(user.noPayOrders);
 	$("#noCheckInOrders").text(user.noCheckInOrders);
 	$("#noMarkOrders").text(user.noMarkOrders);
-	$(".user-content .phone .has-phone").text(user.bookerMobile);
-	$(".password-page .input-contain .phone").attr("value", user.bookerMobile);
-	if(user.bookerPwd != null) {
+	$(".user-content .phone .has-phone").text(user.phone);
+	$(".password-page .input-contain .phone").attr("value", user.phone);
+	if(user.pwd != null) {
 		$(".user-content .password .item-key").text("修改密码");
 		$(".password-page .es_header .title").text("修改密码");
 		$($(".password-page .input-contain")[4]).addClass("none");

@@ -11,6 +11,8 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +36,8 @@ import com.unionpay.acp.sdk.AcpService;
 @RequestMapping("/api/order/pay")
 public class OrderPayController
 {
+
+	private final static Logger logger = LoggerFactory.getLogger(OrderPayController.class);
 
 	@Autowired
 	IOrdersService ordersService;
@@ -112,19 +116,22 @@ public class OrderPayController
 	}
 
 	@RequestMapping(value = "wxPayFrontendNotify", method = RequestMethod.GET)
-	public void wxPayFrontendNotify(@RequestParam(value = "msg", required = true) String msg, 
-			@RequestParam(value = "orderNo", required = true) String orderNo,
-			HttpServletResponse resp,
+	public void wxPayFrontendNotify(@RequestParam(value = "msg", required = true) String msg,
+			@RequestParam(value = "orderNo", required = true) String orderNo, HttpServletResponse resp,
 			HttpServletRequest request) throws Exception
 	{
-		System.out.println("fanhuizhi:" + msg);
-		if(msg.equalsIgnoreCase("get_brand_wcpay_request:ok") && wxPayService.isOrderPaid(orderNo)) {
+		logger.info("start to check Wx pay from front end with order number:{} and wxMsg:{}", orderNo, msg);
+		if (msg.equalsIgnoreCase("get_brand_wcpay_request:ok") && wxPayService.isOrderPaid(orderNo))
+		{
 			//成功则更新订单状态
 			Order or = ordersService.getOrdersByOrderNumber(orderNo);
 			or.setStatus(OrderStatus.paid.getValue());
 			or.setUserDisplayStatus(OrderStatusUserDisney.paid.getValue());
 			or.setPayment(Payment.weixin.getValue());
 			ordersService.saveOrder(or);
+			logger.info(
+					"end to check Wx pay from front end set order-{} status to {}, user display status to {}, payment to {}",
+					orderNo, or.getStatus(), or.getUserDisplayStatus(), or.getPayment());
 		}
 		resp.sendRedirect(UrlConstant.ORDERS);
 	}

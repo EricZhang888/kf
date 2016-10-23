@@ -9,6 +9,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.ddkfang.api.bean.DayPrice;
 import com.ddkfang.api.bean.TotalPrice;
+import com.ddkfang.api.controller.user.UserController;
 import com.ddkfang.constant.HttpStatusConstant;
 import com.ddkfang.dao.entity.order.Order;
 import com.ddkfang.dao.entity.rooms.Room;
@@ -41,6 +44,8 @@ import com.ddkfang.util.priceCalendar.PriceCalendarUtil;
 public class OrderController
 {
 
+	private final static Logger logger = LoggerFactory.getLogger(OrderController.class);
+	
 	@Autowired
 	IOrdersService ordersService;
 
@@ -173,8 +178,7 @@ public class OrderController
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("error in getOrdersByBooker:{}", e);
 		}
 
 		return null;
@@ -197,7 +201,6 @@ public class OrderController
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -214,7 +217,7 @@ public class OrderController
 		{
 			Order or = ordersService.getOrdersById(id);
 
-			if (or.getLastPayTime().before(new Date()))
+			if (or.getStatus() == 1  && or.getLastPayTime().before(new Date()))
 			{
 				//订单超时
 				or.setStatus(3);

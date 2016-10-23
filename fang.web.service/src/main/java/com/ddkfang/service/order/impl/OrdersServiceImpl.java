@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,8 @@ import com.ddkfang.util.priceCalendar.PriceCalendarUtil;
 @Service
 public class OrdersServiceImpl implements IOrdersService
 {
+	private final static Logger logger = LoggerFactory.getLogger(OrdersServiceImpl.class);
+	
 	@Autowired
 	OrderRepo orderRepo;
 
@@ -87,7 +91,7 @@ public class OrdersServiceImpl implements IOrdersService
 		or.setLastPayTime(PriceCalendarUtil.getExactTimestamp(Calendar.MINUTE, 10));
 		or.setOrderNumber(PriceCalendarUtil.getUniqueTimestampStr());
 		orderRepo.save(or);
-
+		logger.info("order created:{}", or.toString());
 		//更新或插入价格日历
 		if (or.getId() != null)
 		{
@@ -149,6 +153,8 @@ public class OrdersServiceImpl implements IOrdersService
 		{
 			if (or.getLastPayTime().before(new Date()))
 			{
+				logger.info("order id {} status from {} to 3", or.getId(), or.getStatus());
+				
 				updatePriceCalendarForOvertimeOrder(or);
 				or.setStatus(3);
 				or.setUserDisplayStatus(4);

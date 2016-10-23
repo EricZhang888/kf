@@ -27,11 +27,17 @@ import com.ddkfang.service.user.IUserAccountService;
 import com.ddkfang.util.verify.BCryptUtil;
 import com.yhf.dao.util.QueryTool;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController extends BaseController
 {
 
+	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	@Autowired
 	IUserAccountService userAccountService;
 
@@ -56,6 +62,7 @@ public class UserController extends BaseController
 		//check if the account exist by mobile
 		try
 		{
+			
 			if (!userAccountService.checkUserExistByMobile(json.getString("mobile")))
 			{
 				responseMap.put("status", HttpStatusConstant.userAccount.accountNotExist.getCode());
@@ -124,7 +131,7 @@ public class UserController extends BaseController
 		//check if the account exist by mobile
 		try
 		{
-
+			logger.info("User Login with passwd start mobile：{}", json.getString("mobile"));
 			Booker user = userAccountService.getUserByMobile(json.getString("mobile"));
 			if (user == null)
 			{
@@ -145,6 +152,7 @@ public class UserController extends BaseController
 			responseMap.put("status", HttpStatusConstant.userAccount.ok.getCode());
 			responseMap.put("msg", HttpStatusConstant.userAccount.ok.getMsg());
 			request.getSession().setAttribute("user", user);
+			logger.info("User Login with passwd success mobile:{}", json.getString("mobile"));
 			return new ResponseEntity<Map<String, Object>>(responseMap, HttpStatus.OK);
 		} catch (Exception e)
 		{
@@ -207,6 +215,9 @@ public class UserController extends BaseController
 			user = setUserInfo(user);
 			user.setRole("booker");
 			user.setIsLogin(1);
+			if(booker.getBookerPwd() != null) {
+				user.setPwd("111"); //set a default value for front end check
+			}
 		} else {
 			user.setIsLogin(0);
 		}

@@ -99,6 +99,12 @@ public class RoomPriceCalendar implements Serializable
 		this.updateBy = updateBy;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "roomid:" +id.getRoomId() + "date:" + id.getRoomDate() + "status:"+status + "createTime:" +createTime + "updateTime"+updateTime;
+	}
+
 	public Timestamp getUpdateTime()
 	{
 		return this.updateTime;
