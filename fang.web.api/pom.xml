@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.ddkfang</groupId>
+		<groupId>com.bohosi.1hf</groupId>
 		<artifactId>fang.web.parent</artifactId>
 		<version>1.0.0.1</version>
 		<relativePath>../fang.web.parent</relativePath>
@@ -11,12 +11,12 @@
 	<packaging>war</packaging>
 	<dependencies>
 		<dependency>
-			<groupId>com.ddkfang</groupId>
+			<groupId>com.bohosi.1hf</groupId>
 			<artifactId>fang.web.service</artifactId>
 			<version>1.0.0.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ddkfang</groupId>
+			<groupId>com.bohosi.1hf</groupId>
 			<artifactId>fang.web.utilities</artifactId>
 			<version>1.0.0.1</version>
 		</dependency>
