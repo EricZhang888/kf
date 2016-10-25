@@ -97,7 +97,7 @@ function checkLogin(callBack) {
 
 function init(e) {
     (e != null && e.isLogin === 1) ? 
-   		 $("#loginInfoWrap").html('<a href="/html/user/home/index.html" class="sider-mine">个人中心</a>') : 
+   		 $("#loginInfoWrap").html('<a href="/html/user/index.html" class="sider-mine">个人中心</a>') : 
    			$("#loginInfoWrap").html('<a href="/html/user/login.html" class="sider-mine">个人中心<span>(未登录)</span></a>');
 };
 //正则表达式工具

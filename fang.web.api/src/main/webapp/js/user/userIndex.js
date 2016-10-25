@@ -135,7 +135,7 @@ $(".password-page .save-button button").on("tap click", function() {
             $(".password-page .input-contain:first-child").removeClass("none"),
             $(".password-page").removeClass("page-sile-left"),
             setTimeout(function() {
-                location.href = "/html/user/home/index.html"
+                location.href = "/html/user//index.html"
             }, 500)) : alertMsg("操作失败（" + s.msg + "）")
         },
         error: function() {

@@ -96,7 +96,7 @@ public class OrderPayController
 			String openid = tokenJson.getString("openid");
 			String payParam = wxPayService.genPayData(or.getOrderNumber(), openid, or.getPrice(),
 					request.getRemoteAddr());
-			String s = "/html/orderpay/sendWxPay.html?" + payParam;
+			String s = "/html/user/orderpay/sendWxPay.html?" + payParam;
 			//s = URLEncoder.encode(s, "UTF-8");
 			resp.sendRedirect(s);
 		} else

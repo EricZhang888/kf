@@ -4,15 +4,18 @@ function orderPage(user) {
 		location.href = "/html/user/login.html?redirect=" + encodeURIComponent(window.location.href);
 	} else {
 		init(user);
+		$("input[type='tel']").val(user.phone);
 	}
 };
 
 var sPara = parseQuery(window.location.search);
 var add = $(".orderform-content .form-title span")[0];
 var dur = $(".orderform-content .form-title span")[1];
+
 //initial start
 $(add).append(sPara.address);
 $(dur).text(sPara.checkin_date + " 入住" + " —— " + sPara.checkout_date + " 退房") ;
+
 var date = sPara.checkin_date.split("-");
 var roomN = sPara.roomName + " · " + sPara.siteName.replace(sPara.roomName,"")
 $(".form-title").attr("data-checkin_date",sPara.checkin_date);
@@ -57,11 +60,11 @@ $(".submit-order").on("click tap",function() {
             success: function(e) {
                 'A00000' == e.status ? (alertMsg("提交成功"),
                 $("#mask,.operate-tip").on("click tap", function() {
-                    location.href = "/html/order/cardpay.html?order_id=" + e.orderId + "&price=" + sPara.price + "&lastpay=" + e.lastpay
+                    location.href = "/html/user/orderpay/cardpay.html?order_id=" + e.orderId + "&price=" + sPara.price + "&lastpay=" + e.lastpay
                 }),
                 setTimeout(function() {
                     $("#mask").click(),
-                    location.href = "/html/order/cardpay.html?order_id=" + e.orderId + "&price=" + sPara.price + "&lastpay=" + e.lastpay
+                    location.href = "/html/user/orderpay/cardpay.html?order_id=" + e.orderId + "&price=" + sPara.price + "&lastpay=" + e.lastpay
                 }, 1e3)) : alertMsg(e.msg)
             }
         })

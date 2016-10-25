@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-title" content="1号房公寓" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="robots" content="noindex, nofollow">
     <link rel="Shortcut Icon" type="image/x-icon" href="../../../img/favicon.ico">
     <link rel="apple-touch-icon" sizes="120x120" href="../../../img/app-logo-120.png">
     <link rel="apple-touch-icon" sizes="152x152" href="../../../img/app-logo-152.png">
@@ -18,7 +19,7 @@
     <meta name="keywords" content="1号房" />
     <meta name="description" content="1号房" />
     <title>用户中心</title>
-    <link rel="stylesheet" href="../../../css/user.css"></head>
+    <link rel="stylesheet" href="../../css/user.css"></head>
   
   <body>
     <section class="es_flow" id="user">
@@ -29,22 +30,22 @@
           <div class="title">个人中心</div></div>
         <div class="user-home-content user-content">
           <div class="user-title">
-            <div class="img" style="background-image: url(../../../img/head-img-replace.png)" src="../../../img/head-img-replace.png"></div>
+            <div class="img" style="background-image: url(../../img/head-img-replace.png)" src="../../img/head-img-replace.png"></div>
             <p class="Nickname"></p>
           </div>
           <div class="order-type-contain">
-            <section class="order-type" onclick="window.location.assign('orders.html#no-pay')">
+            <section class="order-type" onclick="window.location.assign('order/orders.html#no-pay')">
               <i class="icon-credit"></i>
               <br>待支付 (<span id="noPayOrders"></span>)</section>
-            <section class="order-type" onclick="window.location.assign('orders.html#no-checkin')">
+            <section class="order-type" onclick="window.location.assign('order/orders.html#no-checkin')">
               <i class="icon-apartment"></i>
               <br>待入住(<span id="noCheckInOrders"></span>)</section>
-            <section class="order-type" onclick="window.location.assign('orders.html#no-remark')">
+            <section class="order-type" onclick="window.location.assign('order/orders.html#no-remark')">
               <i class="icon-message"></i>
               <br>待评价(<span id="noMarkOrders"></span>)</section></div>
           <div class="replace-margin"></div>
           <div class="module-enter">
-            <section class="item-info order-add" onclick="window.location.assign('orders.html')">
+            <section class="item-info order-add" onclick="window.location.assign('order/orders.html')">
               <i class="icon-list"></i>&nbsp;&nbsp;&nbsp;
               <span class="item-key">全部订单</span>
               <span class="set-button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -79,7 +80,7 @@
           <div class="title">个人资料</div></div>
         <div class="user-info-caontain user-content">
           <section class="item-info">
-            <div class="head-img" style="background-image: url(../../../img/head-img-replace.png)" src="../../../img/head-img-replace.png" alt=""></div>
+            <div class="head-img" style="background-image: url(../../img/head-img-replace.png)" src="../../img/head-img-replace.png" alt=""></div>
             <span class="set-button">上传头像</span>
             <input type="file" class="take-picture" id="head-picture" accept="image/*;capture=camera">
             <i class="icon-right"></i>
@@ -203,9 +204,9 @@
         <dt>2.</dt>
         <dd>点击关注,即可发送消息.呼叫呆妹,享受24h贴心服务.</dd></dl>
     </div>
-    <script type="text/javascript" src="../../../js/jquery-3.1.0.min.js"></script>
-    <script type="text/javascript" src="../../../js/base.js"></script>
-    <script type="text/javascript" src="../../../js/login/userIndex.js"></script>
+    <script type="text/javascript" src="../../js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../../js/base.js"></script>
+    <script type="text/javascript" src="../../js/user/userIndex.js"></script>
   </body>
 
 </html>

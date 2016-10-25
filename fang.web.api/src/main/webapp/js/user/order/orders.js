@@ -127,7 +127,7 @@ $(".order-contain").addClass("no-remark"),window.sIndex = 6);
 function genOrderHtml(a) {
     var e = $('<section class="order-piece"></section>')
       , r = '<p class="room-title">' + a.roomName + " &nbsp;&nbsp;<span>" + a.apartmentName + "</span></p>";
-    r += '<a class="order-info" href="/html/order/orderDetail.html?order_id=' + a.id + '">',
+    r += '<a class="order-info" href="/html/user/order/orderDetail.html?order_id=' + a.id + '">',
     r += '<img class="room-img" src="/img/fang/' + a.roomId + '/' + a.roomImg + '" alt="">',
     r += '<div class="detail-info">',
     r += '<p class="info-item checkin">入住 &nbsp;&nbsp;<span>' + a.dateStart + "</span></p><br>",
@@ -147,7 +147,7 @@ function genOrderHtml(a) {
         r += "</a>",
         r += '<div class="operate operate-db">',
         r += '<span class="pay-time"><i data-time="' + dateStr(new Date(a.lastPayTime)) + '" class="LastPayTime"></i></span>',
-        r += '<a class="now-pay" href="/html/order/cardpay.html?order_id=' + a.id + '&price='+ a.price + '&lastpay='+ a.lastPayTime + '">立即支付</a><a class="again-order" href="/roomDetail.html?id=' + a.roomId + '">再次预订</a>';
+        r += '<a class="now-pay" href="/html/user/orderpay/cardpay.html?order_id=' + a.id + '&price='+ a.price + '&lastpay='+ a.lastPayTime + '">立即支付</a><a class="again-order" href="/roomDetail.html?id=' + a.roomId + '">再次预订</a>';
         break;
     case 2:
         r += '<i class="icon-no-affirm order-type"></i>',
@@ -166,7 +166,7 @@ function genOrderHtml(a) {
         r += "</div>",
         r += "</a>",
         r += '<div class="operate operate-db">',
-        r += '<a class="remark-order" href="/html/order/orderDetail.html?order_id=' + a.id + '#remark">点评订单</a><a class="again-order" href="/roomDetail.html?id=' + a.roomId + '">再次预订</a>';
+        r += '<a class="remark-order" href="/html/user/order/orderDetail.html?order_id=' + a.id + '#remark">点评订单</a><a class="again-order" href="/roomDetail.html?id=' + a.roomId + '">再次预订</a>';
         break;
     case 6:
         r += '<i class="icon-order-over order-type"></i>',

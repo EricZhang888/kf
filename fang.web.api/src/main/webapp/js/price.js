@@ -262,7 +262,7 @@ var checkOutSelect;
                 console.log("不可点击");
             else {
                 console.log("下一步");
-                n = "html/order/orderForm.html?roomId=" + e.roomId + "&checkin_date=" + checkInSelect + "&checkout_date=" + checkOutSelect + "&address=" + $("#address").text() + "&roomName=" + $(".flex-item .nowrap strong").text() + "&siteName=" + $(".flex-item .nowrap").text() + "&price=" + $(".fl.price span").text();
+                n = "html/user/order/orderForm.html?roomId=" + e.roomId + "&checkin_date=" + checkInSelect + "&checkout_date=" + checkOutSelect + "&address=" + $("#address").text() + "&roomName=" + $(".flex-item .nowrap strong").text() + "&siteName=" + $(".flex-item .nowrap").text() + "&price=" + $(".fl.price span").text();
                 window.location.href = n
                 //e.isLogin ? window.location.href = n : window.location.href = "/home/login?redirectUrl=" + encodeURIComponent(n)
             }
