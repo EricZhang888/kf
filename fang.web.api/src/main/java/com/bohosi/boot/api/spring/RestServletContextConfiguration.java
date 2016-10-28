@@ -1,4 +1,4 @@
-package com.bohosi.yhf.api.spring;
+package com.bohosi.boot.api.spring;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -28,18 +28,6 @@ public class RestServletContextConfiguration extends WebMvcConfigurerAdapter
 {
 	@Autowired
 	ApplicationContext applicationContext;
-
-	//	@Inject
-	//	ObjectMapper objectMapper;
-	//
-	//	@Inject
-	//	Marshaller marshaller;
-	//
-	//	@Inject
-	//	Unmarshaller unmarshaller;
-	//
-	//	@Inject
-	//	SpringValidatorAdapter validator;
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters)

@@ -1,4 +1,4 @@
-package com.bohosi.yhf.api.spring;
+package com.bohosi.boot.api.spring;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -23,8 +23,6 @@ public class Application implements WebApplicationInitializer
 		container.getServletRegistration("default").addMapping("*.html", "/fangdong/*", "*.txt", "/css/*", "/js/*",
 				"/img/*");
 		ServletRegistration.Dynamic dispatcher = container.addServlet("api", new DispatcherServlet(apiContext));
-//		dispatcher.setLoadOnStartup(1);
-//		dispatcher.addMapping("/");
 
 		AnnotationConfigWebApplicationContext daoContext = new AnnotationConfigWebApplicationContext();
 		daoContext.setParent(apiContext);

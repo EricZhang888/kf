@@ -1,4 +1,4 @@
-package com.bohosi.yhf.jobs.order;
+package com.bohosi.yhf.api.jobs;
 
 import java.util.Date;
 

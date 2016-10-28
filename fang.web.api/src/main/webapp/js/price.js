@@ -41,9 +41,10 @@ var checkOutSelect;
                         }() : 1 === m ? a + 1 + "月" : m,
                         isLast ? function() {
                             return e[m - 1].is_full_booked ? "<p>满房</p>" : function() {
-                                return 1 == n ? "<p>" + t + "<span>￥" + i + "</span><i></i></p>" : "<p>" + t + "<span>￥" + i + "</span></p>"
+                                return 1 == n ? (g===0 || g===6 ? "<p><font color=\"#E78C00\">" + t + "</font><span>￥" + i + "</span><i></i></p>" : "<p>" + t + "<span>￥" + i + "</span><i></i></p>") : 
+                                	(g===0 || g===6 ? "<p><font color=\"#E78C00\">" + t + "</font><span>￥" + i + "</span></p>" : "<p>" + t + "<span>￥" + i + "</span></p>")
                             }()
-                        }() : "<section>" + t + "</section>"
+                        }() : g===0 || g===6 ? "<section><font color=\"#E78C00\">" + t + "</font></section>" : "<section>" + t + "</section>"
                     }()) + "</td>"),
                     m++
                 }
