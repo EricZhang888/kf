@@ -73,7 +73,7 @@ $(".order-content").scroll(function(e) {
     	                  , i = $(t).data("time");
     	                $(".order-content." + s[e] + ">div").append(n)
     	            }),
-    	            $(".order-content." + s[e]).data("index", $(".order-content." + s[e]).data("index") + 1),
+    	            $(".order-content." + s[e]).attr("data-index", parseInt($(".order-content." + s[e]).attr("data-index")) + 1),
     	            void (load = true)) : ($(".order-content." + s[e]).attr("data-index", 0),
     	            		void (load = true),
     	            void $(".order-content." + s[e]).find(".load").hide())

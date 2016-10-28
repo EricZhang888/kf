@@ -162,6 +162,24 @@ public class OrdersServiceImpl implements IOrdersService
 			}
 		}
 	}
+	
+	@Async
+	public void updateNoCheckInOrdersCalendar() throws Exception
+	{
+		// get add need pay order
+		List<Order> orList = orderRepo.findByStatus(2);
+
+		for (Order or : orList)
+		{
+			if (or.getDateEnd().before(new Date()))
+			{
+				logger.info("order id {} status from {} to 3", or.getId(), or.getStatus());
+				or.setStatus(3);
+				or.setUserDisplayStatus(6);
+				orderRepo.save(or);
+			}
+		}
+	}
 
 	public boolean isOrdersExpired(String id) throws Exception
 	{

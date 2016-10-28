@@ -29,5 +29,20 @@ public class OrderJob
 			e.printStackTrace();
 		}
 	}
+	
+	@Scheduled(cron = "0 1 0 * * ? ")
+	public void updateNoCheckInOrder()
+	{
+		try
+		{
+			System.out.println(new Date().toString() + "start no check in order handling");
+			ordersService.updateNoCheckInOrdersCalendar();
+			System.out.println(new Date().toString() + "finish no check in order handling");
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

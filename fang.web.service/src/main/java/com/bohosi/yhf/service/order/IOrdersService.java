@@ -31,4 +31,6 @@ public interface IOrdersService
 	public boolean isOrdersExpired(String id) throws Exception;
 
 	public void updateExpiredOrdersCalendar() throws Exception;
+	
+	public void updateNoCheckInOrdersCalendar() throws Exception;
 }
