@@ -36,7 +36,7 @@ public class BCryptUtil
 
 	public static void main(String[] args)
 	{
-		String s = genBcryptPwd("zaqweb");
+		String s = genBcryptPwd("Qwer1234");
 		System.out.println(s);
 		System.out.println(checkBcryptPwd("zaqweb", s));
 		System.out.println(BCrypt.checkpw("zaqweb", "$2a$10$a6sC3kRU/odC3mh4iHJGYe15BSeLshUd.uezJHFtNBb93D9DsuZz2"));

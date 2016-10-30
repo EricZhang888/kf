@@ -30,13 +30,13 @@
 			<div class="middle-box">
 				<img alt="logo" src="./resource/imgs/logo.png">
 			</div>
-			<h3>欢迎使用 1号房</h3>
-			<form class="m-t" role="form" action="index">
+			<h3>欢迎使用1号房</h3>
+			<form class="m-t" role="form" action="doLogin" method="post">
 				<div class="form-group">
-					<input type="email" class="form-control" placeholder="用户名" required>
+					<input type="email" class="form-control" placeholder="邮箱或手机号" required name="mailOrMobile">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" placeholder="密码" required>
+					<input type="password" class="form-control" placeholder="密码" required name="passwd">
 				</div>
 				<button type="submit" class="btn btn-primary block full-width m-b">登录</button>
 				<!-- <p class="text-muted text-center">

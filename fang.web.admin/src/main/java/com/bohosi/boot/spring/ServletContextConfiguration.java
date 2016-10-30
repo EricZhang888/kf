@@ -7,6 +7,7 @@ import java.util.List;
 import javax.xml.transform.Source;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @EnableSpringDataWebSupport
+@ServletComponentScan
 @ComponentScan(basePackages = "com.bohosi.yhf")
 public class ServletContextConfiguration extends WebMvcConfigurerAdapter
 {
