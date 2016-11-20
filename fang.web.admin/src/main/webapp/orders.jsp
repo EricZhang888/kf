@@ -15,6 +15,7 @@
     <link href="<%=request.getContextPath() %>/resource/cssfolder/font-awesome.min93e3.css" rel="stylesheet">
     <link href="<%=request.getContextPath() %>/resource/cssfolder/animate.min.css" rel="stylesheet">
     <link href="<%=request.getContextPath() %>/resource/cssfolder/style.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resource/cssfolder/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
 
 </head>
 
@@ -72,23 +73,7 @@
 							      </tr>
 							    </tbody>
 							  </table>
-							  <div class="row">
-							    <div class="col-sm-6">
-							      <div class="dataTables_info" id="DataTables_Table_0_info" role="alert" aria-live="polite" aria-relevant="all">显示 1 到 1 项，共 1 项 </div>
-							    </div>
-							    <div class="col-sm-6">
-							      <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-							        <ul class="pagination">
-							          <li class="paginate_button previous disabled" aria-controls="DataTables_Table_0" tabindex="0" id="DataTables_Table_0_previous">
-							            <a href="#">上一页</a></li>
-							          <li class="paginate_button active" aria-controls="DataTables_Table_0" tabindex="0">
-							            <a href="#">1</a></li>
-							          <li class="paginate_button next disabled" aria-controls="DataTables_Table_0" tabindex="0" id="DataTables_Table_0_next">
-							            <a href="#">下一页</a></li>
-							        </ul>
-							      </div>
-							    </div>
-							  </div>
+							  <!-- paging -->
 						</div>
                     </div>
                 </div>
@@ -98,6 +83,19 @@
     <script src="<%=request.getContextPath() %>/resource/javascript/jquery.min.js?v=2.1.4"></script>
     <script src="<%=request.getContextPath() %>/resource/javascript/bootstrap.min.js?v=3.3.6"></script>
     <script src="<%=request.getContextPath() %>/resource/javascript/content.min.js?v=1.0.0"></script>
+    <script src="<%=request.getContextPath() %>/resource/javascript/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/javascript/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script>
+    $(document).ready(function() {
+        $(".dataTables-example").dataTable({
+        	"pages": 20,
+        	"sort": false
+        });
+        //var oTable = $("#editable").dataTable();
+        
+    });
+    
+    </script>
 </body>
 
 

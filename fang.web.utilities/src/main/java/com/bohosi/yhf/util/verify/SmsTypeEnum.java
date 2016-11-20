@@ -3,7 +3,7 @@ package com.bohosi.yhf.util.verify;
 public enum SmsTypeEnum
 {
 
-	login("SMS_16360290"), changePwd("SMS_16375147"), roomPaidUser("SMS_21755102"),roomPaidAdmin("SMS_21670076");
+	login("SMS_26120039"), changePwd("SMS_26185079"), roomPaidUser("SMS_26100059"),roomPaidAdmin("SMS_26185080");
 
 	private String tempName;
 

@@ -15,9 +15,9 @@ public class VerifyCodeUtil
 
 	final static String url = "http://gw.api.taobao.com/router/rest";
 
-	final static String appkey = "23466483";
+	final static String appkey = "23533252";
 
-	final static String secret = "3f5f55f698111f5ce29740410ea41f68";
+	final static String secret = "73b1effe2fa1f76316f1da12631e0787";
 
 	@Async
 	public static boolean sendVerifyCode(String mobile, String code, String bizType) throws ApiException
