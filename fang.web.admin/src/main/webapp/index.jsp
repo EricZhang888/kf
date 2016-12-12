@@ -94,9 +94,9 @@
                 <li>
                   <a class="J_menuItem" href="mailbox.html">门店管理</a></li>
                 <li>
-                  <a class="J_menuItem" href="mail_detail.html">增加房源</a></li>
+                  <a class="J_menuItem" href="./room/roomAdd">增加房源</a></li>
                 <li>
-                  <a class="J_menuItem" href="mail_compose.html">查询房源</a></li>
+                  <a class="J_menuItem" href="./room/roomSearch">查询房源</a></li>
               </ul>
             </li>
             <li>

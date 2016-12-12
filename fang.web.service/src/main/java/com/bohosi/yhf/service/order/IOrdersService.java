@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.bohosi.yhf.dao.entity.order.Order;
-import com.bohosi.yhf.dao.entity.rooms.Room;
+import com.bohosi.yhf.dao.entity.order.OrderAdmin;
 import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
 
 public interface IOrdersService
@@ -36,5 +36,5 @@ public interface IOrdersService
 	
 	public void updateNoCheckInOrdersCalendar() throws Exception;
 	
-	public Page<Order> searchOrders(SearchCriteria searchCriteria, Pageable pageable);
+	public Page<OrderAdmin> searchOrders(SearchCriteria searchCriteria, Pageable pageable);
 }

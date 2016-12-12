@@ -20,7 +20,7 @@ public class Application implements WebApplicationInitializer
 		apiContext.register(ServletContextConfiguration.class);
 
 		container.addListener(new ContextLoaderListener(apiContext));
-		container.getServletRegistration("default").addMapping("/resource/*");
+		container.getServletRegistration("default").addMapping("/resource/*","/img/*");
 		ServletRegistration.Dynamic dispatcher = container.addServlet("/", new DispatcherServlet(apiContext));
 
 		AnnotationConfigWebApplicationContext daoContext = new AnnotationConfigWebApplicationContext();

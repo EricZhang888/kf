@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bohosi.yhf.dao.entity.order.Order;
+import com.bohosi.yhf.dao.entity.order.OrderAdmin;
 import com.bohosi.yhf.dao.repositories.base.Criterion;
 import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
 import com.bohosi.yhf.service.order.IOrdersService;
@@ -45,7 +45,7 @@ public class OrderController
 			criteria.add(new Criterion("orderNumber", Criterion.Operator.EQ, orderNo));
 		}
 		
-		Page<Order> orders = ordersService.searchOrders(criteria, pageable);
+		Page<OrderAdmin> orders = ordersService.searchOrders(criteria, pageable);
 		model.put("list", orders.getContent());
 		model.put("pages", orders.getTotalPages());
 		model.put("curPage", orders.getNumber());
@@ -53,8 +53,8 @@ public class OrderController
 		return "orders";
 	}
 	
-	@RequestMapping(value = "addOrder", method = RequestMethod.POST)
-	public String addNewOrder() {
+	@RequestMapping(value = "addOrder", method = RequestMethod.GET)
+	public String addOrder() {
 		return "addOrder";
 	}
 }

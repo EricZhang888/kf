@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bohosi.yhf.dao.entity.order.Order;
+import com.bohosi.yhf.dao.entity.order.OrderAdmin;
 import com.bohosi.yhf.dao.entity.rooms.Room;
 import com.bohosi.yhf.dao.entity.rooms.RoomPriceCalendar;
 import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
@@ -209,7 +210,7 @@ public class OrdersServiceImpl implements IOrdersService
 		return s;
 	}
 
-	public Page<Order> searchOrders(SearchCriteria searchCriteria, Pageable pageable)
+	public Page<OrderAdmin> searchOrders(SearchCriteria searchCriteria, Pageable pageable)
 	{
 		return orderAdminRepo.search(searchCriteria, pageable);
 	}
