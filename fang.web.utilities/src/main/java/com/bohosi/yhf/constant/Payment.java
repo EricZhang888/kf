@@ -2,7 +2,7 @@ package com.bohosi.yhf.constant;
 
 public enum Payment
 {
-	weixin(0), zhifubao(1), unionpay(3);
+	none(-1), weixin(0), zhifubao(1), unionOnLinePay(3), cash(2), unionCard(4);
 	
 	private final int value;
 	

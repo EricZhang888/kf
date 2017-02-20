@@ -103,7 +103,7 @@
 								        			现金
 								        		</c:when>
 								        		<c:when test="${roomOrder.payment == '3'} ">
-								        			银联支付	
+								        			银联在线支付	
 								        		</c:when>
 								        		<c:when test="${roomOrder.payment == '4'}">
 								        			刷卡支付
@@ -166,7 +166,7 @@
 					<h4 class="modal-title">入住办理</h4>
 					<small>录入入住人相关必要信息</small>
 				</div>
-				
+				<form action="<%=request.getContextPath() %>/order/queryOrder" method="POST">
 					<div class="modal-body">
 							<div class="form-group">
 								<label>入住人数：</label> 
@@ -183,10 +183,12 @@
 							<div class="form-group">
 								<label>押金方式：</label> 
 								<select class="form-control" name="">
-        							<option>选项 1</option>
-							        <option>选项 2</option>
-							        <option>选项 3</option>
-							        <option>选项 4</option>
+									<option value="-1">无</option>
+									<option value="0">微信</option>
+        							<option value="1">支付宝</option>
+							        <option value="2">现金</option>
+							        <option value="3">银联在线支付</option>
+							        <option value="4">刷卡支付</option>
     							</select>
 							</div>
 							<div class="form-group">
@@ -198,7 +200,7 @@
 						<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
 						<button type="button" class="btn btn-primary">保存</button>
 					</div>
-				
+				</form>
 			</div>
 			<small> </small>
 		</div>

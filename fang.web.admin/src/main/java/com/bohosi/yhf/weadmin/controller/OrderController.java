@@ -53,6 +53,12 @@ public class OrderController
 		return "orders";
 	}
 	
+	
+	@RequestMapping(value = "orderCheckIn", method = RequestMethod.POST)
+	public String orderCheckIn() {
+		return "addOrder";
+	}
+	
 	@RequestMapping(value = "addOrder", method = RequestMethod.GET)
 	public String addOrder() {
 		return "addOrder";
