@@ -96,7 +96,7 @@
                 <li>
                   <a class="J_menuItem" href="./room/roomAdd">增加房源</a></li>
                 <li>
-                  <a class="J_menuItem" href="./room/roomSearch">查询房源</a></li>
+                  <a class="J_menuItem" href="./room/rooms">查询房源</a></li>
               </ul>
             </li>
             <li>

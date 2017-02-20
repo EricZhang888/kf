@@ -26,8 +26,8 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <div class="search-form">
-                            <form action="<%=request.getContextPath() %>/order/queryOrder" method="POST">
-                            	<input class="" type="hidden" name="sort" value="createTime,desc">
+                            <form action="<%=request.getContextPath() %>/room/queryRoom" method="POST">
+                            	<input class="" type="hidden" name="sort" value="roomCreateTime,desc">
                                 <div class="input-group">
                                 	<div class="col-sm-4">
 										<input type="text" placeholder="姓名" name="bookerName" class="form-control input-lg">
@@ -56,16 +56,16 @@
 							      <tr role="row">
 							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 177px;">房源图</th>
 							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" style="width: 216px;">房源信息</th>
-							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 196px;">联系人</th>
-							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">联系人电话</th>
-							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">付款信息</th>
+							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 196px;">房东</th>
+							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">房东电话</th>
+							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">状态</th>
 							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 200px;">操作</th>
 							      </tr>
 							    </thead>
 							    <tbody>
-								    <c:forEach items="${list }" var="roomOrder">
+								    <c:forEach items="${list }" var="room">
 								    	<tr class="gradeA odd">
-								        <td class=""><img alt="" height="138" width="190" src="../img/fang/${roomOrder.roomId}/${roomOrder.roomImg}"></td>
+								        <td class=""><img alt="" height="138" width="190" src="../img/fang/${room.roomId}/${roomOrder.roomImg}"></td>
 								        <td class="sorting_1">${roomOrder.apartmentName} </td>
 								        <td class="">${roomOrder.contactName}</td>
 								        <td class="center">${roomOrder.contactPhone}</td>
@@ -113,14 +113,14 @@
 								        <td class="center">
 											<c:choose>
 								        		<c:when test="${roomOrder.status == '1'}">
-								        			<button id="adminPayCheckIn" class="button">付款并入住</button>
+								        			<button class="button">付款并入住</button>
 								        		</c:when>
 								        		<c:when test="${roomOrder.status == '2'}">
-								        			<button id="adminCheckIn" class="button" data-toggle="modal" data-target="#myModal4">入住</button>
+								        			<button class="button">入住</button>
 								        		</c:when>
 								        		<c:when test="${roomOrder.status == '5'}">
-								        			<button id="adminCheckOut" class="button"  data-toggle="modal" data-target="#myModal5">退房</button>
-								        			<button id="adminModifyInfo" class="button">修改入住信息</button>
+								        			<button class="button">退房</button>
+								        			<button class="button">修改入住信息</button>
 								        		</c:when>
 								        	</c:choose>
 										</td>
@@ -147,98 +147,10 @@
         	"sort": false
         });
         //var oTable = $("#editable").dataTable();
-        $("#adminCheckIn").on("click", function(){
-        	
-        })
+        
     });
     
     </script>
-
-	<div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog"
-		aria-hidden="true" style="display: none;">
-		<div class="modal-dialog">
-			<div class="modal-content animated fadeIn">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-					</button>
-					
-					<h4 class="modal-title">入住办理</h4>
-					<small>录入入住人相关必要信息</small>
-				</div>
-				
-					<div class="modal-body">
-							<div class="form-group">
-								<label>入住人数：</label> 
-								<input type="text" class="form-control">
-							</div>
-							<div class="form-group">
-								<label>身份证：</label> 
-								<input type="text" class="form-control" placeholder="多人时已都好隔开">
-							</div>
-							<div class="form-group">
-								<label>押金：</label> 
-								<input type="text" class="form-control">元
-							</div>
-							<div class="form-group">
-								<label>押金方式：</label> 
-								<select class="form-control" name="">
-        							<option>选项 1</option>
-							        <option>选项 2</option>
-							        <option>选项 3</option>
-							        <option>选项 4</option>
-    							</select>
-							</div>
-							<div class="form-group">
-								<label>备注：</label> 
-								<input type="text" class="form-control">
-							</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">保存</button>
-					</div>
-				
-			</div>
-			<small> </small>
-		</div>
-		<small> </small>
-	</div>
-	<div class="modal inmodal" id="myModal5" tabindex="-1" role="dialog"
-		aria-hidden="true" style="display: none;">
-		<div class="modal-dialog">
-			<div class="modal-content animated fadeIn">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-					</button>
-					
-					<h4 class="modal-title">退房办理</h4>
-				</div>
-				
-					<div class="modal-body">
-							<div class="form-group">
-								<label>应退押金：200 元</label> 
-							</div>
-							<div class="form-group">
-								<label>实退押金：</label> 
-								<input type="text" class="form-control" placeholder="">
-							</div>
-							<div class="form-group">
-								<label>备注：</label> 
-								<input type="text" class="form-control">
-							</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">保存</button>
-					</div>
-				
-			</div>
-			<small> </small>
-		</div>
-		<small> </small>
-	</div>
 </body>
 
 
