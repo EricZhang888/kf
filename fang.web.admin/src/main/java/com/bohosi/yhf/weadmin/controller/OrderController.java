@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bohosi.yhf.dao.entity.order.OrderAdmin;
 import com.bohosi.yhf.dao.entity.order.OrderCheckin;
+import com.bohosi.yhf.dao.entity.order.OrderCheckout;
 import com.bohosi.yhf.dao.repositories.base.Criterion;
 import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
 import com.bohosi.yhf.service.order.IOrdersService;
@@ -95,16 +96,20 @@ public class OrderController
 	public String doOrderCheckOut(HttpServletRequest req, Map<String, Object> model) {
 		String orderRoomId = req.getParameter("orderRoomId");
 		String orderId = req.getParameter("orderId");
+		int yajinTuiNum = Integer.valueOf(req.getParameter("yajinTuiNum"));
+		int yajinTuiWay = Integer.valueOf(req.getParameter("yajinTuiWay"));
+		String note = req.getParameter("note");
+		
+		OrderCheckout ocOut = new OrderCheckout(orderRoomId, orderId, yajinTuiNum, yajinTuiWay, note);
 		//取到当初入住的信息
 		try {
-			OrderCheckin checkIn = ordersService.getOrderCheckIn(orderId);
-			model.put("checkinInfo", checkIn);
+			ordersService.orderCheckOut(orderId, ocOut);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "orderCheckout";
+		return "orders";
 	}
 	
 	@RequestMapping(value = "addOrder", method = RequestMethod.GET)

@@ -34,7 +34,7 @@
         });
         //var oTable = $("#editable").dataTable();
         
-        $("#checkinSubmit").on("click", function(){
+        $("#checkoutSubmit").on("click", function(){
         	$("#orderCheckoutForm").submit();
         });
     });
@@ -89,7 +89,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-white" data-dismiss="modal">返回</button>
-						<button type="button" class="btn btn-primary">保存</button>
+						<button type="button" class="btn btn-primary" id="checkoutSubmit">保存</button>
 					</div>
 				</form>
 			</div>

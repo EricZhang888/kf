@@ -2,6 +2,9 @@ package com.bohosi.yhf.dao.entity.order;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.bohosi.yhf.util.priceCalendar.PriceCalendarUtil;
+
 import java.sql.Timestamp;
 
 
@@ -34,12 +37,21 @@ public class OrderCheckout implements Serializable {
 	private String roomId;
 
 	@Column(name="yajin_tui_num")
-	private String yajinTuiNum;
+	private int yajinTuiNum;
 
 	@Column(name="yajin_tui_way")
-	private String yajinTuiWay;
+	private int yajinTuiWay;
 
 	public OrderCheckout() {
+	}
+	
+	public OrderCheckout(String orderRoomId, String orderId, int yajinTuiNum, int yajinTuiWay, String note) {
+		this.roomId = orderRoomId;
+		this.orderId = orderId;
+		this.yajinTuiNum = yajinTuiNum;
+		this.yajinTuiWay = yajinTuiWay;
+		this.note = note;
+		this.createTime = PriceCalendarUtil.getCurrentTimestamp();
 	}
 
 	public String getOrderId() {
@@ -90,19 +102,19 @@ public class OrderCheckout implements Serializable {
 		this.roomId = roomId;
 	}
 
-	public String getYajinTuiNum() {
+	public int getYajinTuiNum() {
 		return this.yajinTuiNum;
 	}
 
-	public void setYajinTuiNum(String yajinTuiNum) {
+	public void setYajinTuiNum(int yajinTuiNum) {
 		this.yajinTuiNum = yajinTuiNum;
 	}
 
-	public String getYajinTuiWay() {
+	public int getYajinTuiWay() {
 		return this.yajinTuiWay;
 	}
 
-	public void setYajinTuiWay(String yajinTuiWay) {
+	public void setYajinTuiWay(int yajinTuiWay) {
 		this.yajinTuiWay = yajinTuiWay;
 	}
 

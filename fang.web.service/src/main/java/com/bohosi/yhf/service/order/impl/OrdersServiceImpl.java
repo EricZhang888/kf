@@ -19,10 +19,12 @@ import com.bohosi.yhf.constant.OrderStatus;
 import com.bohosi.yhf.dao.entity.order.Order;
 import com.bohosi.yhf.dao.entity.order.OrderAdmin;
 import com.bohosi.yhf.dao.entity.order.OrderCheckin;
+import com.bohosi.yhf.dao.entity.order.OrderCheckout;
 import com.bohosi.yhf.dao.entity.rooms.Room;
 import com.bohosi.yhf.dao.entity.rooms.RoomPriceCalendar;
 import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
 import com.bohosi.yhf.dao.repositories.order.OrderCheckInRepo;
+import com.bohosi.yhf.dao.repositories.order.OrderCheckOutRepo;
 import com.bohosi.yhf.dao.repositories.order.OrderRepo;
 import com.bohosi.yhf.dao.repositories.order.admin.OrderAdminRepo;
 import com.bohosi.yhf.dao.repositories.room.RoomBasicRepo;
@@ -41,6 +43,9 @@ public class OrdersServiceImpl implements IOrdersService
 	
 	@Autowired
 	OrderCheckInRepo orderCheckInRepo;
+	
+	@Autowired
+	OrderCheckOutRepo orderCheckOutRepo;
 	
 	@Autowired
 	OrderAdminRepo orderAdminRepo;
@@ -243,6 +248,19 @@ public class OrdersServiceImpl implements IOrdersService
 		} catch (Exception e) {
 			logger.error("get Order CheckIn infor error" + e.getMessage());
 			return null;
+		}
+	}
+
+	public boolean orderCheckOut(String orderId, OrderCheckout orderCheckout) throws Exception
+	{
+		try {
+			Order order = orderRepo.findById(orderId);
+			order.setStatus(OrderStatus.finishedNormal.getValue());
+			orderRepo.save(order);
+			orderCheckOutRepo.save(orderCheckout);
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
 	}
 	
