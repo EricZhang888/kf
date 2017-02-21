@@ -33,14 +33,6 @@
         	"sort": false
         });
         //var oTable = $("#editable").dataTable();
-        $("#adminCheckIn").on("click", function(){
-        	$("#orderCheckInForm input[name='orderId']").val($(this).attr("data-orderId"));
-        	$("#orderCheckInForm input[name='orderRoomId']").val($(this).attr("data-roomId"));
-        })
-        
-        $("#checkinSubmit").on("click", function(){
-        	$("#orderCheckInForm").submit();
-        });
         
         $("#checkinSubmit").on("click", function(){
         	$("#orderCheckoutForm").submit();
@@ -54,16 +46,18 @@
 			<div class="modal-content animated fadeIn">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+						<!-- <span aria-hidden="true">×</span><span class="sr-only">Close</span> -->
 					</button>
 					
 					<h4 class="modal-title">退房办理</h4>
 				</div>
-				<form action="<%=request.getContextPath() %>/order/orderCheckOut" id="orderCheckoutForm">
+				<form action="<%=request.getContextPath() %>/order/doOrderCheckOut" id="orderCheckoutForm" method="post">
+					<input type="hidden" name="orderRoomId" value="${checkinInfo.roomId}"/>
+					<input type="hidden" name="orderId" value="${checkinInfo.orderId}"/>
 					<div class="modal-body">
-							<%-- <div class="form-group">
+							<div class="form-group">
 								<label>入住时间：${checkinInfo.createTime} </label> 
-							</div> --%>
+							</div>
 							<div class="form-group">
 								<label>入住人数：${checkinInfo.peopleNumber} </label> 
 							</div>
@@ -75,15 +69,26 @@
 							</div>
 							<div class="form-group">
 								<label>退回押金：</label> 
-								<input type="text" class="form-control" placeholder="">
+								<input type="text" class="form-control" name="yajinTuiNum" placeholder="">
+							</div>
+							<div class="form-group">
+								<label>退回方式：</label> 
+								<select class="form-control" name="yajinTuiWay">
+									<option value="-1">无</option>
+									<option value="0">微信</option>
+        							<option value="1">支付宝</option>
+							        <option value="2">现金</option>
+							        <option value="3">银联在线支付</option>
+							        <option value="4">刷卡支付</option>
+    							</select>
 							</div>
 							<div class="form-group">
 								<label>备注：</label> 
-								<input type="text" class="form-control">
+								<input type="text" class="form-control" name="note" placeholder="如有扣押金，请说明情况">
 							</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-white" data-dismiss="modal">返回</button>
 						<button type="button" class="btn btn-primary">保存</button>
 					</div>
 				</form>

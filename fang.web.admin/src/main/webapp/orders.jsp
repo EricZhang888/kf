@@ -217,41 +217,6 @@
 		</div>
 		<small> </small>
 	</div>
-	<div class="modal inmodal" id="myModal5" tabindex="-1" role="dialog"
-		aria-hidden="true" style="display: none;">
-		<div class="modal-dialog">
-			<div class="modal-content animated fadeIn">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-					</button>
-					
-					<h4 class="modal-title">退房办理</h4>
-				</div>
-				<form action="<%=request.getContextPath() %>/order/orderCheckOut" id="orderCheckoutForm">
-					<div class="modal-body">
-							<div class="form-group">
-								<label>应退押金：200 元</label> 
-							</div>
-							<div class="form-group">
-								<label>实退押金：</label> 
-								<input type="text" class="form-control" placeholder="">
-							</div>
-							<div class="form-group">
-								<label>备注：</label> 
-								<input type="text" class="form-control">
-							</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">保存</button>
-					</div>
-				</form>
-			</div>
-			<small> </small>
-		</div>
-		<small> </small>
-	</div>
 </body>
 
 

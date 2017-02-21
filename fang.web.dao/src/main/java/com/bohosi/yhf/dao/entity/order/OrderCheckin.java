@@ -2,6 +2,9 @@ package com.bohosi.yhf.dao.entity.order;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.bohosi.yhf.util.priceCalendar.PriceCalendarUtil;
+
 import java.sql.Timestamp;
 
 
@@ -43,6 +46,17 @@ public class OrderCheckin implements Serializable {
 	private int yajinWay;
 
 	public OrderCheckin() {
+	}
+	
+	public OrderCheckin(String orderRoomId, String orderId, int peopleNumber, String peopleIds, int yajinNum, int yajinWay, String note) {
+		this.roomId = orderRoomId;
+		this.orderId = orderId;
+		this.peopleNumber = peopleNumber;
+		this.peopleIds = peopleIds;
+		this.yajinNum = yajinNum;
+		this.yajinWay = yajinWay;
+		this.createTime = PriceCalendarUtil.getCurrentTimestamp();
+		this.updateTime = PriceCalendarUtil.getCurrentTimestamp();
 	}
 
 	public String getOrderId() {

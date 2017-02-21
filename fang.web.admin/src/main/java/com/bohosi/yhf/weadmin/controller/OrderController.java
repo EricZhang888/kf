@@ -78,6 +78,21 @@ public class OrderController
 	
 	@RequestMapping(value = "orderCheckout", method = RequestMethod.GET)
 	public String orderCheckout(HttpServletRequest req, Map<String, Object> model) {
+		String orderId = req.getParameter("orderId");
+		//取到当初入住的信息
+		try {
+			OrderCheckin checkIn = ordersService.getOrderCheckIn(orderId);
+			model.put("checkinInfo", checkIn);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "orderCheckout";
+	}
+	
+	@RequestMapping(value = "doOrderCheckOut", method = RequestMethod.POST)
+	public String doOrderCheckOut(HttpServletRequest req, Map<String, Object> model) {
 		String orderRoomId = req.getParameter("orderRoomId");
 		String orderId = req.getParameter("orderId");
 		//取到当初入住的信息
