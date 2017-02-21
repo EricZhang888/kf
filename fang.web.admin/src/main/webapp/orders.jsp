@@ -116,10 +116,10 @@
 								        			<button id="adminPayCheckIn" class="button">付款并入住</button>
 								        		</c:when>
 								        		<c:when test="${roomOrder.status == '2'}">
-								        			<button id="adminCheckIn" class="button" data-toggle="modal" data-target="#myModal4">入住</button>
+								        			<button id="adminCheckIn" class="button" data-toggle="modal" data-target="#myModal4" data-orderId="${roomOrder.id}" data-roomId="${roomOrder.roomId}">入住</button>
 								        		</c:when>
 								        		<c:when test="${roomOrder.status == '5'}">
-								        			<button id="adminCheckOut" class="button"  data-toggle="modal" data-target="#myModal5">退房</button>
+								        			<a href="orderCheckout?orderRoomId=${roomOrder.roomId}&orderId=${roomOrder.id}"><button id="adminCheckOut" class="button"  data-toggle="modal" data-target="#myModal5"">退房</button></a>
 								        			<button id="adminModifyInfo" class="button">修改入住信息</button>
 								        		</c:when>
 								        	</c:choose>
@@ -148,8 +148,17 @@
         });
         //var oTable = $("#editable").dataTable();
         $("#adminCheckIn").on("click", function(){
-        	
+        	$("#orderCheckInForm input[name='orderId']").val($(this).attr("data-orderId"));
+        	$("#orderCheckInForm input[name='orderRoomId']").val($(this).attr("data-roomId"));
         })
+        
+        $("#checkinSubmit").on("click", function(){
+        	$("#orderCheckInForm").submit();
+        });
+        
+        $("#checkinSubmit").on("click", function(){
+        	$("#orderCheckoutForm").submit();
+        });
     });
     
     </script>
@@ -166,23 +175,25 @@
 					<h4 class="modal-title">入住办理</h4>
 					<small>录入入住人相关必要信息</small>
 				</div>
-				<form action="<%=request.getContextPath() %>/order/queryOrder" method="POST">
+				<form action="<%=request.getContextPath() %>/order/orderCheckIn" method="POST" id="orderCheckInForm">
+				<input type="hidden" name="orderRoomId" value=""/>
+				<input type="hidden" name="orderId" value=""/>
 					<div class="modal-body">
 							<div class="form-group">
 								<label>入住人数：</label> 
-								<input type="text" class="form-control">
+								<input type="text" name="number" class="form-control">
 							</div>
 							<div class="form-group">
 								<label>身份证：</label> 
-								<input type="text" class="form-control" placeholder="多人时已都好隔开">
+								<input type="text" name="ids" class="form-control" placeholder="多人时已都好隔开">
 							</div>
 							<div class="form-group">
 								<label>押金：</label> 
-								<input type="text" class="form-control">元
+								<input type="text" name="yajinNum"class="form-control">元
 							</div>
 							<div class="form-group">
 								<label>押金方式：</label> 
-								<select class="form-control" name="">
+								<select class="form-control" name="yajinWay">
 									<option value="-1">无</option>
 									<option value="0">微信</option>
         							<option value="1">支付宝</option>
@@ -193,12 +204,12 @@
 							</div>
 							<div class="form-group">
 								<label>备注：</label> 
-								<input type="text" class="form-control">
+								<input type="text" name="note" class="form-control">
 							</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">保存</button>
+						<button type="button" class="btn btn-primary" id="checkinSubmit">保存</button>
 					</div>
 				</form>
 			</div>
@@ -217,7 +228,7 @@
 					
 					<h4 class="modal-title">退房办理</h4>
 				</div>
-				
+				<form action="<%=request.getContextPath() %>/order/orderCheckOut" id="orderCheckoutForm">
 					<div class="modal-body">
 							<div class="form-group">
 								<label>应退押金：200 元</label> 
@@ -235,7 +246,7 @@
 						<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
 						<button type="button" class="btn btn-primary">保存</button>
 					</div>
-				
+				</form>
 			</div>
 			<small> </small>
 		</div>

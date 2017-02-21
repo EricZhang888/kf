@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bohosi.yhf.dao.entity.order.OrderAdmin;
+import com.bohosi.yhf.dao.entity.order.OrderCheckin;
 import com.bohosi.yhf.dao.repositories.base.Criterion;
 import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
 import com.bohosi.yhf.service.order.IOrdersService;
@@ -55,8 +56,40 @@ public class OrderController
 	
 	
 	@RequestMapping(value = "orderCheckIn", method = RequestMethod.POST)
-	public String orderCheckIn() {
-		return "addOrder";
+	public String orderCheckIn(HttpServletRequest req) {
+		String orderRoomId = req.getParameter("orderRoomId");
+		String orderId = req.getParameter("orderId");
+		int peopleNumber = Integer.valueOf(req.getParameter("number"));
+		String peopleIds = req.getParameter("ids").replace("，", ",");
+		int yajinNum = Integer.valueOf(req.getParameter("yajinNum"));
+		int yajinWay = Integer.valueOf(req.getParameter("yajinWay"));
+		String note = req.getParameter("note");
+		
+		OrderCheckin ocin = new OrderCheckin(orderRoomId, orderId, peopleNumber, peopleIds, yajinNum, yajinWay, note);
+		try {
+			ordersService.orderCheckIn(orderId, ocin);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "orders";
+	}
+	
+	@RequestMapping(value = "orderCheckout", method = RequestMethod.GET)
+	public String orderCheckout(HttpServletRequest req, Map<String, Object> model) {
+		String orderRoomId = req.getParameter("orderRoomId");
+		String orderId = req.getParameter("orderId");
+		//取到当初入住的信息
+		try {
+			OrderCheckin checkIn = ordersService.getOrderCheckIn(orderId);
+			model.put("checkinInfo", checkIn);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "orderCheckout";
 	}
 	
 	@RequestMapping(value = "addOrder", method = RequestMethod.GET)

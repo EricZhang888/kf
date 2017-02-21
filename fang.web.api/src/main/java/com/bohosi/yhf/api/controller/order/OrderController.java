@@ -28,6 +28,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bohosi.yhf.api.bean.DayPrice;
 import com.bohosi.yhf.api.bean.TotalPrice;
 import com.bohosi.yhf.constant.HttpStatusConstant;
+import com.bohosi.yhf.constant.OrderStatus;
 import com.bohosi.yhf.dao.entity.order.Order;
 import com.bohosi.yhf.dao.entity.rooms.Room;
 import com.bohosi.yhf.dao.entity.rooms.RoomPriceCalendar;
@@ -216,10 +217,10 @@ public class OrderController
 		{
 			Order or = ordersService.getOrdersById(id);
 
-			if (or.getStatus() == 1  && or.getLastPayTime().before(new Date()))
+			if (or.getStatus() == OrderStatus.needPay.getValue()  && or.getLastPayTime().before(new Date()))
 			{
 				//订单超时
-				or.setStatus(3);
+				or.setStatus(OrderStatus.overTimeCancel.getValue());
 				or.setUserDisplayStatus(4);
 				ordersService.saveOrder(or);
 				ordersService.updatePriceCalendarForOvertimeOrder(or);

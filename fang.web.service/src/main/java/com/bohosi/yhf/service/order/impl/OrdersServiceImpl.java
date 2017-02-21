@@ -1,7 +1,6 @@
 package com.bohosi.yhf.service.order.impl;
 
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,11 +15,14 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bohosi.yhf.constant.OrderStatus;
 import com.bohosi.yhf.dao.entity.order.Order;
 import com.bohosi.yhf.dao.entity.order.OrderAdmin;
+import com.bohosi.yhf.dao.entity.order.OrderCheckin;
 import com.bohosi.yhf.dao.entity.rooms.Room;
 import com.bohosi.yhf.dao.entity.rooms.RoomPriceCalendar;
 import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
+import com.bohosi.yhf.dao.repositories.order.OrderCheckInRepo;
 import com.bohosi.yhf.dao.repositories.order.OrderRepo;
 import com.bohosi.yhf.dao.repositories.order.admin.OrderAdminRepo;
 import com.bohosi.yhf.dao.repositories.room.RoomBasicRepo;
@@ -36,6 +38,9 @@ public class OrdersServiceImpl implements IOrdersService
 	
 	@Autowired
 	OrderRepo orderRepo;
+	
+	@Autowired
+	OrderCheckInRepo orderCheckInRepo;
 	
 	@Autowired
 	OrderAdminRepo orderAdminRepo;
@@ -82,7 +87,7 @@ public class OrdersServiceImpl implements IOrdersService
 		or.setCreateTime(PriceCalendarUtil.getCurrentTimestamp());
 		or.setUpdateTime(PriceCalendarUtil.getCurrentTimestamp());
 		//新建订单 默认为待付款
-		or.setStatus(1);
+		or.setStatus(OrderStatus.needPay.getValue());
 		or.setUserDisplayStatus(1);
 		or.setChannel((Integer) infoMap.get("channel"));
 		//设置房间冗余信息
@@ -214,6 +219,31 @@ public class OrdersServiceImpl implements IOrdersService
 	public Page<OrderAdmin> searchOrders(SearchCriteria searchCriteria, Pageable pageable)
 	{
 		return orderAdminRepo.search(searchCriteria, pageable);
+	}
+
+	public boolean orderCheckIn(String orderId, OrderCheckin orderCheckin) throws Exception {
+		
+		try {
+			Order order = orderRepo.findById(orderId);
+			order.setStatus(OrderStatus.checkedIn.getValue());
+			orderRepo.save(order);
+			orderCheckInRepo.save(orderCheckin);
+			return true;
+		} catch (Exception e) {
+			
+			return false;
+		}
+		
+	}
+
+	public OrderCheckin getOrderCheckIn(String orderId) throws Exception {
+		try {
+			OrderCheckin checkin = orderCheckInRepo.findOne(orderId);
+			return checkin;
+		} catch (Exception e) {
+			logger.error("get Order CheckIn infor error" + e.getMessage());
+			return null;
+		}
 	}
 	
 
