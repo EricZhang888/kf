@@ -63,10 +63,10 @@
 							      </tr>
 							    </thead>
 							    <tbody>
-								    <c:forEach items="${list }" var="room">
+								    <c:forEach items="${list}" var="room">
 								    	<tr class="gradeA odd">
 								        <td class=""><img alt="" height="138" width="190" src="../img/fang/${room.roomId}/${roomOrder.roomImg}"></td>
-								        <td class="sorting_1">${roomOrder.apartmentName} </td>
+								        <td class="sorting_1">${room.roomApartment.apartmentName}·${room.roomBuilding}·${room.roomFloor}层·${room.roomNumber}</td>	
 								        <td class="">${roomOrder.contactName}</td>
 								        <td class="center">${roomOrder.contactPhone}</td>
 								        <td class="center">
