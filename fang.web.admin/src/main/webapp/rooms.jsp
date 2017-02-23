@@ -64,13 +64,19 @@
 							    </thead>
 							    <tbody>
 								    <c:forEach items="${list}" var="room">
+								    
+								    	<c:set value="${ fn:split(room.roomImages, ',') }" var="images" />
+										
 								    	<tr class="gradeA odd">
-								        <td class=""><img alt="" height="138" width="190" src="../img/fang/${room.roomId}/${roomOrder.roomImg}"></td>
+								        <td class=""><img alt="" height="138" width="190" 
+								        src="../img/fang/${room.roomId}/${images[0]}">
+								        </td>
+										
 								        <td class="sorting_1">${room.roomApartment.apartmentName}·${room.roomBuilding}·${room.roomFloor}层·${room.roomNumber}</td>	
-								        <td class="">${roomOrder.contactName}</td>
-								        <td class="center">${roomOrder.contactPhone}</td>
+								       <td class="">${room.tbRoomHolder.name}</td>
+								        <td class="center">${room.tbRoomHolder.mobile}</td>
 								        <td class="center">
-								        	${roomOrder.price} 元<br>
+								        	${room.roomPrice} 元<br>
 								        	<c:choose>
 								        		<c:when test="${roomOrder.status == '1'}">
 								        			待支付	
@@ -111,7 +117,7 @@
 								        	</c:choose>
 								        </td>
 								        <td class="center">
-											<c:choose>
+											<%-- <c:choose>
 								        		<c:when test="${roomOrder.status == '1'}">
 								        			<button class="button">付款并入住</button>
 								        		</c:when>
@@ -122,7 +128,8 @@
 								        			<button class="button">退房</button>
 								        			<button class="button">修改入住信息</button>
 								        		</c:when>
-								        	</c:choose>
+								        	</c:choose> --%>
+								        	<a href="./editRoom?roomId=${room.roomId}" >编辑</a>
 										</td>
 								      </tr>
 								    </c:forEach>

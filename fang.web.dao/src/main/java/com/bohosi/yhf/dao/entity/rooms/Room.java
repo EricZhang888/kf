@@ -152,10 +152,16 @@ public class Room implements Serializable
 	@ManyToOne
 	@JoinColumn(name = "room_apartment_id")
 	private RoomApartment roomApartment;
+	
+	//bi-directional many-to-many association to TbRoomAmenity
+	@JoinTable(name = "tb_room_holder_mapping", joinColumns = {@JoinColumn(name = "room_id")}, inverseJoinColumns = {
+	@JoinColumn(name = "id")})
+	@ManyToOne
+	private RoomHolder tbRoomHolder;
 
 	//bi-directional many-to-many association to TbRoomAmenity
 	@JoinTable(name = "tb_room_amenities_mapping", joinColumns = {@JoinColumn(name = "room_id")}, inverseJoinColumns = {
-			@JoinColumn(name = "amenities_id")})
+	@JoinColumn(name = "amenities_id")})
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<RoomAmenity> tbRoomAmenities;
 
@@ -473,4 +479,11 @@ public class Room implements Serializable
 		this.tbRoomAmenities = tbRoomAmenities;
 	}
 
+	public RoomHolder getTbRoomHolder() {
+		return tbRoomHolder;
+	}
+
+	public void setTbRoomHolder(RoomHolder tbRoomHolder) {
+		this.tbRoomHolder = tbRoomHolder;
+	}
 }

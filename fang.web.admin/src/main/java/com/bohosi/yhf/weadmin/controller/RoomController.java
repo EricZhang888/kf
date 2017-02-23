@@ -45,6 +45,22 @@ public class RoomController
 		return "addOrder";
 	}
 	
+	@RequestMapping(value = "editRoom", method = RequestMethod.GET)
+	public String editRoom(HttpServletRequest req, Pageable pageable, Map<String, Object> model) {
+		String roomId = req.getParameter("roomId");
+		req.setAttribute("roomId", roomId);
+		
+		SearchCriteria criteria = SearchCriteria.Builder.create();
+		
+		Page<Room> rooms = roomService.getAllAvaliableRooms(criteria, pageable);
+		model.put("list", rooms.getContent());
+		model.put("pages", rooms.getTotalPages());
+		model.put("curPage", rooms.getNumber());
+		model.put("total", rooms.getTotalElements());
+		
+		return "editRoom";
+	}
+	
 	//设置价格页面跳转
 	@RequestMapping(value = "roomEditPriceCalendar", method = RequestMethod.GET)
 	public String roomEditPriceCalendar(HttpServletRequest req, Map<String, Object> model) {
