@@ -116,4 +116,9 @@ public class OrderController
 	public String addOrder() {
 		return "addOrder";
 	}
+	
+	@RequestMapping(value = "bookOffline", method = RequestMethod.GET)
+	public String bookOffline() {
+		return "addOrder";
+	}
 }

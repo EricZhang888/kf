@@ -32,9 +32,6 @@ public class RoomController
 	public String queryRoom(HttpServletRequest req, Pageable pageable, Map<String, Object> model) {
 
 		SearchCriteria criteria = SearchCriteria.Builder.create();
-		
-		
-		
 		Page<Room> rooms = roomService.getAllAvaliableRooms(criteria, pageable);
 		model.put("list", rooms.getContent());
 		model.put("pages", rooms.getTotalPages());
@@ -45,6 +42,27 @@ public class RoomController
 	
 	@RequestMapping(value = "addOrder", method = RequestMethod.GET)
 	public String addOrder() {
+		return "addOrder";
+	}
+	
+	//设置价格页面跳转
+	@RequestMapping(value = "roomEditPriceCalendar", method = RequestMethod.GET)
+	public String roomEditPriceCalendar(HttpServletRequest req, Map<String, Object> model) {
+		//获取房间信息
+		String roomId = req.getParameter("roomId");
+		model.put("room", roomService.getRoomDetailById(roomId));
+		
+		//获取现有价格日历
+		
+		
+		return "roomEditPriceCalendar";
+	}
+	
+	//现场开房查询可开房源
+	@RequestMapping(value = "availableRoomOffline", method = RequestMethod.GET)
+	public String availableRoomOffline(HttpServletRequest req, Pageable pageable, Map<String, Object> model) {
+		SearchCriteria criteria = SearchCriteria.Builder.create();
+		Page<Room> rooms = roomService.getAllAvaliableRooms(criteria, pageable);
 		return "addOrder";
 	}
 }
