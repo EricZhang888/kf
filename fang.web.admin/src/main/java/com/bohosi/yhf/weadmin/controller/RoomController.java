@@ -49,14 +49,9 @@ public class RoomController
 	public String editRoom(HttpServletRequest req, Pageable pageable, Map<String, Object> model) {
 		String roomId = req.getParameter("roomId");
 		req.setAttribute("roomId", roomId);
-		
-		SearchCriteria criteria = SearchCriteria.Builder.create();
-		
-		Page<Room> rooms = roomService.getAllAvaliableRooms(criteria, pageable);
-		model.put("list", rooms.getContent());
-		model.put("pages", rooms.getTotalPages());
-		model.put("curPage", rooms.getNumber());
-		model.put("total", rooms.getTotalElements());
+		roomService.getAllAmenity();
+		//获取到指定ID的房间信息
+		model.put("room", roomService.getRoomDetailById(roomId));
 		
 		return "editRoom";
 	}
