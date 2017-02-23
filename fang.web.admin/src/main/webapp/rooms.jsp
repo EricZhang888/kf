@@ -130,6 +130,7 @@
 								        		</c:when>
 								        	</c:choose> --%>
 								        	<a href="./editRoom?roomId=${room.roomId}" >编辑</a>
+								        	<a href="./roomEditPriceCalendar?roomId=${room.roomId}" >修改价格</a>
 										</td>
 								      </tr>
 								    </c:forEach>
