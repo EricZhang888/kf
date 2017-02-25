@@ -1,5 +1,6 @@
 package com.bohosi.yhf.service.rooms;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,6 +19,8 @@ public interface IRoomBasic
 	public List<Room> getActivityBanner();
 
 	public Page<Room> getAllAvaliableRooms(SearchCriteria searchCriteria, Pageable pageable);
+	
+	public Map<String, Object> getAllAvaliableRooms(SearchCriteria searchCriteria, Pageable pageable, String status);
 
 	public Room getRoomDetailById(String roomId);
 
@@ -30,5 +33,6 @@ public interface IRoomBasic
 	 */
 	public List<PriceCalendar> fullfillRoomPriceCalendar(Room room, Set<String> cal, Map<String, RoomPriceCalendar> map);
 
+	public List<RoomPriceCalendar> findUnavailableRoomIdByDate(Date start, Date end, int status);
 	public void saveRoom(Room room);
 }

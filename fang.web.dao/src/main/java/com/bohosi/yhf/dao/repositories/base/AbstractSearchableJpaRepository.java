@@ -4,7 +4,9 @@ import static org.springframework.data.jpa.repository.query.QueryUtils.toOrders;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -42,7 +44,32 @@ public abstract class AbstractSearchableJpaRepository<T> extends AbstractDomainC
 						.orderBy(toOrders(pageable.getSort(), pageRoot, builder)))
 				.setFirstResult(pageable.getOffset()).setMaxResults(pageable.getPageSize()).getResultList();
 
-		return new PageImpl(new ArrayList(list), pageable, total);
+		return new PageImpl<T>(new ArrayList<T>(list), pageable, total);
+	}
+	
+	
+	public Map<String, Object> search(SearchCriteria criteria, Pageable pageable, String status)
+	{
+		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+
+		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+		Root<T> countRoot = countCriteria.from(this.domainClass);
+		long total = this.entityManager.createQuery(
+				countCriteria.select(builder.count(countRoot)).where(toPredicates(criteria, countRoot, builder)))
+				.getSingleResult();
+
+		CriteriaQuery<T> pageCriteria = builder.createQuery(this.domainClass);
+		Root<T> pageRoot = pageCriteria.from(this.domainClass);
+		List<T> list = this.entityManager
+				.createQuery(pageCriteria.select(pageRoot).where(toPredicates(criteria, pageRoot, builder))
+						.orderBy(toOrders(pageable.getSort(), pageRoot, builder)))
+				.setFirstResult(pageable.getOffset()).setMaxResults(pageable.getPageSize()).getResultList();
+
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		resMap.put("resultList", new ArrayList<T>(list));
+		resMap.put("pageable", pageable);
+		resMap.put("total", total);
+		return resMap;
 	}
 
 	private static Predicate[] toPredicates(SearchCriteria criteria, Root<?> root, CriteriaBuilder builder)

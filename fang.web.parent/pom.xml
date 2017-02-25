@@ -78,7 +78,7 @@
 			<artifactId>sms</artifactId>
 			<version>20160607</version>
 			<scope>system</scope>
-			<systemPath>D:/projects/kf/fang.web.api/src/main/webapp/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607.jar</systemPath>
+			<systemPath>E:/eclipseWorkspace/kf/fang.web.api/src/main/webapp/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607.jar</systemPath>
 		</dependency>
 		<dependency>
             <groupId>com.thoughtworks.xstream</groupId>

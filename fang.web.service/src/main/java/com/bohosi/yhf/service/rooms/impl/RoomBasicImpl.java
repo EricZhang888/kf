@@ -2,6 +2,7 @@ package com.bohosi.yhf.service.rooms.impl;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,6 +100,16 @@ public class RoomBasicImpl implements IRoomBasic
 		}
 		
 		return calList;
+	}
+
+	public List<RoomPriceCalendar> findUnavailableRoomIdByDate(Date start, Date end, int status)
+	{
+		return (List<RoomPriceCalendar>) roomPriceRepo.findUnavailableRoomIdByDate(start, end, status);
+	}
+
+	public Map<String, Object> getAllAvaliableRooms(SearchCriteria searchCriteria, Pageable pageable, String status)
+	{
+		return roomBasicRepo.search(searchCriteria, pageable, status);
 	}
 
 }

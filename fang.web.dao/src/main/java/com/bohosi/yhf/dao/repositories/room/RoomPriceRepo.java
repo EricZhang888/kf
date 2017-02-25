@@ -25,4 +25,7 @@ public interface RoomPriceRepo extends CrudRepository<RoomPriceCalendar, Seriali
 	@Query("select rpc from RoomPriceCalendar rpc where rpc.id.roomId = ? and rpc.id.roomDate>=? and rpc.id.roomDate<? and rpc.status !=?")
 	public Iterable<RoomPriceCalendar> findById_RoomIdAndId_RoomDateBetweenAndStatusNot(String roomId, Date start,
 			Date end, int status);
+	
+	@Query("select rpc from RoomPriceCalendar rpc where rpc.id.roomDate>=? and rpc.id.roomDate<? and rpc.status !=?")
+	public Iterable<RoomPriceCalendar> findUnavailableRoomIdByDate(Date start, Date end, int status);
 }

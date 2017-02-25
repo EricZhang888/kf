@@ -10,11 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.bohosi.yhf.dao.entity.rooms.PriceCalendar;
 import com.bohosi.yhf.dao.entity.rooms.Room;
 import com.bohosi.yhf.dao.entity.rooms.RoomPriceCalendar;
@@ -46,9 +49,9 @@ public class RoomController
 		return "rooms";
 	}
 	
-	@RequestMapping(value = "addOrder", method = RequestMethod.GET)
+	@RequestMapping(value = "offlineCheckin", method = RequestMethod.GET)
 	public String addOrder() {
-		return "addOrder";
+		return "offlineCheckin";
 	}
 	
 	@RequestMapping(value = "editRoom", method = RequestMethod.GET)
@@ -84,7 +87,7 @@ public class RoomController
 			//获取系统已设置的价格日历
 			Map<String, RoomPriceCalendar> map = roomService.getRoomPriceCalendar(roomId, dates[0], dates[dates.length - 1]);
 			calList = roomService.fullfillRoomPriceCalendar(room, cal, map);
-			model.put("priceCalendar", calList);
+			model.put("priceCalendar", JSON.toJSON(calList));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -92,10 +95,40 @@ public class RoomController
 	}
 	
 	//现场开房查询可开房源
-	@RequestMapping(value = "availableRoomOffline", method = RequestMethod.GET)
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "availableRoomOffline", method = RequestMethod.POST)
 	public String availableRoomOffline(HttpServletRequest req, Pageable pageable, Map<String, Object> model) {
+		String checkinDate = req.getParameter("checkinDate");
+		String checkoutDate = req.getParameter("checkoutDate");
+		
 		SearchCriteria criteria = SearchCriteria.Builder.create();
-		Page<Room> rooms = roomService.getAllAvaliableRooms(criteria, pageable);
+		Map<String, Object> roomsMap = roomService.getAllAvaliableRooms(criteria, pageable, null);
+		
+		try
+		{
+			List<RoomPriceCalendar> priceList = roomService.findUnavailableRoomIdByDate(PriceCalendarUtil.stringToSimpleDate(checkinDate), PriceCalendarUtil.stringToSimpleDate(checkoutDate), 0);
+			ArrayList<Room> roomList= (ArrayList<Room>)roomsMap.get("resultList");
+			ArrayList<Room> needToRemove = new ArrayList<Room>();
+			//从所有房间中移除当前不可以入住的
+			for(RoomPriceCalendar rpc : priceList) {
+				String unavailable = rpc.getId().getRoomId();
+				for(Room r : roomList) {
+					if(r.getRoomId().equals(unavailable)) {
+						needToRemove.add(r);
+					}
+				}
+			}
+			roomList.removeAll(needToRemove);
+			Page<Room> roomsPage = new PageImpl<Room>(roomList, (Pageable)roomsMap.get("pageable"), (Long)roomsMap.get("total"));
+			model.put("rooms", roomsPage.getContent());
+			model.put("pages", roomsPage.getTotalPages());
+			model.put("curPage", roomsPage.getNumber());
+			model.put("total", roomsPage.getTotalElements());
+		} catch (ParseException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "addOrder";
 	}
 }
