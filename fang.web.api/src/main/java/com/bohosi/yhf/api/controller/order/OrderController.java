@@ -25,13 +25,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.bohosi.yhf.api.bean.DayPrice;
-import com.bohosi.yhf.api.bean.TotalPrice;
 import com.bohosi.yhf.constant.HttpStatusConstant;
 import com.bohosi.yhf.constant.OrderStatus;
 import com.bohosi.yhf.dao.entity.order.Order;
+import com.bohosi.yhf.dao.entity.rooms.DayPrice;
 import com.bohosi.yhf.dao.entity.rooms.Room;
 import com.bohosi.yhf.dao.entity.rooms.RoomPriceCalendar;
+import com.bohosi.yhf.dao.entity.rooms.TotalPrice;
 import com.bohosi.yhf.dao.entity.user.Booker;
 import com.bohosi.yhf.exception.OrderDateConflictException;
 import com.bohosi.yhf.exception.OrderPriceException;

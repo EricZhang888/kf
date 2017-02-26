@@ -58,6 +58,7 @@
 							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" style="width: 216px;">房源信息</th>
 							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 196px;">房东</th>
 							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">房东电话</th>
+							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">价格</th>
 							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">状态</th>
 							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 200px;">操作</th>
 							      </tr>
@@ -77,9 +78,14 @@
 								        <td class="center">${room.tbRoomHolder.mobile}</td>
 								        <td class="center">
 								        	
+								        	挂牌价：${room.roomBasicPrice}<br>
+								        	正常价：${room.roomPrice}<br>
 								        </td>
 								        <td class="center">
-								        	<a href="./roomEditPriceCalendar?roomId=${room.roomId}" >办理入住</a>
+								        	
+								        </td>
+								        <td class="center">
+								        	<a href="./orderOffline?roomId=${room.roomId}&beginDate=${beginDate}&endDate=${endDate}" >办理入住</a>
 										</td>
 								      </tr>
 								    </c:forEach>

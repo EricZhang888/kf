@@ -1,4 +1,4 @@
-package com.bohosi.yhf.api.bean;
+package com.bohosi.yhf.dao.entity.rooms;
 
 import java.io.Serializable;
 import java.util.List;

@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.bohosi.yhf.dao.entity.rooms.DayPrice;
 import com.bohosi.yhf.dao.entity.rooms.PriceCalendar;
 import com.bohosi.yhf.dao.entity.rooms.Room;
 import com.bohosi.yhf.dao.entity.rooms.RoomPriceCalendar;
+import com.bohosi.yhf.dao.entity.rooms.TotalPrice;
 import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
 import com.bohosi.yhf.service.rooms.IRoomBasic;
 import com.bohosi.yhf.util.priceCalendar.PriceCalendarUtil;
@@ -124,11 +125,66 @@ public class RoomController
 			model.put("pages", roomsPage.getTotalPages());
 			model.put("curPage", roomsPage.getNumber());
 			model.put("total", roomsPage.getTotalElements());
+			model.put("beginDate", checkinDate);
+			model.put("endDate", checkoutDate);
 		} catch (ParseException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "addOrder";
+		return "offlineCheckin";
+	}
+	
+	@RequestMapping(value = "orderOffline", method = RequestMethod.GET)
+	public String orderOffline(HttpServletRequest req, Map<String, Object> model) throws ParseException {
+		//获取将入住的房屋信息
+		String roomId = req.getParameter("roomId");
+		String beginDate = req.getParameter("beginDate");
+		String endDate = req.getParameter("endDate");
+		Room room = roomService.getRoomDetailById(roomId);
+		model.put("room", room);
+		//获取实际入住的价格日历与清单
+		Map<String, RoomPriceCalendar> map = roomService.getRoomPriceCalendar(roomId, beginDate, endDate);
+		int days = PriceCalendarUtil.dateDiff(endDate, beginDate);
+		Set<String> cal = PriceCalendarUtil.genCalendarWithStr(beginDate, days);
+		List<DayPrice> dayDetailList = new ArrayList<DayPrice>();
+
+		int totalPrice = 0;
+		int totalBasicPrice = days * room.getRoomBasicPrice();
+
+		TotalPrice tp = new TotalPrice();
+
+		tp.setTotal_basic_price(totalBasicPrice);
+		tp.setTotal_standard_price(totalBasicPrice);
+
+		for (String s : cal)
+		{
+			DayPrice dp = new DayPrice();
+
+			//通过日期匹配价格日历，如果没有匹配到 则使用Room默认价格
+			RoomPriceCalendar rpc = map.get(s);
+			dp.setDate(s);
+			dp.setBasic_price(room.getRoomBasicPrice());
+
+			if (rpc != null)
+			{
+				totalPrice += rpc.getRoomDatePrice();
+				dp.setPreferential_price(rpc.getRoomDatePrice());
+				dp.setStandard_price(rpc.getRoomDatePrice());
+			} else
+			{
+				totalPrice += room.getRoomPrice();
+				dp.setStandard_price(room.getRoomPrice());
+				dp.setPreferential_price(room.getRoomBasicPrice());
+			}
+			dayDetailList.add(dp);
+		}
+		tp.setTotal_price(totalPrice);
+		tp.setDay_price_list(dayDetailList);
+		model.put("priceList", tp);
+		model.put("beginDate", beginDate);
+		model.put("endDate", endDate);
+		model.put("roomId", roomId);
+		return "orderOffline";
 	}
 }

@@ -1,4 +1,4 @@
-package com.bohosi.yhf.api.bean;
+package com.bohosi.yhf.dao.entity.rooms;
 
 import java.io.Serializable;
 
@@ -12,9 +12,11 @@ public class DayPrice implements Serializable
 	private String date;
 
 	private int preferential_price;
-
+	
+	//正常价或价格日历指定价
 	private int standard_price;
 
+	//门市挂牌价
 	private int basic_price;
 
 	public DayPrice()
