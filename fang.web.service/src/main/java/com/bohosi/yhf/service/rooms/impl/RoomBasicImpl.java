@@ -15,8 +15,10 @@ import org.springframework.stereotype.Service;
 
 import com.bohosi.yhf.dao.entity.rooms.PriceCalendar;
 import com.bohosi.yhf.dao.entity.rooms.Room;
+import com.bohosi.yhf.dao.entity.rooms.RoomAmenity;
 import com.bohosi.yhf.dao.entity.rooms.RoomPriceCalendar;
 import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
+import com.bohosi.yhf.dao.repositories.room.RoomAmenitiesRepo;
 import com.bohosi.yhf.dao.repositories.room.RoomBasicRepo;
 import com.bohosi.yhf.dao.repositories.room.RoomPriceRepo;
 import com.bohosi.yhf.service.rooms.IRoomBasic;
@@ -30,6 +32,9 @@ public class RoomBasicImpl implements IRoomBasic
 
 	@Autowired
 	private RoomPriceRepo roomPriceRepo;
+	
+	@Autowired
+	private RoomAmenitiesRepo roomAmenitiesRepo;
 
 	public Room getRoomDetailById(String roomId)
 	{
@@ -112,4 +117,7 @@ public class RoomBasicImpl implements IRoomBasic
 		return roomBasicRepo.search(searchCriteria, pageable, status);
 	}
 
+	public List<RoomAmenity> getAllAmenity() {
+		return (List<RoomAmenity>) roomAmenitiesRepo.findAll();
+	}
 }

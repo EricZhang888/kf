@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.bohosi.yhf.dao.entity.rooms.PriceCalendar;
 import com.bohosi.yhf.dao.entity.rooms.Room;
+import com.bohosi.yhf.dao.entity.rooms.RoomAmenity;
 import com.bohosi.yhf.dao.entity.rooms.RoomPriceCalendar;
 import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
 
@@ -35,4 +36,6 @@ public interface IRoomBasic
 
 	public List<RoomPriceCalendar> findUnavailableRoomIdByDate(Date start, Date end, int status);
 	public void saveRoom(Room room);
+	
+	public List<RoomAmenity> getAllAmenity();
 }

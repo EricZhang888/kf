@@ -32,7 +32,7 @@ public class RoomController
 {
 	@Autowired
 	IRoomBasic roomService;
-
+	
 	@RequestMapping(value = "rooms", method = RequestMethod.GET)
 	public String rooms() {
 		return "rooms";
@@ -59,10 +59,9 @@ public class RoomController
 	public String editRoom(HttpServletRequest req, Pageable pageable, Map<String, Object> model) {
 		String roomId = req.getParameter("roomId");
 		req.setAttribute("roomId", roomId);
-		roomService.getAllAmenity();
 		//获取到指定ID的房间信息
 		model.put("room", roomService.getRoomDetailById(roomId));
-		
+		model.put("amenity", roomService.getAllAmenity());
 		return "editRoom";
 	}
 	
