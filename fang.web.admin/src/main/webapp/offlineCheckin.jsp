@@ -26,17 +26,17 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <div class="search-form">
-                            <form action="<%=request.getContextPath() %>/order/queryOrder" method="POST">
-                            	<input class="" type="hidden" name="sort" value="createTime,desc">
+                            <form action="<%=request.getContextPath() %>/room/availableRoomOffline" method="POST">
+                            	<input class="" type="hidden" name="sort" value="roomCreateTime,desc">
                                 <div class="input-group">
                                         <label class="col-sm-1 control-label">入住日期:</label>
                                         <div class="col-sm-3">
-                                            <input id="checkIn" class="laydate-icon form-control layer-date">
+                                            <input id="checkIn" class="laydate-icon form-control layer-date" name="checkinDate">
                                         </div>
                                     
                                         <label class="col-sm-1 control-label">退房日期:</label>
                                         <div class="col-sm-3">
-                                            <input id="checkOut" class="laydate-icon form-control layer-date">
+                                            <input id="checkOut" class="laydate-icon form-control layer-date" name="checkoutDate">
                                         </div>
                                     <div class="input-group-btn">
                                         <button class="btn btn-lg btn-primary" type="submit">
@@ -56,73 +56,36 @@
 							      <tr role="row">
 							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 177px;">房源图</th>
 							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" style="width: 216px;">房源信息</th>
-							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 196px;">联系人</th>
-							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">联系人电话</th>
-							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">付款信息</th>
+							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 196px;">房东</th>
+							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">房东电话</th>
+							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">价格</th>
+							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 127px;">状态</th>
 							        <th  tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 200px;">操作</th>
 							      </tr>
 							    </thead>
 							    <tbody>
-								    <c:forEach items="${list }" var="roomOrder">
+								    <c:forEach items="${rooms}" var="room">
+								    
+								    	<c:set value="${ fn:split(room.roomImages, ',') }" var="images" />
+										
 								    	<tr class="gradeA odd">
-								        <td class=""><img alt="" height="138" width="190" src="../img/fang/${roomOrder.roomId}/${roomOrder.roomImg}"></td>
-								        <td class="sorting_1">${roomOrder.apartmentName} </td>
-								        <td class="">${roomOrder.contactName}</td>
-								        <td class="center">${roomOrder.contactPhone}</td>
+								        <td class=""><img alt="" height="138" width="190" 
+								        src="../img/fang/${room.roomId}/${images[0]}">
+								        </td>
+										
+								        <td class="sorting_1">${room.roomApartment.apartmentName}·${room.roomBuilding}·${room.roomFloor}层·${room.roomNumber}</td>	
+								       <td class="">${room.tbRoomHolder.name}</td>
+								        <td class="center">${room.tbRoomHolder.mobile}</td>
 								        <td class="center">
-								        	${roomOrder.price} 元<br>
-								        	<c:choose>
-								        		<c:when test="${roomOrder.status == '1'}">
-								        			待支付	
-								        		</c:when>
-								        		<c:when test="${roomOrder.status == '2'}">
-								        			已支付	
-								        		</c:when>
-								        		<c:when test="${roomOrder.status == '3'} ">
-								        			超时取消	
-								        		</c:when>
-								        		<c:when test="${roomOrder.status == '4'}">
-								        			客户退订	
-								        		</c:when>
-								        		<c:when test="${roomOrder.status == '5'}">
-								        			已入住	
-								        		</c:when>
-								        		<c:otherwise>
-								        			正常退房结束
-								        		</c:otherwise>
-								        	</c:choose>
-								        	<br>
-								        	<c:choose>
-								        		<c:when test="${roomOrder.payment == '0'}">
-								        			微信支付	
-								        		</c:when>
-								        		<c:when test="${roomOrder.payment == '1'}">
-								        			支付宝支付
-								        		</c:when>
-								        		<c:when test="${roomOrder.payment == '2'}">
-								        			现金
-								        		</c:when>
-								        		<c:when test="${roomOrder.payment == '3'} ">
-								        			银联支付	
-								        		</c:when>
-								        		<c:when test="${roomOrder.payment == '4'}">
-								        			刷卡支付
-								        		</c:when>
-								        	</c:choose>
+								        	
+								        	挂牌价：${room.roomBasicPrice}<br>
+								        	正常价：${room.roomPrice}<br>
 								        </td>
 								        <td class="center">
-											<c:choose>
-								        		<c:when test="${roomOrder.status == '1'}">
-								        			<button class="button">付款并入住</button>
-								        		</c:when>
-								        		<c:when test="${roomOrder.status == '2'}">
-								        			<button class="button">入住</button>
-								        		</c:when>
-								        		<c:when test="${roomOrder.status == '5'}">
-								        			<button class="button">退房</button>
-								        			<button class="button">修改入住信息</button>
-								        		</c:when>
-								        	</c:choose>
+								        	
+								        </td>
+								        <td class="center">
+								        	<a href="./orderOffline?roomId=${room.roomId}&beginDate=${beginDate}&endDate=${endDate}" >办理入住</a>
 										</td>
 								      </tr>
 								    </c:forEach>

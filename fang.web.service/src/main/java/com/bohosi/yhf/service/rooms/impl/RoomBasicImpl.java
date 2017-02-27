@@ -2,15 +2,18 @@ package com.bohosi.yhf.service.rooms.impl;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.bohosi.yhf.dao.entity.rooms.PriceCalendar;
 import com.bohosi.yhf.dao.entity.rooms.Room;
 import com.bohosi.yhf.dao.entity.rooms.RoomPriceCalendar;
 import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
@@ -72,6 +75,41 @@ public class RoomBasicImpl implements IRoomBasic
 		}
 		System.out.println(pc.size());
 		return null;
+	}
+
+	public List<PriceCalendar> fullfillRoomPriceCalendar(Room room, Set<String> cal, Map<String, RoomPriceCalendar> map) {
+		List<PriceCalendar> calList = new ArrayList<PriceCalendar>();
+		for (String s : cal)
+		{
+			PriceCalendar pc = new PriceCalendar();
+			//通过日期匹配价格日历，如果没有匹配到 则使用Room默认价格
+			RoomPriceCalendar rpc = map.get(s);
+			pc.setDate(s);
+			if (rpc != null)
+			{
+				pc.setIs_full_booked(rpc.getStatus() == 0 ? 0 : 1);
+				pc.setPrice(rpc.getRoomDatePrice());
+				pc.setIs_preferential_price(0);
+			} else
+			{
+				pc.setIs_full_booked(0);
+				pc.setPrice(room.getRoomPrice());
+				pc.setIs_preferential_price(0);
+			}
+			calList.add(pc);
+		}
+		
+		return calList;
+	}
+
+	public List<RoomPriceCalendar> findUnavailableRoomIdByDate(Date start, Date end, int status)
+	{
+		return (List<RoomPriceCalendar>) roomPriceRepo.findUnavailableRoomIdByDate(start, end, status);
+	}
+
+	public Map<String, Object> getAllAvaliableRooms(SearchCriteria searchCriteria, Pageable pageable, String status)
+	{
+		return roomBasicRepo.search(searchCriteria, pageable, status);
 	}
 
 }

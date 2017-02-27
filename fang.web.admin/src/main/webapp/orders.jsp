@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -7,7 +7,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="cn">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -26,17 +26,17 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <div class="search-form">
-                            <form action="<%=request.getContextPath() %>/order/queryOrder" method="POST">
+                            <form action="<%=request.getContextPath() %>/order/queryOrder" method="post">
                             	<input class="" type="hidden" name="sort" value="createTime,desc">
                                 <div class="input-group">
                                 	<div class="col-sm-4">
 										<input type="text" placeholder="姓名" name="bookerName" class="form-control input-lg">
                                 	</div>
                                 	<div class="col-sm-4">
-                                    <input type="text" placeholder="联系电话" name="bookerMobile" class="col-md-4 form-control input-lg">
+                                    	<input type="text" placeholder="联系电话" name="bookerMobile" class="col-md-4 form-control input-lg">
                                 	</div>
                                 	<div class="col-sm-4">
-                                    <input type="text" placeholder="订单号" name="orderNo" class="form-control input-lg">
+                                    	<input type="text" placeholder="订单号" name="orderNo" class="form-control input-lg">
                                 	</div>
                                     <div class="input-group-btn">
                                         <button class="btn btn-lg btn-primary" type="submit">
@@ -175,7 +175,7 @@
 					<h4 class="modal-title">入住办理</h4>
 					<small>录入入住人相关必要信息</small>
 				</div>
-				<form action="<%=request.getContextPath() %>/order/orderCheckIn" method="POST" id="orderCheckInForm">
+				<form action="<%=request.getContextPath() %>/order/orderCheckIn" method="post" id="orderCheckInForm">
 				<input type="hidden" name="orderRoomId" value=""/>
 				<input type="hidden" name="orderId" value=""/>
 					<div class="modal-body">
@@ -185,7 +185,7 @@
 							</div>
 							<div class="form-group">
 								<label>身份证：</label> 
-								<input type="text" name="ids" class="form-control" placeholder="多人时已都好隔开">
+								<input type="text" name="ids" class="form-control" placeholder="多人时用逗号隔开">
 							</div>
 							<div class="form-group">
 								<label>押金：</label> 

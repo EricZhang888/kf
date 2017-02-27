@@ -37,6 +37,10 @@
         $("#checkoutSubmit").on("click", function(){
         	$("#orderCheckoutForm").submit();
         });
+        
+        $("#goback").on("click", function(){
+			history.back();
+		});
     });
     
     </script>
@@ -88,7 +92,7 @@
 							</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-white" data-dismiss="modal">返回</button>
+						<button type="button" class="btn btn-white" data-dismiss="modal" id="goback">返回</button>
 						<button type="button" class="btn btn-primary" id="checkoutSubmit">保存</button>
 					</div>
 				</form>

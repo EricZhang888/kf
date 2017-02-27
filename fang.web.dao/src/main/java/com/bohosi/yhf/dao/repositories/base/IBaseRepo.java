@@ -1,6 +1,7 @@
 package com.bohosi.yhf.dao.repositories.base;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,5 +18,7 @@ public interface IBaseRepo<T, ID extends Serializable> extends PagingAndSortingR
 {
 
 	Page<T> search(SearchCriteria criteria, Pageable pageable);
+	
+	Map<String, Object> search(SearchCriteria criteria, Pageable pageable, String status);
 
 }

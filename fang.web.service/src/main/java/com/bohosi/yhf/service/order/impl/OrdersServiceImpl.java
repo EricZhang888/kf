@@ -15,7 +15,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bohosi.yhf.constant.HttpStatusConstant.orderStatus;
 import com.bohosi.yhf.constant.OrderStatus;
+import com.bohosi.yhf.constant.OrderStatusUserDisney;
+import com.bohosi.yhf.constant.PriceCalendarStatus;
 import com.bohosi.yhf.dao.entity.order.Order;
 import com.bohosi.yhf.dao.entity.order.OrderAdmin;
 import com.bohosi.yhf.dao.entity.order.OrderCheckin;
@@ -93,7 +96,7 @@ public class OrdersServiceImpl implements IOrdersService
 		or.setUpdateTime(PriceCalendarUtil.getCurrentTimestamp());
 		//新建订单 默认为待付款
 		or.setStatus(OrderStatus.needPay.getValue());
-		or.setUserDisplayStatus(1);
+		or.setUserDisplayStatus(OrderStatusUserDisney.needPay.getValue());
 		or.setChannel((Integer) infoMap.get("channel"));
 		//设置房间冗余信息
 		or.setApartmentId(room.getRoomApartment().getApartmentId());
@@ -114,8 +117,9 @@ public class OrdersServiceImpl implements IOrdersService
 		{
 			for (String s : dayDetail)
 			{
-				roomPrice.saveOrUpdatePriceCalendar(id, PriceCalendarUtil.stringToSimpleDate(s), 1,
-						room.getRoomPrice());
+				roomPrice.saveOrUpdatePriceCalendar(id, PriceCalendarUtil.stringToSimpleDate(s), 
+														PriceCalendarStatus.needpaid.getValue(),
+													room.getRoomPrice());
 			}
 		}
 		return or;
@@ -164,7 +168,7 @@ public class OrdersServiceImpl implements IOrdersService
 	public void updateExpiredOrdersCalendar() throws Exception
 	{
 		// get add need pay order
-		List<Order> orList = orderRepo.findByStatus(1);
+		List<Order> orList = orderRepo.findByStatus(OrderStatus.needPay.getValue());
 
 		for (Order or : orList)
 		{

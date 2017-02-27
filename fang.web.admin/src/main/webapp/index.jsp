@@ -80,7 +80,7 @@
                   <a class="J_menuItem" href="./order/orders">订单查询</a>
                 </li>
                 <li>
-                  <a class="J_menuItem" href="./order/addOrder">现场入住</a>
+                  <a class="J_menuItem" href="./room/offlineCheckin">现场入住</a>
                 </li>
               </ul>
             </li>
