@@ -126,7 +126,7 @@
                 <li>
                   <a class="J_menuItem" href="contacts.html">增加房东</a></li>
                 <li>
-                  <a class="J_menuItem" href="profile.html">房东列表</a></li>
+                  <a class="J_menuItem" href="./roomHolder/roomHolders">房东列表</a></li>
               </ul>
             </li>
             <li>

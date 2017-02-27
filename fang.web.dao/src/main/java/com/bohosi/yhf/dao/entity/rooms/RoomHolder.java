@@ -1,7 +1,13 @@
 package com.bohosi.yhf.dao.entity.rooms;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -40,9 +46,14 @@ public class RoomHolder implements Serializable {
 	private int mobileChecked;
 
 	private String name;
-
-	@Column(name="room_id")
-	private String roomId;
+	
+	@Column(name="start_time")
+	private Timestamp startTime;
+	
+	@Column(name="end_time")
+	private Timestamp endTime;
+	
+	private int status;
 
 	public RoomHolder() {
 	}
@@ -127,12 +138,28 @@ public class RoomHolder implements Serializable {
 		this.name = name;
 	}
 
-	public String getRoomId() {
-		return this.roomId;
+	public Timestamp getStartTime() {
+		return startTime;
 	}
 
-	public void setRoomId(String roomId) {
-		this.roomId = roomId;
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
+
+	public Timestamp getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }
