@@ -20,4 +20,12 @@ public class RoomHolderImpl implements IRoomHolder {
 		return roomHolderRepo.search(searchCriteria, pageable);
 	}
 
+	public RoomHolder saveRoomHolder(RoomHolder rh) {
+		return roomHolderRepo.save(rh);
+	}
+
+	public RoomHolder getRoomHolderById(String id) {
+		return roomHolderRepo.findById(id);
+	}
+
 }

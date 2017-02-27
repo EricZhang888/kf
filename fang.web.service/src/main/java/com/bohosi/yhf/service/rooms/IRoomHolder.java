@@ -8,5 +8,9 @@ import com.bohosi.yhf.dao.repositories.base.SearchCriteria;
 
 public interface IRoomHolder
 {
-	public Page<RoomHolder> getRoomHoldersByCriteria(SearchCriteria searchCriteria, Pageable pageable);
+	public Page<RoomHolder> getRoomHoldersByCriteria (SearchCriteria searchCriteria, Pageable pageable);
+	
+	public RoomHolder saveRoomHolder (RoomHolder rh);
+	
+	public RoomHolder getRoomHolderById (String id);
 }

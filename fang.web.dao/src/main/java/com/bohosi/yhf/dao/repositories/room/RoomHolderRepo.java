@@ -7,5 +7,5 @@ import com.bohosi.yhf.dao.repositories.base.IBaseRepo;
 
 public interface RoomHolderRepo extends IBaseRepo<RoomHolder, Serializable>
 {
-	
+	public RoomHolder findById(String id);
 }

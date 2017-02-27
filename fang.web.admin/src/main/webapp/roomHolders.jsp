@@ -83,7 +83,7 @@
 								        		</c:when>
 								        	</c:choose>
 											</td>
-									        <td class="center"><a href="#">房源</a></td>
+									        <td class="center"><a href="#">房源</a> <a href="./editRoomHolder?holderId=${holder.id }">修改</a></td>
 								      </tr>
 								    </c:forEach>
 							    </tbody>

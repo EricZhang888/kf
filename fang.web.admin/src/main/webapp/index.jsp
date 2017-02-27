@@ -124,7 +124,7 @@
               </a>
               <ul class="nav nav-second-level">
                 <li>
-                  <a class="J_menuItem" href="contacts.html">增加房东</a></li>
+                  <a class="J_menuItem" href="./roomHolder/roomHolderEdit">增加房东</a></li>
                 <li>
                   <a class="J_menuItem" href="./roomHolder/roomHolders">房东列表</a></li>
               </ul>
