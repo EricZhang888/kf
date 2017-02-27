@@ -74,43 +74,43 @@ public class RoomHolderController
 		return "roomHolderEdit";
 	}
 	
-	@RequestMapping(value = "saveOrUpdateHolder", method = RequestMethod.POST)
+	@RequestMapping(value = "saveHolder", method = RequestMethod.POST)
 	public String saveOrUpdateHolder(HttpServletRequest req) {
 		try {
 			req.setCharacterEncoding("utf-8");
+			String id = req.getParameter("holderId");
+			String fdName = req.getParameter("fdName");
+			String idNum = req.getParameter("idNum");
+			String mobile = req.getParameter("mobile");
+			String email = req.getParameter("email");
+			String bankNum = req.getParameter("bankNum");
+			String bankName = req.getParameter("bankName");
+			String bankSite = req.getParameter("bankSite");
+			int status = Integer.valueOf(req.getParameter("status"));
+			
+			RoomHolder rh = new RoomHolder();
+			if(!StringUtils.isEmpty(id)){
+				rh.setId(id);
+				if (status==1) {
+					rh.setEndTime(PriceCalendarUtil.getCurrentTimestamp());
+				}
+			} else {
+				rh.setStartTime(PriceCalendarUtil.getCurrentTimestamp());
+			}
+			
+			rh.setName(fdName);
+			rh.setIdNum(idNum);
+			rh.setMobile(mobile);
+			rh.setEmail(email);
+			rh.setBankNum(bankNum);
+			rh.setBankName(bankName);
+			rh.setBankSite(bankSite);
+			rh.setStatus(status);
+			
+			roomholderService.saveRoomHolder(rh);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		String id = req.getParameter("holderId");
-		String fdName = req.getParameter("fdName");
-		String idNum = req.getParameter("idNum");
-		String mobile = req.getParameter("mobile");
-		String email = req.getParameter("email");
-		String bankNum = req.getParameter("bankNum");
-		String bankName = req.getParameter("bankName");
-		String bankSite = req.getParameter("bankSite");
-		int status = Integer.valueOf(req.getParameter("status"));
-		
-		RoomHolder rh = new RoomHolder();
-		if(!StringUtils.isEmpty(id)){
-			rh.setId(id);
-			if (status==1) {
-				rh.setEndTime(PriceCalendarUtil.getCurrentTimestamp());
-			}
-		} else {
-			rh.setStartTime(PriceCalendarUtil.getCurrentTimestamp());
-		}
-		
-		rh.setName(fdName);
-		rh.setIdNum(idNum);
-		rh.setMobile(mobile);
-		rh.setEmail(email);
-		rh.setBankNum(bankNum);
-		rh.setBankName(bankName);
-		rh.setBankSite(bankSite);
-		rh.setStatus(status);
-		
-		roomholderService.saveRoomHolder(rh);
-		return "queryRoomHolder";
+		return "forward:queryRoomHolder";
 	}
 }

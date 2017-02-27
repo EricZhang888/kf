@@ -34,9 +34,9 @@
         });
         //var oTable = $("#editable").dataTable();
         
-        $("#submit").on("click", function(){
+        /* $("#submit").on("click", function(){
         	$("#roomHolderForm").submit();
-        });
+        }); */
         
         $("#goback").on("click", function(){
 			history.back();
@@ -55,7 +55,7 @@
 					
 					<h4 class="modal-title">房东管理</h4>
 				</div>
-				<form action="<%=request.getContextPath() %>/roomHolder/saveOrUpdateHolder" id="roomHolderForm" method="post">
+				<form action="<%=request.getContextPath() %>/roomHolder/saveHolder" id="roomHolderForm" method="post">
 					<input type="hidden" name="holderId" value="${holder.id}"/>
 					<div class="modal-body">
 							<div class="form-group">
