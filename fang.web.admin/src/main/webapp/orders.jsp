@@ -26,8 +26,10 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content">
                         <div class="search-form">
-                            <form action="<%=request.getContextPath() %>/order/queryOrder" method="post">
+                            <form action="<%=request.getContextPath() %>/order/queryOrder" id="queryOrderForm" method="post">
                             	<input class="" type="hidden" name="sort" value="createTime,desc">
+                            	<input class="" type="hidden" name="size" value="10">
+                            	<input class="" type="hidden" name="page" value="0">
                                 <div class="input-group">
                                 	<div class="col-sm-4">
 										<input type="text" placeholder="姓名" name="bookerName" class="form-control input-lg">
@@ -129,6 +131,7 @@
 							    </tbody>
 							  </table>
 							  <!-- paging -->
+							  <div id="pagingDiv"></div>
 						</div>
                     </div>
                 </div>
@@ -137,15 +140,28 @@
     </div>
     <script src="<%=request.getContextPath() %>/resource/javascript/jquery.min.js?v=2.1.4"></script>
     <script src="<%=request.getContextPath() %>/resource/javascript/bootstrap.min.js?v=3.3.6"></script>
+    <script src="<%=request.getContextPath() %>/resource/javascript/bootstrapPaging.js"></script>
     <script src="<%=request.getContextPath() %>/resource/javascript/content.min.js?v=1.0.0"></script>
     <script src="<%=request.getContextPath() %>/resource/javascript/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="<%=request.getContextPath() %>/resource/javascript/plugins/dataTables/dataTables.bootstrap.js"></script>
     <script>
     $(document).ready(function() {
-        $(".dataTables-example").dataTable({
+    	var cur = ${curPage };
+    	var pages = ${pages };
+   		var options = {
+               currentPage: cur + 1,
+               totalPages: pages,
+               pageUrl: function(type, page, current){                
+            	   $("#queryOrderForm[name='page']").val(page-1);
+            	   //$("#queryOrderForm").submit();
+             }
+        }
+        $('#pagingDiv').bootstrapPaginator(options);
+        /* $(".dataTables-example").dataTable({
         	"pages": 20,
         	"sort": false
-        });
+        	
+        }); */
         //var oTable = $("#editable").dataTable();
         $("#adminCheckIn").on("click", function(){
         	$("#orderCheckInForm input[name='orderId']").val($(this).attr("data-orderId"));

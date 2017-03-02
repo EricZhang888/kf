@@ -104,7 +104,8 @@
     $(document).ready(function() {
         $(".dataTables-example").dataTable({
         	"pages": 5,
-        	"sort": false
+        	"sort": false,
+        	"serverSide":true
         });
         //var oTable = $("#editable").dataTable();
         
