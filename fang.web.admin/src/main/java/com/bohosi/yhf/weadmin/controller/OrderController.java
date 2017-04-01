@@ -167,6 +167,7 @@ public class OrderController
 		String contactName = req.getParameter("contact");
 		String contactPhone = req.getParameter("contactPhone");
 		int totalPrice = Integer.valueOf(req.getParameter("totalPrice"));
+		int actualPrice = Integer.valueOf(req.getParameter("actualPrice"));
 		int peopleNumber = Integer.valueOf(req.getParameter("number"));
 		String peopleIds = req.getParameter("ids");
 		int yajinNum = Integer.valueOf(req.getParameter("yajinNum"));
@@ -194,7 +195,7 @@ public class OrderController
 			infoMap.put("bookerId", 1);
 			
 			int totalBasicPrice = days * basicPrice;
-			infoMap.put("price", totalPrice);
+			infoMap.put("price", actualPrice > 0 ? actualPrice : totalPrice);
 			infoMap.put("basicPrice", totalBasicPrice);
 			Order order = ordersService.createOrder(infoMap, cal);
 			//更新价格日历状态

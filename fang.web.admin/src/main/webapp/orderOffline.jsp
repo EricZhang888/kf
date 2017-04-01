@@ -63,6 +63,10 @@
 								<label>应收总房费：<font color="red">${priceList.total_price} </font></label> 
 							</div>
 							<div class="form-group">
+								<label>实收总房费：</label> <br>
+								<label><input type="text" name="actualPrice" class="form-control" value="${priceList.total_price}"> </label>  
+							</div>
+							<div class="form-group">
 								<label>房费明细：</label> <br>
 								<c:forEach items="${priceList.day_price_list}" var="priceDetail">
 									<label>日期：${ priceDetail.date}  费用：${priceDetail.standard_price} </label> <br>
